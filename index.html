@@ -6,108 +6,88 @@
     <title>Lumiest Sanctuary</title>
     <style>
         :root {
-            --top-bg: #5D4037; /* Warmer mocha for the top half */
             --mocha-bg: #3C2A21;
-            --card-bg: #F5F5F0; /* Light card for high contrast like Glow */
-            --text-dark: #3C2A21;
+            --card-bg: #4F3425;
+            --text-color: #F5F5F0;
             --accent: #D4A373;
-            --btn-dark: #2B1E18;
         }
 
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
             background-color: var(--mocha-bg);
-            color: var(--text-dark);
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-color);
+            font-family: 'Times New Roman', serif;
             overflow: hidden;
         }
 
         .flex-center {
             display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
             width: 100%; height: 100%; position: relative;
         }
 
-        /* The "Glow" Split Background Effect */
-        .top-half {
-            height: 45%;
-            background-color: var(--top-bg);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: 0.5s;
+        .reset-btn {
+            position: fixed; top: 20px; right: 20px;
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            color: white; padding: 8px 15px; border-radius: 20px;
+            cursor: pointer; font-size: 0.7rem; z-index: 1000;
         }
 
         .persist-title {
             font-size: clamp(2rem, 15vw, 4.5rem);
-            letter-spacing: 0.8rem;
-            color: #F5F5F0;
-            text-transform: uppercase;
-            font-weight: 300;
+            letter-spacing: 0.5rem; text-transform: uppercase;
+            font-weight: 300; text-align: center; width: 90%;
             animation: breathe 3s ease-in-out forwards;
         }
 
         @keyframes breathe { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
 
-        /* The Card - Slide up effect */
-        .bottom-card {
-            height: 55%;
+        .container {
             background: var(--card-bg);
-            border-top-left-radius: 40px;
-            border-top-right-radius: 40px;
-            padding: 30px;
+            padding: 40px 30px;
+            border-radius: 40px;
+            width: 85%; max-width: 350px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            font-family: 'Segoe UI', sans-serif;
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.2);
-            animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-            position: relative;
+            animation: slideUp 0.8s ease-out;
         }
 
-        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Mascot positioning like the photo */
-        .mascot-container {
-            width: 140px; height: 140px;
-            margin-top: -100px;
-            background: var(--card-bg);
+        .mascot-circle {
+            width: 120px; height: 120px;
+            background: var(--mocha-bg);
             border-radius: 50%;
+            margin: -100px auto 20px;
+            border: 5px solid var(--accent);
             display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
 
-        .mascot-container img { width: 80%; height: 80%; object-fit: contain; }
+        .mascot-circle img { width: 80%; height: 80%; object-fit: contain; }
 
-        h2 { font-weight: 800; font-size: 1.8rem; margin: 20px 0 10px; color: var(--text-dark); }
-        p { color: #666; line-height: 1.6; font-size: 1rem; max-width: 300px; }
+        h2 { font-family: 'Times New Roman', serif; font-size: 1.8rem; margin-bottom: 10px; }
+        p { opacity: 0.8; line-height: 1.5; font-size: 0.95rem; }
 
         input {
-            width: 100%; max-width: 300px; padding: 15px; margin: 20px 0;
-            border-radius: 15px; border: 1px solid #ddd;
-            background: #fff; color: var(--text-dark); text-align: center;
-            font-size: 1rem; outline: none;
+            width: 100%; padding: 14px; margin: 25px 0 15px;
+            border-radius: 12px; border: none;
+            background: var(--mocha-bg); color: white; text-align: center;
+            outline: none; box-sizing: border-box; font-size: 1rem;
         }
 
         .main-btn {
-            background: var(--btn-dark); color: #fff;
-            border: none; padding: 16px 40px; border-radius: 30px;
+            background: var(--accent); color: var(--mocha-bg);
+            border: none; padding: 14px 30px; border-radius: 25px;
             font-weight: bold; cursor: pointer; width: 100%;
-            max-width: 300px; font-size: 1rem; margin-top: auto;
-            margin-bottom: 20px;
-        }
-
-        .reset-btn {
-            position: fixed; top: 20px; right: 20px;
-            background: rgba(0,0,0,0.2); border: none;
-            color: white; padding: 8px 15px; border-radius: 20px;
-            font-size: 0.7rem; z-index: 1000;
+            font-size: 1rem;
         }
     </style>
 </head>
 <body>
 
     <button class="reset-btn" onclick="resetJourney()">Reset Journey</button>
-
     <div id="app" class="flex-center"></div>
 
     <script>
@@ -121,53 +101,52 @@
             const app = document.getElementById('app');
 
             if (state.step === 'persist') {
-                app.style.backgroundColor = "var(--mocha-bg)";
-                app.innerHTML = `<div class="flex-center" style="height:100vh"><h1 class="persist-title">PERSIST</h1></div>`;
+                app.innerHTML = `<h1 class="persist-title">PERSIST</h1>`;
                 setTimeout(() => updateStep('intro'), 3000);
             } 
-            else {
-                let content = '';
-                let mascot = 'default.png';
-
-                if (state.step === 'intro') {
-                    content = `
+            else if (state.step === 'intro') {
+                app.innerHTML = `
+                    <div class="container">
+                        <div class="mascot-circle"><img src="default.png"></div>
                         <h2>Hey, I'm Lumi!</h2>
-                        <p>I'm here to help you focus on your manifestation. If you think it's yours, it's yours.</p>
+                        <p>I'm here to help you focus on your manifestation. Since you think it's yours, it's yours.</p>
+                        <br>
                         <button class="main-btn" onclick="updateStep('name')">Let's get started</button>
-                    `;
-                } else if (state.step === 'name') {
-                    content = `
+                    </div>
+                `;
+            }
+            else if (state.step === 'name') {
+                app.innerHTML = `
+                    <div class="container">
+                        <div class="mascot-circle"><img src="default.png"></div>
                         <h2>Assalamu Alaikum!</h2>
                         <p>To begin our journey, what should I call you?</p>
                         <input type="text" id="nameIn" placeholder="Your name..." autocomplete="off">
                         <button class="main-btn" onclick="saveName()">Continue</button>
-                    `;
-                } else if (state.step === 'dream') {
-                    mascot = 'typing.png';
-                    content = `
+                    </div>
+                `;
+            } 
+            else if (state.step === 'dream') {
+                app.innerHTML = `
+                    <div class="container">
+                        <div class="mascot-circle"><img src="typing.png"></div>
                         <h2>Welcome, ${state.name}.</h2>
                         <p>What is already yours? What are we focusing on happening?</p>
                         <input type="text" id="dreamIn" placeholder="e.g. Marrying Alif" autocomplete="off">
                         <button class="main-btn" onclick="saveDream()">It's Mine</button>
-                    `;
-                } else {
-                    mascot = 'success.png';
-                    content = `
+                    </div>
+                `;
+            } 
+            else {
+                app.innerHTML = `
+                    <div class="container">
+                        <div class="mascot-circle"><img src="success.png"></div>
                         <h2>It is yours.</h2>
-                        <p style="font-size: 1.4rem; color: var(--accent); font-weight: bold;">"${state.dream}"</p>
-                        <p style="font-size: 0.9rem; margin-top: 20px;">
+                        <p style="font-size: 1.4rem; color: var(--accent); font-style: italic;">"${state.dream}"</p>
+                        <hr style="opacity: 0.1; margin: 20px 0;">
+                        <p style="font-size: 0.85rem; opacity: 0.8;">
                             Don't focus on it not happening.<br>Focus only on it <b>happening</b>.
                         </p>
-                    `;
-                }
-
-                app.innerHTML = `
-                    <div class="top-half"></div>
-                    <div class="bottom-card">
-                        <div class="mascot-container">
-                            <img src="${mascot}" onerror="this.src='https://api.dicebear.com/7.x/bottts/svg?seed=Lumi'">
-                        </div>
-                        ${content}
                     </div>
                 `;
             }
