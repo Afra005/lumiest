@@ -124,4 +124,113 @@
         }
 
         @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .reset-btn { position: fixed; top: 20px; right: 20px; background: rgba(255,255,255,0.1); border: none; color: white; padding: 5px 10px; border-radius: 10px; font-size: 0.6rem; z-index: 100; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <button class="reset-btn" onclick="resetJourney()">Reset</button>
+    <div id="app" class="flex-center"></div>
+
+    <script>
+        let state = {
+            step: localStorage.getItem('lumi_step') || 'persist',
+            name: localStorage.getItem('lumi_name') || '',
+            dream: localStorage.getItem('lumi_dream') || ''
+        };
+
+        function updateStep(s) {
+            state.step = s;
+            localStorage.setItem('lumi_step', s);
+            render();
+        }
+
+        function saveName() {
+            const v = document.getElementById('nameIn').value;
+            if (v.trim()) {
+                state.name = v;
+                localStorage.setItem('lumi_name', v);
+                updateStep('dream');
+            }
+        }
+
+        function saveDream() {
+            const v = document.getElementById('dreamIn').value;
+            if (v.trim()) {
+                state.dream = v;
+                localStorage.setItem('lumi_dream', v);
+                updateStep('sanctuary');
+            }
+        }
+
+        function resetJourney() {
+            localStorage.clear();
+            location.reload();
+        }
+
+        function render() {
+            const app = document.getElementById('app');
+            app.innerHTML = ''; 
+
+            if (state.step === 'persist') {
+                app.innerHTML = `<h1 class="persist-title">PERSIST</h1>`;
+                setTimeout(() => { if(state.step === 'persist') updateStep('intro1'); }, 3000);
+            } 
+            else if (state.step === 'intro1') {
+                app.innerHTML = `
+                    <div class="duo-intro-container">
+                        <div class="lumi-chat-wrapper">
+                            <div class="lumi-stand"><img src="waving.png" onerror="this.src='default.png'"></div>
+                            <div class="lumi-bubble">Hey, I'm Lumi!</div>
+                        </div>
+                        <button class="duo-btn" onclick="updateStep('intro2')">Continue</button>
+                    </div>`;
+            } 
+            else if (state.step === 'intro2') {
+                app.innerHTML = `
+                    <div class="duo-intro-container">
+                        <div class="lumi-chat-wrapper">
+                            <div class="lumi-stand"><img src="default.png"></div>
+                            <div class="lumi-bubble">I'm here to help you focus. Since you think it's yours, it's yours.</div>
+                        </div>
+                        <button class="duo-btn" onclick="updateStep('name')">Continue</button>
+                    </div>`;
+            } 
+            else if (state.step === 'name') {
+                app.innerHTML = `
+                    <div class="container" style="margin-bottom: 80px;">
+                        <div class="mascot-circle"><img src="default.png"></div>
+                        <h2 style="font-family:'Times New Roman'">Assalamu Alaikum!</h2>
+                        <p>What should I call you?</p>
+                        <input type="text" id="nameIn" placeholder="Your name..." autocomplete="off">
+                        <button class="duo-btn" style="position:static; width:100%" onclick="saveName()">Continue</button>
+                    </div>`;
+            } 
+            else if (state.step === 'dream') {
+                app.innerHTML = `
+                    <div class="container" style="margin-bottom: 80px;">
+                        <div class="mascot-circle"><img src="typing.png"></div>
+                        <h2 style="font-family:'Times New Roman'">Welcome, ${state.name}.</h2>
+                        <p>What is already yours?</p>
+                        <input type="text" id="dreamIn" placeholder="e.g. Marrying Alif" autocomplete="off">
+                        <button class="duo-btn" style="position:static; width:100%" onclick="saveDream()">It's Mine</button>
+                    </div>`;
+            } 
+            else {
+                app.innerHTML = `
+                    <div class="container">
+                        <div class="mascot-circle"><img src="success.png"></div>
+                        <h2 style="font-family:'Times New Roman'">It is yours.</h2>
+                        <p style="font-size: 1.4rem; color: var(--accent); font-style: italic;">"${state.dream}"</p>
+                        <hr style="opacity: 0.1; margin: 20px 0;">
+                        <p style="font-size: 0.85rem; opacity: 0.8;">Don't focus on it not happening.<br>Focus only on it <b>happening</b>.</p>
+                    </div>`;
+            }
+        }
+
+        render();
+    </script>
+</body>
+</html>
