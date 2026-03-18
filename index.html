@@ -10,7 +10,6 @@
             --card-bg: #4F3425;
             --text-color: #F5F5F0;
             --accent: #D4A373;
-            /* Bubble Colors - Clean like Duolingo */
             --bubble-bg: #FFFFFF;
             --bubble-text: #3C2A21;
         }
@@ -19,7 +18,7 @@
             margin: 0; padding: 0; width: 100%; height: 100%;
             background-color: var(--mocha-bg);
             color: var(--text-color);
-            font-family: 'Times New Roman', serif;
+            font-family: 'Segoe UI', sans-serif;
             overflow: hidden;
         }
 
@@ -29,132 +28,88 @@
             width: 100%; height: 100%; position: relative;
         }
 
-        .reset-btn {
-            position: fixed; top: 20px; right: 20px;
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-            color: white; padding: 8px 15px; border-radius: 20px;
-            cursor: pointer; font-size: 0.7rem; z-index: 1000;
-        }
-
+        /* PERSIST Screen */
         .persist-title {
             font-size: clamp(2rem, 15vw, 4.5rem);
             letter-spacing: 0.5rem; text-transform: uppercase;
-            font-weight: 300; text-align: center; width: 90%;
-            animation: breathe 3s ease-in-out forwards;
+            font-weight: 300; animation: breathe 3s ease-in-out forwards;
         }
 
         @keyframes breathe { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
 
-        /* General Container for non-bubble steps */
-        .container {
-            background: var(--card-bg);
-            padding: 40px 30px;
-            border-radius: 40px;
-            width: 85%; max-width: 350px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-            font-family: 'Segoe UI', sans-serif;
-            text-align: center;
-            animation: slideUp 0.8s ease-out;
-        }
-
-        /* DUOLINGO STYLE INTRO SCREEN */
+        /* DUO STYLE INTRO */
         .duo-intro-container {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            padding: 20px;
-            box-sizing: border-box;
+            width: 100%; height: 100%;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            padding: 20px; box-sizing: border-box;
         }
 
-        /* The Bubble */
         .lumi-bubble {
             background-color: var(--bubble-bg);
             color: var(--bubble-text);
-            padding: 25px;
-            border-radius: 25px;
-            font-family: 'Segoe UI', sans-serif;
-            font-size: 1.1rem;
-            line-height: 1.5;
-            max-width: 320px;
-            position: relative;
+            padding: 25px; border-radius: 25px;
+            font-size: 1.2rem; font-weight: 500;
+            max-width: 300px; position: relative;
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            margin-bottom: 40px; /* Space between bubble and Lumi */
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            opacity: 0;
+            margin-bottom: 40px;
+            animation: popIn 0.4s ease-out forwards;
+            text-align: center;
         }
 
-        /* The Triangle Tail on the bubble */
         .lumi-bubble::after {
-            content: '';
-            position: absolute;
-            bottom: -15px; /* Adjust tail position */
-            left: 50%;
+            content: ''; position: absolute; bottom: -12px; left: 50%;
             transform: translateX(-50%);
-            width: 0; height: 0;
-            border-left: 15px solid transparent;
-            border-right: 15px solid transparent;
-            border-top: 15px solid var(--bubble-bg);
+            border-left: 12px solid transparent; border-right: 12px solid transparent;
+            border-top: 12px solid var(--bubble-bg);
         }
 
-        /* The Mascot - Standing at the bottom/center like Duo */
         .lumi-stand {
-            width: 150px; height: 150px;
-            /* No background or border, just Lumi standing */
+            width: 160px; height: 160px; margin-bottom: 80px;
             display: flex; justify-content: center; align-items: center;
-            overflow: hidden;
-            animation: slideUp 0.7s ease-out;
-            margin-bottom: 30px;
         }
 
-        .lumi-stand img { width: 90%; height: 90%; object-fit: contain; }
+        .lumi-stand img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* The Duo style continue button */
         .duo-btn {
             background: var(--accent); color: var(--mocha-bg);
-            border: none; padding: 16px 35px; border-radius: 30px;
-            font-weight: bold; cursor: pointer; width: 85%;
-            max-width: 320px; font-size: 1.1rem;
+            border: none; padding: 18px; border-radius: 20px;
+            font-weight: 800; cursor: pointer; width: 85%;
+            max-width: 320px; font-size: 1rem;
             text-transform: uppercase; letter-spacing: 1px;
             position: fixed; bottom: 40px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes popIn { from { opacity: 0; transform: scale(0.8) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        /* Onboarding Cards */
+        .container {
+            background: var(--card-bg); padding: 40px 30px; border-radius: 40px;
+            width: 85%; max-width: 350px; text-align: center;
+            animation: slideUp 0.6s ease-out;
+        }
 
-        /* Legacy styles for name/dream entry */
         .mascot-circle {
-            width: 120px; height: 120px;
-            background: var(--mocha-bg);
-            border-radius: 50%;
-            margin: -100px auto 20px;
-            border: 5px solid var(--accent);
-            display: flex; justify-content: center; align-items: center;
-            overflow: hidden;
+            width: 110px; height: 110px; background: var(--mocha-bg);
+            border-radius: 50%; margin: -90px auto 20px;
+            border: 4px solid var(--accent);
+            display: flex; justify-content: center; align-items: center; overflow: hidden;
         }
-        .mascot-circle img { width: 80%; height: 80%; object-fit: contain; }
-        h2 { font-family: 'Times New Roman', serif; font-size: 1.8rem; margin-bottom: 10px; }
+        .mascot-circle img { width: 80%; height: 80%; }
+
         input {
-            width: 100%; padding: 14px; margin: 25px 0 15px;
-            border-radius: 12px; border: none;
-            background: var(--mocha-bg); color: white; text-align: center;
-            outline: none; box-sizing: border-box; font-size: 1rem;
+            width: 100%; padding: 14px; margin: 20px 0;
+            border-radius: 12px; border: none; background: var(--mocha-bg);
+            color: white; text-align: center; font-size: 1rem;
         }
-        .main-btn {
-            background: var(--accent); color: var(--mocha-bg);
-            border: none; padding: 14px 30px; border-radius: 25px;
-            font-weight: bold; cursor: pointer; width: 100%;
-            font-size: 1rem;
-        }
+
+        @keyframes popIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .reset-btn { position: fixed; top: 20px; right: 20px; background: rgba(255,255,255,0.1); border: none; color: white; padding: 5px 10px; border-radius: 10px; font-size: 0.6rem; z-index: 100; }
     </style>
 </head>
 <body>
 
-    <button class="reset-btn" onclick="resetJourney()">Reset Journey</button>
+    <button class="reset-btn" onclick="resetJourney()">Reset</button>
     <div id="app" class="flex-center"></div>
 
     <script>
@@ -169,52 +124,63 @@
 
             if (state.step === 'persist') {
                 app.innerHTML = `<h1 class="persist-title">PERSIST</h1>`;
-                setTimeout(() => updateStep('intro'), 3000);
+                setTimeout(() => updateStep('intro1'), 3000);
             } 
             
-            // 2. DUO STYLE INTRO SCREEN
-            else if (state.step === 'intro') {
+            // PAGE 1: GREETING
+            else if (state.step === 'intro1') {
                 app.innerHTML = `
                     <div class="duo-intro-container">
-                        <div class="lumi-bubble">
-                            Hey, I'm Lumi! I'm here to help you focus on your manifestation. Since you think it's yours, it's yours.
-                        </div>
+                        <div class="lumi-bubble">Hey, I'm Lumi!</div>
+                        <div class="lumi-stand"><img src="waving.png"></div>
+                        <button class="duo-btn" onclick="updateStep('intro2')">Continue</button>
+                    </div>
+                `;
+            }
 
+            // PAGE 2: EXPLANATION
+            else if (state.step === 'intro2') {
+                app.innerHTML = `
+                    <div class="duo-intro-container">
+                        <div class="lumi-bubble">I'm here to help you focus on your manifestation. Since you think it's yours, it's yours.</div>
                         <div class="lumi-stand"><img src="default.png"></div>
-
                         <button class="duo-btn" onclick="updateStep('name')">Continue</button>
                     </div>
                 `;
             }
 
-            // Legacy steps below...
+            // NAME ENTRY
             else if (state.step === 'name') {
                 app.innerHTML = `
                     <div class="container">
                         <div class="mascot-circle"><img src="default.png"></div>
-                        <h2>Assalamu Alaikum!</h2>
-                        <p>To begin our journey, what should I call you?</p>
+                        <h2 style="font-family:'Times New Roman'">Assalamu Alaikum!</h2>
+                        <p>What should I call you?</p>
                         <input type="text" id="nameIn" placeholder="Your name..." autocomplete="off">
-                        <button class="main-btn" onclick="saveName()">Continue</button>
+                        <button class="duo-btn" style="position:static; width:100%" onclick="saveName()">Continue</button>
                     </div>
                 `;
-            } 
+            }
+
+            // DREAM ENTRY
             else if (state.step === 'dream') {
                 app.innerHTML = `
                     <div class="container">
                         <div class="mascot-circle"><img src="typing.png"></div>
-                        <h2>Welcome, ${state.name}.</h2>
-                        <p>What is already yours? What are we focusing on happening?</p>
+                        <h2 style="font-family:'Times New Roman'">Welcome, ${state.name}.</h2>
+                        <p>What is already yours?</p>
                         <input type="text" id="dreamIn" placeholder="e.g. Marrying Alif" autocomplete="off">
-                        <button class="main-btn" onclick="saveDream()">It's Mine</button>
+                        <button class="duo-btn" style="position:static; width:100%" onclick="saveDream()">It's Mine</button>
                     </div>
                 `;
             } 
+
+            // FINAL SANCTUARY
             else {
                 app.innerHTML = `
                     <div class="container">
                         <div class="mascot-circle"><img src="success.png"></div>
-                        <h2>It is yours.</h2>
+                        <h2 style="font-family:'Times New Roman'">It is yours.</h2>
                         <p style="font-size: 1.4rem; color: var(--accent); font-style: italic;">"${state.dream}"</p>
                         <hr style="opacity: 0.1; margin: 20px 0;">
                         <p style="font-size: 0.85rem; opacity: 0.8;">
@@ -225,34 +191,16 @@
             }
         }
 
-        function updateStep(newStep) {
-            state.step = newStep;
-            localStorage.setItem('lumi_step', newStep);
-            render();
+        function updateStep(s) { state.step = s; localStorage.setItem('lumi_step', s); render(); }
+        function saveName() { 
+            const v = document.getElementById('nameIn').value; 
+            if(v.trim()){ state.name = v; localStorage.setItem('lumi_name', v); updateStep('dream'); }
         }
-
-        function saveName() {
-            const val = document.getElementById('nameIn').value;
-            if (val.trim()) { 
-                state.name = val; 
-                localStorage.setItem('lumi_name', val); 
-                updateStep('dream');
-            }
+        function saveDream() { 
+            const v = document.getElementById('dreamIn').value; 
+            if(v.trim()){ state.dream = v; localStorage.setItem('lumi_dream', v); updateStep('sanctuary'); }
         }
-
-        function saveDream() {
-            const val = document.getElementById('dreamIn').value;
-            if (val.trim()) { 
-                state.dream = val; 
-                localStorage.setItem('lumi_dream', val); 
-                updateStep('sanctuary');
-            }
-        }
-
-        function resetJourney() {
-            localStorage.clear();
-            location.reload();
-        }
+        function resetJourney() { localStorage.clear(); location.reload(); }
 
         render();
     </script>
