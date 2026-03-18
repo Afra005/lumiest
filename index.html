@@ -13,95 +13,79 @@
         }
 
         body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
+            margin: 0; padding: 0; width: 100%; height: 100%;
             background-color: var(--mocha-bg);
             color: var(--text-color);
             font-family: 'Times New Roman', serif;
             overflow: hidden;
         }
 
-        /* This ensures EVERYTHING is perfectly centered on any screen */
         .flex-center {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-            position: relative;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            width: 100%; height: 100%; position: relative;
         }
 
         .reset-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.7rem;
-            z-index: 1000;
+            position: fixed; top: 20px; right: 20px;
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            color: white; padding: 8px 15px; border-radius: 20px;
+            cursor: pointer; font-size: 0.7rem; z-index: 1000;
         }
 
-        /* PERSIST Text - Now responsive so it won't cut off */
         .persist-title {
-            font-size: clamp(2rem, 15vw, 4.5rem); /* Dynamically shrinks for mobile */
-            letter-spacing: 0.5rem;
-            text-transform: uppercase;
-            font-weight: 300;
-            text-align: center;
-            width: 90%;
+            font-size: clamp(2rem, 15vw, 4.5rem);
+            letter-spacing: 0.5rem; text-transform: uppercase;
+            font-weight: 300; text-align: center; width: 90%;
             animation: breathe 3s ease-in-out forwards;
         }
 
-        @keyframes breathe {
-            0% { opacity: 0; }
-            50% { opacity: 1; }
-            100% { opacity: 0; }
-        }
+        @keyframes breathe { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
 
-        /* Card Styling - Perfectly Centered */
+        /* The Intro/Onboarding Card */
         .container {
             background: var(--card-bg);
-            padding: 30px;
-            border-radius: 30px;
-            width: 85%;
-            max-width: 350px;
+            padding: 40px 30px;
+            border-radius: 40px;
+            width: 85%; max-width: 350px;
             box-shadow: 0 15px 40px rgba(0,0,0,0.4);
             font-family: 'Segoe UI', sans-serif;
             text-align: center;
-            box-sizing: border-box;
+            animation: slideUp 0.8s ease-out;
         }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
         .mascot-circle {
-            width: 100px; height: 100px;
+            width: 120px; height: 120px;
             background: var(--mocha-bg);
             border-radius: 50%;
-            margin: -80px auto 20px;
-            border: 4px solid var(--accent);
+            margin: -100px auto 20px;
+            border: 5px solid var(--accent);
             display: flex; justify-content: center; align-items: center;
             overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        .mascot-circle img { width: 85%; height: 85%; object-fit: contain; }
+        .mascot-circle img { width: 80%; height: 80%; object-fit: contain; }
+
+        h2 { font-family: 'Times New Roman', serif; font-size: 1.8rem; margin-bottom: 10px; }
+        p { opacity: 0.8; line-height: 1.5; font-size: 0.95rem; }
 
         input {
-            width: 100%; padding: 12px; margin: 20px 0;
-            border-radius: 10px; border: none;
+            width: 100%; padding: 14px; margin: 25px 0 15px;
+            border-radius: 12px; border: none;
             background: var(--mocha-bg); color: white; text-align: center;
-            outline: none; box-sizing: border-box;
+            outline: none; box-sizing: border-box; font-size: 1rem;
         }
 
         .main-btn {
             background: var(--accent); color: var(--mocha-bg);
-            border: none; padding: 12px 30px; border-radius: 20px;
+            border: none; padding: 14px 30px; border-radius: 25px;
             font-weight: bold; cursor: pointer; width: 100%;
+            font-size: 1rem; transition: 0.3s;
         }
+        .main-btn:active { transform: scale(0.98); }
     </style>
 </head>
 <body>
@@ -112,7 +96,7 @@
 
     <script>
         let state = {
-            viewingPersist: true,
+            step: localStorage.getItem('lumi_step') || 'persist', // persist, intro, name, dream, sanctuary
             name: localStorage.getItem('lumi_name') || '',
             dream: localStorage.getItem('lumi_dream') || ''
         };
@@ -120,42 +104,59 @@
         function render() {
             const app = document.getElementById('app');
 
-            if (state.viewingPersist) {
+            // 1. PERSIST SCREEN (Auto-transition)
+            if (state.step === 'persist') {
                 app.innerHTML = `<h1 class="persist-title">PERSIST</h1>`;
                 setTimeout(() => {
-                    state.viewingPersist = false;
-                    render();
+                    updateStep('intro');
                 }, 3000);
-                return;
-            }
-
-            if (!state.name) {
+            } 
+            
+            // 2. NEW INTRO SCREEN
+            else if (state.step === 'intro') {
                 app.innerHTML = `
                     <div class="container">
                         <div class="mascot-circle"><img src="default.png"></div>
-                        <h2 style="font-family: 'Times New Roman', serif;">Assalamu Alaikum!</h2>
-                        <p>I am Lumi. What is your name?</p>
+                        <h2>Hey, I'm Lumi!</h2>
+                        <p>I'm here to help you stay focused on your manifestation and keep your vibration high.</p>
+                        <br>
+                        <button class="main-btn" onclick="updateStep('name')">Let's get started</button>
+                    </div>
+                `;
+            }
+
+            // 3. NAME SCREEN
+            else if (state.step === 'name') {
+                app.innerHTML = `
+                    <div class="container">
+                        <div class="mascot-circle"><img src="default.png"></div>
+                        <h2>Assalamu Alaikum!</h2>
+                        <p>To begin our journey, what should I call you?</p>
                         <input type="text" id="nameIn" placeholder="Your name..." autocomplete="off">
                         <button class="main-btn" onclick="saveName()">Continue</button>
                     </div>
                 `;
             } 
-            else if (!state.dream) {
+
+            // 4. DREAM SCREEN
+            else if (state.step === 'dream') {
                 app.innerHTML = `
                     <div class="container">
                         <div class="mascot-circle"><img src="typing.png"></div>
-                        <h2 style="font-family: 'Times New Roman', serif;">Welcome, ${state.name}.</h2>
-                        <p>What are we focusing on happening?</p>
+                        <h2>Welcome, ${state.name}.</h2>
+                        <p>What is already yours? What are we focusing on happening?</p>
                         <input type="text" id="dreamIn" placeholder="e.g. Marrying Alif" autocomplete="off">
                         <button class="main-btn" onclick="saveDream()">It's Mine</button>
                     </div>
                 `;
             } 
+
+            // 5. THE SANCTUARY
             else {
                 app.innerHTML = `
                     <div class="container">
                         <div class="mascot-circle"><img src="success.png"></div>
-                        <h2 style="font-family: 'Times New Roman', serif;">It is yours.</h2>
+                        <h2>It is yours.</h2>
                         <p style="font-size: 1.4rem; color: var(--accent); font-style: italic;">"${state.dream}"</p>
                         <hr style="opacity: 0.1; margin: 20px 0;">
                         <p style="font-size: 0.85rem; opacity: 0.8;">
@@ -166,14 +167,30 @@
             }
         }
 
+        function updateStep(newStep) {
+            state.step = newStep;
+            localStorage.setItem('lumi_step', newStep);
+            render();
+        }
+
         function saveName() {
             const val = document.getElementById('nameIn').value;
-            if (val.trim()) { state.name = val; localStorage.setItem('lumi_name', val); render(); }
+            if (val.trim()) { 
+                state.name = val; 
+                localStorage.setItem('lumi_name', val); 
+                updateStep('dream');
+            }
         }
+
         function saveDream() {
             const val = document.getElementById('dreamIn').value;
-            if (val.trim()) { state.dream = val; localStorage.setItem('lumi_dream', val); render(); }
+            if (val.trim()) { 
+                state.dream = val; 
+                localStorage.setItem('lumi_dream', val); 
+                updateStep('sanctuary');
+            }
         }
+
         function resetJourney() {
             localStorage.clear();
             location.reload();
