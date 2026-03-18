@@ -10,6 +10,9 @@
             --card-bg: #4F3425;
             --text-color: #F5F5F0;
             --accent: #D4A373;
+            /* Bubble Colors - Clean like Duolingo */
+            --bubble-bg: #FFFFFF;
+            --bubble-text: #3C2A21;
         }
 
         body, html {
@@ -42,6 +45,7 @@
 
         @keyframes breathe { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
 
+        /* General Container for non-bubble steps */
         .container {
             background: var(--card-bg);
             padding: 40px 30px;
@@ -53,8 +57,76 @@
             animation: slideUp 0.8s ease-out;
         }
 
-        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        /* DUOLINGO STYLE INTRO SCREEN */
+        .duo-intro-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 20px;
+            box-sizing: border-box;
+        }
 
+        /* The Bubble */
+        .lumi-bubble {
+            background-color: var(--bubble-bg);
+            color: var(--bubble-text);
+            padding: 25px;
+            border-radius: 25px;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            max-width: 320px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            margin-bottom: 40px; /* Space between bubble and Lumi */
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            opacity: 0;
+        }
+
+        /* The Triangle Tail on the bubble */
+        .lumi-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -15px; /* Adjust tail position */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0; height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 15px solid var(--bubble-bg);
+        }
+
+        /* The Mascot - Standing at the bottom/center like Duo */
+        .lumi-stand {
+            width: 150px; height: 150px;
+            /* No background or border, just Lumi standing */
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden;
+            animation: slideUp 0.7s ease-out;
+            margin-bottom: 30px;
+        }
+
+        .lumi-stand img { width: 90%; height: 90%; object-fit: contain; }
+
+        /* The Duo style continue button */
+        .duo-btn {
+            background: var(--accent); color: var(--mocha-bg);
+            border: none; padding: 16px 35px; border-radius: 30px;
+            font-weight: bold; cursor: pointer; width: 85%;
+            max-width: 320px; font-size: 1.1rem;
+            text-transform: uppercase; letter-spacing: 1px;
+            position: fixed; bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes popIn { from { opacity: 0; transform: scale(0.8) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+        /* Legacy styles for name/dream entry */
         .mascot-circle {
             width: 120px; height: 120px;
             background: var(--mocha-bg);
@@ -64,19 +136,14 @@
             display: flex; justify-content: center; align-items: center;
             overflow: hidden;
         }
-
         .mascot-circle img { width: 80%; height: 80%; object-fit: contain; }
-
         h2 { font-family: 'Times New Roman', serif; font-size: 1.8rem; margin-bottom: 10px; }
-        p { opacity: 0.8; line-height: 1.5; font-size: 0.95rem; }
-
         input {
             width: 100%; padding: 14px; margin: 25px 0 15px;
             border-radius: 12px; border: none;
             background: var(--mocha-bg); color: white; text-align: center;
             outline: none; box-sizing: border-box; font-size: 1rem;
         }
-
         .main-btn {
             background: var(--accent); color: var(--mocha-bg);
             border: none; padding: 14px 30px; border-radius: 25px;
@@ -104,17 +171,23 @@
                 app.innerHTML = `<h1 class="persist-title">PERSIST</h1>`;
                 setTimeout(() => updateStep('intro'), 3000);
             } 
+            
+            // 2. DUO STYLE INTRO SCREEN
             else if (state.step === 'intro') {
                 app.innerHTML = `
-                    <div class="container">
-                        <div class="mascot-circle"><img src="default.png"></div>
-                        <h2>Hey, I'm Lumi!</h2>
-                        <p>I'm here to help you focus on your manifestation. Since you think it's yours, it's yours.</p>
-                        <br>
-                        <button class="main-btn" onclick="updateStep('name')">Let's get started</button>
+                    <div class="duo-intro-container">
+                        <div class="lumi-bubble">
+                            Hey, I'm Lumi! I'm here to help you focus on your manifestation. Since you think it's yours, it's yours.
+                        </div>
+
+                        <div class="lumi-stand"><img src="default.png"></div>
+
+                        <button class="duo-btn" onclick="updateStep('name')">Continue</button>
                     </div>
                 `;
             }
+
+            // Legacy steps below...
             else if (state.step === 'name') {
                 app.innerHTML = `
                     <div class="container">
