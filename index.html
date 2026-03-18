@@ -28,22 +28,20 @@
             width: 100%; height: 100%; position: relative;
         }
 
-        /* PERSIST Screen - Restored to original bold look */
-        /* PERSIST Screen - Refined to be bold but not 'fat' */
-        /* PERSIST Screen - Refined for elegance, not 'fat' */
+        /* PERSIST Screen - Refined Font */
         .persist-title {
-            font-size: clamp(3rem, 14vw, 3.5rem); 
+            font-size: clamp(2rem, 14vw, 3.5rem); 
             text-transform: uppercase;
-            font-weight: 500; /* Medium weight: clearly defined but slim */
+            font-weight: 500; 
             text-align: center; 
             width: 90%; 
-            letter-spacing: 0.15rem; 
+            letter-spacing: 0.05rem; 
             animation: breathe 3s ease-in-out forwards;
         }
 
         @keyframes breathe { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
 
-        /* DUO STYLE INTRO (2-Page Split) */
+        /* DUO STYLE INTRO */
         .duo-intro-container {
             width: 100%; height: 100%;
             display: flex; flex-direction: column;
@@ -135,26 +133,33 @@
                 setTimeout(() => updateStep('intro1'), 3000);
             } 
             
+            // PAGE 1: THE GREETING (Waving Lumi)
             else if (state.step === 'intro1') {
                 app.innerHTML = `
                     <div class="duo-intro-container">
                         <div class="lumi-bubble">Hey, I'm Lumi!</div>
-                        <div class="lumi-stand"><img src="waving.png" onerror="this.src='default.png'"></div>
+                        <div class="lumi-stand">
+                            <img src="waving.png" onerror="this.src='default.png'">
+                        </div>
                         <button class="duo-btn" onclick="updateStep('intro2')">Continue</button>
                     </div>
                 `;
             }
 
+            // PAGE 2: THE MISSION (Mission statement)
             else if (state.step === 'intro2') {
                 app.innerHTML = `
                     <div class="duo-intro-container">
                         <div class="lumi-bubble">I'm here to help you focus on your manifestation. Since you think it's yours, it's yours.</div>
-                        <div class="lumi-stand"><img src="default.png"></div>
+                        <div class="lumi-stand">
+                            <img src="default.png">
+                        </div>
                         <button class="duo-btn" onclick="updateStep('name')">Continue</button>
                     </div>
                 `;
             }
 
+            // PAGE 3: NAME ENTRY
             else if (state.step === 'name') {
                 app.innerHTML = `
                     <div class="container">
@@ -167,6 +172,7 @@
                 `;
             }
 
+            // PAGE 4: DREAM ENTRY
             else if (state.step === 'dream') {
                 app.innerHTML = `
                     <div class="container">
@@ -179,6 +185,7 @@
                 `;
             } 
 
+            // FINAL PAGE: THE SANCTUARY
             else {
                 app.innerHTML = `
                     <div class="container">
