@@ -74,7 +74,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            animation: fadeIn 0.5s ease;
+            animation: fadeIn 0.4s ease;
         }
 
         .lumi-intro-inner {
@@ -92,16 +92,20 @@
             margin-bottom: 20px;
         }
 
+        /* Lumi appears first — short delay */
         .lumi-mascot-img {
             position: absolute;
             bottom: 0; left: 0;
             width: 180px; height: 180px;
             object-fit: contain;
-            animation: lumiFloat 3s ease-in-out infinite, slideUp 0.5s ease 0.1s both;
             filter: drop-shadow(0 6px 16px rgba(0,0,0,0.35));
+            opacity: 0;
+            animation:
+                mascotPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards,
+                lumiFloat 3s ease-in-out 0.7s infinite;
         }
 
-        /* Part 1 — single line bubble */
+        /* Part 1 bubble — appears after Lumi */
         .speech-bubble {
             position: absolute;
             bottom: 90px;
@@ -113,9 +117,10 @@
             font-family: 'Times New Roman', serif;
             color: #3C2A21;
             font-weight: bold;
-            animation: slideUp 0.5s ease 0.2s both;
             box-shadow: 0 4px 16px rgba(0,0,0,0.3);
             white-space: nowrap;
+            opacity: 0;
+            animation: bubbleIn 0.4s ease 0.9s forwards;
         }
         .speech-bubble::after {
             content: '';
@@ -125,7 +130,7 @@
             border-right-color: #F5F0E8;
         }
 
-        /* Part 2 — bubble above Lumi with a clear but not too big gap */
+        /* Part 2 bubble — appears after Lumi */
         .speech-bubble-wide {
             position: absolute;
             bottom: 165px;
@@ -138,12 +143,13 @@
             font-family: 'Times New Roman', serif;
             color: #3C2A21;
             font-weight: bold;
-            animation: slideUp 0.5s ease 0.2s both;
             box-shadow: 0 4px 16px rgba(0,0,0,0.3);
             white-space: normal;
             line-height: 1.7;
             word-break: normal;
             overflow-wrap: break-word;
+            opacity: 0;
+            animation: bubbleIn 0.4s ease 0.9s forwards;
         }
         .speech-bubble-wide::after {
             content: '';
@@ -153,6 +159,7 @@
             border-top-color: #F5F0E8;
         }
 
+        /* Continue button — appears last */
         .lumi-continue-btn {
             width: 70%;
             margin: 0 auto;
@@ -165,26 +172,36 @@
             letter-spacing: 3px; text-transform: uppercase;
             cursor: pointer;
             font-family: 'Times New Roman', serif;
-            animation: slideUp 0.5s ease 0.35s both;
             box-shadow: 0 4px 0 #a87a50;
             transition: transform 0.1s, box-shadow 0.1s;
-            opacity: 0.9;
+            opacity: 0;
+            animation: bubbleIn 0.4s ease 1.4s forwards;
         }
         .lumi-continue-btn:active {
             transform: translateY(3px);
             box-shadow: 0 1px 0 #a87a50;
         }
 
+        /* Mascot pops in with a bounce */
+        @keyframes mascotPop {
+            0%   { opacity: 0; transform: scale(0.5) translateY(30px); }
+            70%  { opacity: 1; transform: scale(1.08) translateY(-5px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* Bubble slides up and fades in */
+        @keyframes bubbleIn {
+            0%   { opacity: 0; transform: translateY(12px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; } to { opacity: 1; }
         }
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+
         @keyframes lumiFloat {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-14px); }
+            50%       { transform: translateY(-14px); }
         }
 
         .reset-btn {
