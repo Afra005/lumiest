@@ -6,192 +6,93 @@
     <title>Lumiest Sanctuary</title>
     <style>
         :root {
+            /* We are keeping your custom dark Mocha color scheme */
             --mocha-bg: #3C2A21;
-            --card-bg: #4F3425;
+            --mocha-darker: #2D1F18; /* Darker input background */
             --text-color: #F5F5F0;
             --accent: #D4A373;
-            --bubble-bg: #FFFFFF;
-            --bubble-text: #3C2A21;
         }
 
         body, html {
-            margin: 0; padding: 0; width: 100%; height: 100%;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
             background-color: var(--mocha-bg);
             color: var(--text-color);
             font-family: 'Times New Roman', serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             overflow: hidden;
-            display: flex; justify-content: center; align-items: center;
+            box-sizing: border-box;
         }
 
-        #app { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-
-        .persist-title {
-            font-size: 50px; text-transform: uppercase; font-weight: 500;
-            text-align: center; width: 100%; letter-spacing: 2px;
-            animation: breathe 3s ease-in-out forwards;
-        }
-        @keyframes breathe { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
-
-        .duo-intro-container {
-            width: 100%; height: 100%; display: flex; flex-direction: column;
-            justify-content: flex-end; align-items: center;
-            padding-bottom: 140px; box-sizing: border-box;
-        }
-        .lumi-chat-wrapper { display: flex; align-items: flex-end; justify-content: center; width: 95%; max-width: 500px; }
-        .lumi-stand { width: 210px; height: 210px; flex-shrink: 0; z-index: 2; margin-right: -45px; opacity: 0; animation: lumiAppear 0.8s ease-out forwards; }
-        .lumi-stand img { width: 100%; height: 100%; object-fit: contain; }
-        .lumi-bubble {
-            background-color: var(--bubble-bg); color: var(--bubble-text);
-            padding: 15px; border-radius: 22px; font-size: 1rem; font-weight: 500;
-            width: 150px; position: relative; margin-bottom: 140px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center;
-            font-family: 'Segoe UI', sans-serif; z-index: 1; opacity: 0;
-            animation: bubblePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; animation-delay: 0.8s;
-        }
-        .lumi-bubble::after { content: ''; position: absolute; bottom: -10px; left: 18px; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 12px solid var(--bubble-bg); transform: rotate(15deg); }
-
-        @keyframes lumiAppear { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
-        @keyframes bubblePop { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: scale(1); } }
-
-        .duo-btn {
-            background: var(--accent); color: var(--mocha-bg);
-            border: none; padding: 18px; border-radius: 20px;
-            font-weight: 800; cursor: pointer; width: 85%;
-            max-width: 320px; font-size: 1rem; text-transform: uppercase;
-            position: fixed; bottom: 40px; font-family: 'Segoe UI', sans-serif;
-            box-shadow: 0 4px 0px #A67C52; opacity: 1; z-index: 99;
+        /* Container inspired by the minimalist layout of the second image */
+        #app {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            max-width: 400px; /* Limits width for a phone feel */
+            padding: 40px 20px;
+            box-sizing: border-box;
+            justify-content: space-between; /* Pushes content to top and bottom */
         }
 
-        .container { background: var(--card-bg); padding: 40px 30px; border-radius: 40px; width: 85%; max-width: 350px; text-align: center; margin-bottom: 100px; animation: slideUp 0.5s ease-out forwards; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .mascot-circle { width: 110px; height: 110px; background: var(--mocha-bg); border-radius: 50%; margin: -90px auto 20px; border: 4px solid var(--accent); display: flex; justify-content: center; align-items: center; overflow: hidden; }
-        .mascot-circle img { width: 80%; height: 80%; }
-        input { width: 100%; padding: 14px; margin: 20px 0; border-radius: 12px; border: none; background: var(--mocha-bg); color: white; text-align: center; box-sizing: border-box; }
-        .reset-btn { position: fixed; top: 20px; right: 20px; background: rgba(255,255,255,0.1); border: none; color: white; padding: 5px 10px; border-radius: 10px; font-size: 0.6rem; z-index: 100; cursor: pointer; }
-    </style>
-</head>
-<body>
-
-    <button class="reset-btn" onclick="resetJourney()">Reset</button>
-    <div id="app">Loading Sanctuary...</div>
-
-    <script>
-        // Use a try-catch block to see if there's an error
-        try {
-            let state = {
-                step: 'persist',
-                nextStep: 'intro1',
-                name: localStorage.getItem('lumi_name') || '',
-                dream: localStorage.getItem('lumi_dream') || ''
-            };
-
-            function init() {
-                const savedName = localStorage.getItem('lumi_name');
-                const savedDream = localStorage.getItem('lumi_dream');
-
-                if (!savedName) {
-                    state.nextStep = 'intro1';
-                } else if (!savedDream) {
-                    state.nextStep = 'dream';
-                } else {
-                    state.nextStep = 'sanctuary';
-                }
-                render();
-            }
-
-            function updateStep(s) {
-                state.step = s;
-                render();
-            }
-
-            function saveName() {
-                const v = document.getElementById('nameIn').value;
-                if (v && v.trim()) {
-                    state.name = v.trim();
-                    localStorage.setItem('lumi_name', state.name);
-                    updateStep('dream');
-                }
-            }
-
-            function saveDream() {
-                const v = document.getElementById('dreamIn').value;
-                if (v && v.trim()) {
-                    state.dream = v.trim();
-                    localStorage.setItem('lumi_dream', state.dream);
-                    updateStep('sanctuary');
-                }
-            }
-
-            function resetJourney() {
-                localStorage.clear();
-                window.location.reload();
-            }
-
-            function render() {
-                const app = document.getElementById('app');
-                if (!app) return;
-                let html = '';
-
-                if (state.step === 'persist') {
-                    html = `<h1 class="persist-title">PERSIST</h1>`;
-                    setTimeout(() => {
-                        state.step = state.nextStep;
-                        render();
-                    }, 3000);
-                } 
-                else if (state.step === 'intro1') {
-                    html = `<div class="duo-intro-container">
-                                <div class="lumi-chat-wrapper">
-                                    <div class="lumi-stand"><img src="waving.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/4712/4712035.png'"></div>
-                                    <div class="lumi-bubble">Hey, I'm Lumi!</div>
-                                </div>
-                                <button class="duo-btn" onclick="updateStep('intro2')">Continue</button>
-                            </div>`;
-                } 
-                else if (state.step === 'intro2') {
-                    html = `<div class="duo-intro-container">
-                                <div class="lumi-chat-wrapper">
-                                    <div class="lumi-stand"><img src="default.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/4712/4712038.png'"></div>
-                                    <div class="lumi-bubble" style="font-size: 0.95rem;">I'm here to help you focus. Since you think it's yours, it's yours.</div>
-                                </div>
-                                <button class="duo-btn" onclick="updateStep('name')">Continue</button>
-                            </div>`;
-                } 
-                else if (state.step === 'name') {
-                    html = `<div class="container">
-                                <div class="mascot-circle"><img src="default.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/4712/4712038.png'"></div>
-                                <h2 style="font-family:'Times New Roman'">Assalamu Alaikum!</h2>
-                                <p>What should I call you?</p>
-                                <input type="text" id="nameIn" placeholder="Your name..." autocomplete="off">
-                                <button class="duo-btn" style="position:static; width:100%;" onclick="saveName()">Continue</button>
-                            </div>`;
-                } 
-                else if (state.step === 'dream') {
-                    html = `<div class="container">
-                                <div class="mascot-circle"><img src="typing.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/4712/4712109.png'"></div>
-                                <h2 style="font-family:'Times New Roman'">Welcome, ${state.name}.</h2>
-                                <p>What is already yours?</p>
-                                <input type="text" id="dreamIn" placeholder="e.g. Marrying Alif" autocomplete="off">
-                                <button class="duo-btn" style="position:static; width:100%;" onclick="saveDream()">It's Mine</button>
-                            </div>`;
-                } 
-                else {
-                    html = `<div class="container">
-                                <div class="mascot-circle"><img src="success.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/4712/4712126.png'"></div>
-                                <h2 style="font-family:'Times New Roman'">It is yours.</h2>
-                                <p style="font-size: 1.4rem; color: var(--accent); font-style: italic; margin: 20px 0;">"${state.dream}"</p>
-                                <hr style="opacity: 0.1; margin: 20px 0;">
-                                <p style="font-size: 0.85rem; opacity: 0.8;">Don't focus on it not happening.<br>Focus only on it <b>happening</b>.</p>
-                            </div>`;
-                }
-                app.innerHTML = html;
-            }
-
-            init();
-
-        } catch (error) {
-            document.getElementById('app').innerHTML = "Error: " + error.message;
+        /* Top Text Area - inspired by the layout of the second image */
+        .top-content {
+            width: 100%;
+            text-align: left;
+            padding-left: 10px;
         }
-    </script>
-</body>
-</html>
+
+        .main-greeting {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--text-color);
+            margin: 0 0 10px 0;
+        }
+
+        .sub-greeting {
+            font-size: 18px;
+            opacity: 0.9;
+            margin: 0 0 40px 0;
+            font-family: 'Arial', sans-serif; /* Modern sans-serif for sub-text */
+        }
+
+        /* Input area styled with a modern minimal look and your color */
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 16px;
+            padding-right: 100px; /* Space for the clear and arrow icons */
+            border-radius: 16px;
+            border: none;
+            background-color: var(--mocha-darker);
+            color: var(--text-color);
+            font-size: 24px; /* Large input text like the second image */
+            font-weight: bold;
+            font-family: 'Arial', sans-serif;
+            text-align: left;
+            box-sizing: border-box;
+        }
+
+        input::placeholder {
+            color: rgba(245, 245, 240, 0.4);
+            font-size: 18px;
+            font-weight: normal;
+        }
+
+        /* Clear button (X) and Continue button (->) layout */
+        .input-actions {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
