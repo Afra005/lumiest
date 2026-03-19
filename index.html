@@ -25,25 +25,22 @@
 
         #app { width: 100%; height: 100%; max-width: 400px; position: relative; display: flex; flex-direction: column; }
 
-        /* PERSIST SCREEN - FIXED FOR DEAD CENTER */
+        /* PERSIST SCREEN */
         .persist-screen {
             height: 100vh; width: 100vw; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; /* Vertical centering */
+            display: flex; justify-content: center; align-items: center;
             background-color: var(--mocha-bg);
             position: fixed; top: 0; left: 0; z-index: 1000;
         }
         .persist-title {
             font-size: 50px; text-transform: uppercase; font-weight: 500;
-            letter-spacing: 2px; 
-            margin-top: -20px; /* Slight nudge up to account for visual center vs mathematical center */
+            letter-spacing: 2px; margin-top: -20px;
             animation: breathe 3s ease-in-out forwards;
             font-family: 'Times New Roman', serif;
         }
         @keyframes breathe { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
 
-        /* INTRO LAYOUT - ANCHORED TO BOTTOM */
+        /* INTRO LAYOUT */
         .intro-container {
             flex: 1; position: relative; width: 100%;
             display: flex; flex-direction: column; justify-content: flex-end;
@@ -51,13 +48,14 @@
 
         .lumi-interaction-group {
             position: relative;
-            padding: 0 20px 10px 20px; 
+            /* MOVED BOTH UP: Increased bottom padding from 10px to 60px */
+            padding: 0 20px 60px 20px; 
             display: flex;
             align-items: flex-end; 
         }
 
         .mascot-img { 
-            width: 150px; /* Bigger Lumi */
+            width: 150px; 
             height: 150px; 
             object-fit: contain;
             z-index: 2;
@@ -70,166 +68,6 @@
             font-weight: bold; font-size: 1.15rem;
             position: relative; 
             margin-left: -5px; 
-            margin-bottom: 85px; /* Moved text even higher */
-            box-shadow: 0 4px 0 rgba(0,0,0,0.1);
-            max-width: 220px;
-            z-index: 1;
-        }
-
-        .lumi-bubble-right::after {
-            content: ''; position: absolute; 
-            left: 10px; bottom: -12px;
-            border-left: 15px solid transparent; 
-            border-right: 5px solid transparent;
-            border-top: 15px solid var(--bubble-bg);
-        }
-
-        .bottom-btn-container { width: 100%; padding: 0 25px 50px 25px; box-sizing: border-box; }
-
-        .continue-btn-rect {
-            background: var(--accent); color: var(--mocha-bg);
-            border: none; padding: 22px; border-radius: 18px;
-            font-weight: 800; font-size: 1.1rem; width: 100%;
-            text-transform: uppercase; cursor: pointer;
-            box-shadow: 0 5px 0 #2D1F18;
-        }
-
-        /* INPUT SCREEN LAYOUT (Gentler Streak) */
-        .streak-layout { padding: 60px 25px; text-align: left; width: 100%; box-sizing: border-box; }
-        .main-greeting { font-size: 34px; font-weight: bold; margin: 0 0 10px 0; font-family: 'Times New Roman', serif; }
-        .sub-greeting { font-size: 18px; opacity: 0.8; margin: 0 0 35px 0; }
-        
-        .input-wrap { position: relative; width: 100%; }
-        input {
-            width: 100%; padding: 18px; padding-right: 60px;
-            border-radius: 18px; border: none;
-            background-color: var(--mocha-darker);
-            color: var(--text-color); font-size: 20px; font-weight: bold;
-            box-sizing: border-box; outline: none;
-        }
-        .btn-arrow {
-            position: absolute; right: 8px; top: 50%;
-            transform: translateY(-50%);
-            background-color: #F5F5F0; border: none;
-            width: 45px; height: 45px; border-radius: 12px;
-            cursor: pointer; display: flex; align-items: center; justify-content: center;
-        }
-        .mascot-footer { position: absolute; bottom: 60px; left: 50%; transform: translateX(-50%); }
-        .circle-base { width: 120px; height: 120px; border-radius: 50%; border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); }
-
-    </style>
-</head>
-<body>
-    <div id="app"></div>
-    <script>
-        let state = {
-            name: localStorage.getItem('lumi_name') || '',
-            dream: localStorage.getItem('lumi_dream') || '',
-            view: 'persist'
-        };
-
-        function saveName() {
-            const val = document.getElementById('nameInput').value;
-            if (val.trim()) {
-                state.name = val.trim();
-                localStorage.setItem('lumi_name', state.name);
-                state.view = 'dream'; render();
-            }
-        }
-
-        function saveDream() {
-            const val = document.getElementById('dreamInput').value;
-            if (val.trim()) {
-                state.dream = val.trim();
-                localStorage.setItem('lumi_dream', state.dream);
-                state.view = 'sanctuary'; render();
-            }
-        }
-
-        function render() {
-            const app = document.getElementById('app');
-            let html = '';
-
-            if (state.view === 'persist') {
-                html = `<div class="persist-screen"><h1 class="persist-title">PERSIST</h1></div>`;
-                setTimeout(() => {
-                    if (!state.name) state.view = 'intro1';
-                    else if (!state.dream) state.view = 'dream';
-                    else state.view = 'sanctuary';
-                    render();
-                }, 3000);
-            }
-
-            else if (state.view === 'intro1') {
-                html = `
-                <div class="intro-container">
-                    <div class="lumi-interaction-group">
-                        <img src="waving.png" class="mascot-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'">
-                        <div class="lumi-bubble-right">Hey, I'm Lumi!</div>
-                    </div>
-                </div>
-                <div class="bottom-btn-container">
-                    <button class="continue-btn-rect" onclick="state.view='intro2'; render();">Continue</button>
-                </div>`;
-            }
-
-            else if (state.view === 'intro2') {
-                html = `
-                <div class="intro-container">
-                    <div class="lumi-interaction-group">
-                        <img src="mascot.png" class="mascot-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'">
-                        <div class="lumi-bubble-right">Since you think it's yours, it's yours.</div>
-                    </div>
-                </div>
-                <div class="bottom-btn-container">
-                    <button class="continue-btn-rect" onclick="state.view='name'; render();">Continue</button>
-                </div>`;
-            }
-
-            else if (state.view === 'name') {
-                html = `
-                <div class="streak-layout">
-                    <h1 class="main-greeting">Assalamu Alaikum!</h1>
-                    <p class="sub-greeting">What should I call you?</p>
-                    <div class="input-wrap">
-                        <input type="text" id="nameInput" placeholder="Name..." autocomplete="off">
-                        <button class="btn-arrow" onclick="saveName()">→</button>
-                    </div>
-                </div>
-                <div class="mascot-footer">
-                    <div class="circle-base"><img src="mascot.png" style="width:70%" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'"></div>
-                </div>`;
-            }
-
-            else if (state.view === 'dream') {
-                html = `
-                <div class="streak-layout">
-                    <h1 class="main-greeting">Welcome, ${state.name}.</h1>
-                    <p class="sub-greeting">What is already yours?</p>
-                    <div class="input-wrap">
-                        <input type="text" id="dreamInput" placeholder="e.g. Marrying Alif..." autocomplete="off">
-                        <button class="btn-arrow" onclick="saveDream()">→</button>
-                    </div>
-                </div>
-                <div class="mascot-footer">
-                    <div class="circle-base"><img src="typing.png" style="width:70%" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'"></div>
-                </div>`;
-            }
-
-            else {
-                html = `
-                <div class="streak-layout">
-                    <h1 class="main-greeting" style="font-style:italic">It is yours.</h1>
-                    <p class="sub-greeting" style="color:var(--accent); font-weight:bold; font-size:1.5rem">"${state.dream}"</p>
-                </div>
-                <div class="bottom-mascot-footer" style="position:absolute; bottom:60px; width:100%; text-align:center;">
-                    <div class="circle-base" style="margin: 0 auto 20px auto;"><img src="success.png" style="width:70%" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'"></div>
-                    <p style="opacity:0.8">Focus only on it <b>happening</b>.</p>
-                </div>`;
-            }
-            app.innerHTML = html;
-        }
-        render();
-    </script>
-</body>
-</html>
+            /* TEXT IS UPPER: Kept the high margin for the "upper" look */
+            margin-bottom: 85px; 
+            box-shadow: 0 4px
