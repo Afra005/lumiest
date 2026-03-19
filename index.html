@@ -23,7 +23,7 @@
             display: flex; justify-content: center; align-items: center;
         }
 
-        #app { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        #app { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
 
         /* FIXED PERSIST FONT */
         .persist-title {
@@ -43,27 +43,71 @@
 
         .lumi-chat-wrapper {
             display: flex; align-items: flex-end; justify-content: center;
-            width: 100%; max-width: 500px;
+            width: 100%; max-width: 500px; position: relative;
         }
 
         .lumi-stand { 
-            width: 220px; height: 220px; /* Made Lumi bigger */
+            width: 220px; height: 220px; 
             flex-shrink: 0; z-index: 2; 
-            margin-right: -30px; /* Pulls bubble further left/closer */
+            margin-right: -40px; /* Pulls bubble further left/closer */
         }
         .lumi-stand img { width: 100%; height: 100%; object-fit: contain; }
 
         .lumi-bubble {
             background-color: var(--bubble-bg); color: var(--bubble-text);
             padding: 20px; border-radius: 25px; font-size: 1.1rem; font-weight: 500;
-            width: 170px; position: relative; 
-            /* MOVED UP: Increased margin-bottom further */
-            margin-bottom: 130px; 
+            width: 175px; position: relative; 
+            margin-bottom: 140px; /* Moved up more as requested */
             box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center;
             font-family: 'Segoe UI', sans-serif;
             z-index: 1;
         }
 
-        /* Bubble tail - Pointing towards Lumi */
         .lumi-bubble::after {
-            content: '';
+            content: ''; position: absolute; bottom: -12px; left: 20px;
+            border-left: 15px solid transparent; border-right: 15px solid transparent;
+            border-top: 15px solid var(--bubble-bg); transform: rotate(15deg);
+        }
+
+        /* BUTTONS & CARDS */
+        .duo-btn {
+            background: var(--accent); color: var(--mocha-bg);
+            border: none; padding: 18px; border-radius: 20px;
+            font-weight: 800; cursor: pointer; width: 85%;
+            max-width: 320px; font-size: 1rem; text-transform: uppercase;
+            position: fixed; bottom: 40px; font-family: 'Segoe UI', sans-serif;
+            box-shadow: 0 4px 0px #A67C52;
+            z-index: 10;
+        }
+
+        .container {
+            background: var(--card-bg); padding: 40px 30px; border-radius: 40px;
+            width: 85%; max-width: 350px; text-align: center; margin-bottom: 100px;
+        }
+
+        .mascot-circle {
+            width: 110px; height: 110px; background: var(--mocha-bg);
+            border-radius: 50%; margin: -90px auto 20px; border: 4px solid var(--accent);
+            display: flex; justify-content: center; align-items: center; overflow: hidden;
+        }
+        .mascot-circle img { width: 80%; height: 80%; }
+
+        input {
+            width: 100%; padding: 14px; margin: 20px 0; border-radius: 12px;
+            border: none; background: var(--mocha-bg); color: white; text-align: center;
+        }
+
+        .reset-btn { position: fixed; top: 20px; right: 20px; background: rgba(255,255,255,0.1); border: none; color: white; padding: 5px 10px; border-radius: 10px; font-size: 0.6rem; z-index: 100; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <button class="reset-btn" onclick="resetJourney()">Reset</button>
+    <div id="app"></div>
+
+    <script>
+        // State management
+        const state = {
+            step: localStorage.getItem('lumi_step') || 'persist',
+            name: localStorage.getItem('lumi_name') || '',
+            dream: localStorage.getItem('lumi_dream') ||
