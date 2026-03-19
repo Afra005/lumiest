@@ -52,15 +52,19 @@
         .lumi-bubble {
             background-color: var(--bubble-bg); color: var(--bubble-text);
             padding: 20px; border-radius: 25px; font-size: 1.1rem; font-weight: 500;
-            width: 170px; position: relative; margin-bottom: 80px;
+            width: 170px; position: relative; 
+            /* MOVED UP: Increased margin-bottom to lift text box */
+            margin-bottom: 110px; 
             box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center;
             font-family: 'Segoe UI', sans-serif;
+            z-index: 1;
         }
 
+        /* Bubble tail - Adjusted to reach down toward Lumi */
         .lumi-bubble::after {
-            content: ''; position: absolute; bottom: -10px; left: 15px;
+            content: ''; position: absolute; bottom: -15px; left: 15px;
             border-left: 15px solid transparent; border-right: 15px solid transparent;
-            border-top: 15px solid var(--bubble-bg); transform: rotate(30deg);
+            border-top: 15px solid var(--bubble-bg); transform: rotate(20deg);
         }
 
         .duo-btn {
