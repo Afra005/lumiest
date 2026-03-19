@@ -87,23 +87,20 @@
         };
 
         function init() {
-            const savedName = localStorage.getItem('lumi_name');
-            const savedDream = localStorage.getItem('lumi_dream');
-            
-            state.name = savedName || '';
-            state.dream = savedDream || '';
-
-            // Smart logic check
-            if (!savedName) {
-                state.nextStep = 'intro1';
-            } else if (!savedDream) {
-                state.nextStep = 'dream';
-            } else {
-                state.nextStep = 'sanctuary';
-            }
-            
-            render();
-        }
+    // 1. Look for saved info in the browser's memory
+    const savedName = localStorage.getItem('lumi_name');
+    const savedDream = localStorage.getItem('lumi_dream');
+    
+    // 2. Decide which screen to show based on what we found
+    if (!savedName) {
+        state.nextStep = 'intro1'; // Nothing saved? Start from scratch.
+    } else if (!savedDream) {
+        state.nextStep = 'dream';  // Name saved but no dream? Go to dream input.
+    } else {
+        state.nextStep = 'sanctuary'; // Everything is there? Go straight to the Sanctuary!
+    }
+    render();
+}
 
         function updateStep(s) {
             state.step = s;
