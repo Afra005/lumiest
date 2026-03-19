@@ -80,4 +80,157 @@
             font-weight: 800; cursor: pointer; width: 85%;
             max-width: 320px; font-size: 1rem; text-transform: uppercase;
             position: fixed; bottom: 40px; font-family: 'Segoe UI', sans-serif;
-            box-shadow: 0 4px 0px
+            box-shadow: 0 4px 0px #A67C52;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+            animation-delay: 1.2s;
+            z-index: 99;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .container {
+            background: var(--card-bg); padding: 40px 30px; border-radius: 40px;
+            width: 85%; max-width: 350px; text-align: center; margin-bottom: 100px;
+            animation: slideUp 0.5s ease-out forwards;
+        }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .mascot-circle {
+            width: 110px; height: 110px; background: var(--mocha-bg);
+            border-radius: 50%; margin: -90px auto 20px; border: 4px solid var(--accent);
+            display: flex; justify-content: center; align-items: center; overflow: hidden;
+        }
+        .mascot-circle img { width: 80%; height: 80%; }
+
+        input {
+            width: 100%; padding: 14px; margin: 20px 0; border-radius: 12px;
+            border: none; background: var(--mocha-bg); color: white; text-align: center;
+        }
+
+        .reset-btn { position: fixed; top: 20px; right: 20px; background: rgba(255,255,255,0.1); border: none; color: white; padding: 5px 10px; border-radius: 10px; font-size: 0.6rem; z-index: 100; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <button class="reset-btn" onclick="resetJourney()">Reset</button>
+    <div id="app"></div>
+
+    <script>
+        // Use a wrapper to ensure state is always valid
+        function getInitialState() {
+            const savedStep = localStorage.getItem('lumi_step');
+            return {
+                step: 'persist',
+                nextStep: savedStep || 'intro1',
+                name: localStorage.getItem('lumi_name') || '',
+                dream: localStorage.getItem('lumi_dream') || ''
+            };
+        }
+
+        let state = getInitialState();
+
+        function updateStep(s) {
+            state.step = s;
+            localStorage.setItem('lumi_step', s);
+            render();
+        }
+
+        function saveName() {
+            const v = document.getElementById('nameIn').value;
+            if (v && v.trim()) { 
+                state.name = v.trim(); 
+                localStorage.setItem('lumi_name', state.name); 
+                updateStep('dream'); 
+            }
+        }
+
+        function saveDream() {
+            const v = document.getElementById('dreamIn').value;
+            if (v && v.trim()) { 
+                state.dream = v.trim(); 
+                localStorage.setItem('lumi_dream', state.dream); 
+                updateStep('sanctuary'); 
+            }
+        }
+
+        function resetJourney() { 
+            localStorage.clear(); 
+            // Completely reset state object before reload
+            state = { step: 'persist', nextStep: 'intro1', name: '', dream: '' };
+            window.location.reload(true); 
+        }
+
+        function render() {
+            const app = document.getElementById('app');
+            if (!app) return; // Prevent errors if app div is missing
+
+            let html = '';
+
+            if (state.step === 'persist') {
+                html = `<h1 class="persist-title">PERSIST</h1>`;
+                // Clear any existing timeouts to prevent "ghost" renders
+                if (window.persistTimeout) clearTimeout(window.persistTimeout);
+                window.persistTimeout = setTimeout(() => { 
+                    state.step = state.nextStep; 
+                    render(); 
+                }, 3000);
+            } 
+            else if (state.step === 'intro1') {
+                html = `
+                    <div class="duo-intro-container">
+                        <div class="lumi-chat-wrapper">
+                            <div class="lumi-stand"><img src="waving.png" onerror="this.src='default.png'"></div>
+                            <div class="lumi-bubble">Hey, I'm Lumi!</div>
+                        </div>
+                        <button class="duo-btn" onclick="updateStep('intro2')">Continue</button>
+                    </div>`;
+            } 
+            else if (state.step === 'intro2') {
+                html = `
+                    <div class="duo-intro-container">
+                        <div class="lumi-chat-wrapper">
+                            <div class="lumi-stand"><img src="default.png"></div>
+                            <div class="lumi-bubble" style="font-size: 0.95rem;">I'm here to help you focus. Since you think it's yours, it's yours.</div>
+                        </div>
+                        <button class="duo-btn" onclick="updateStep('name')">Continue</button>
+                    </div>`;
+            } 
+            else if (state.step === 'name') {
+                html = `
+                    <div class="container">
+                        <div class="mascot-circle"><img src="default.png"></div>
+                        <h2 style="font-family:'Times New Roman'">Assalamu Alaikum!</h2>
+                        <p>What should I call you?</p>
+                        <input type="text" id="nameIn" placeholder="Your name..." autocomplete="off">
+                        <button class="duo-btn" style="position:static; width:100%; opacity:1; animation:none;" onclick="saveName()">Continue</button>
+                    </div>`;
+            } 
+            else if (state.step === 'dream') {
+                html = `
+                    <div class="container">
+                        <div class="mascot-circle"><img src="typing.png"></div>
+                        <h2 style="font-family:'Times New Roman'">Welcome, ${state.name}.</h2>
+                        <p>What is already yours?</p>
+                        <input type="text" id="dreamIn" placeholder="e.g. Marrying Alif" autocomplete="off">
+                        <button class="duo-btn" style="position:static; width:100%; opacity:1; animation:none;" onclick="saveDream()">It's Mine</button>
+                    </div>`;
+            } 
+            else {
+                html = `
+                    <div class="container">
+                        <div class="mascot-circle"><img src="success.png"></div>
+                        <h2 style="font-family:'Times New Roman'">It is yours.</h2>
+                        <p style="font-size: 1.4rem; color: var(--accent); font-style: italic;">"${state.dream}"</p>
+                        <hr style="opacity: 0.1; margin: 20px 0;">
+                        <p style="font-size: 0.85rem; opacity: 0.8;">Don't focus on it not happening.<br>Focus only on it <b>happening</b>.</p>
+                    </div>`;
+            }
+            app.innerHTML = html;
+        }
+
+        // Run render on initial load
+        window.onload = render;
+    </script>
+</body>
+</html>
