@@ -213,16 +213,17 @@
 
             else if (state.currentView === 'lumi_intro') {
                 app.innerHTML = `
-                    <div class="lumi-intro-screen">
-                        <div class="lumi-center">
-                            <img class="lumi-mascot-img"
-                                src="default.png"
-                                onerror="this.src='https://cdn-icons-png.flaticon.com/512/4712/4712109.png'">
-                            <div class="speech-bubble">Hey, I'm Lumi!</div>
-                        </div>
-                        <button class="lumi-continue-btn" onclick="goToName()">Continue</button>
-                    </div>`;
-            }
+                 <div class="lumi-intro-screen">
+                  <div class="lumi-center">
+                    <img class="lumi-mascot-img"
+                      src="waving.png"
+                    onerror="this.src='https://cdn-icons-png.flaticon.com/512/4712/4712109.png'">
+                <div class="speech-bubble">Hey, I'm Lumi!</div>
+                </div>
+                <button class="lumi-continue-btn" onclick="goToName()">Continue</button>
+        </div>`;
+}
+        
 
             else if (state.currentView === 'name') {
                 app.innerHTML = `
