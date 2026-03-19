@@ -70,18 +70,233 @@
 
         /* LUMI INTRO */
         .lumi-intro-screen {
-            position: fixed; inset: 0;
-            background-color: var(--mocha-bg);
+            width: 100%; height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             animation: fadeIn 0.5s ease;
         }
 
-        /* The whole group — positioned in center of screen */
         .lumi-intro-inner {
-            position: absolute;
-            left: 50%; top: 50%;
-            transform: translate(-50%, -50%);
-            width: calc(100% - 50px);
+            position: relative;
+            width: 100%;
             max-width: 350px;
+            padding: 0 10px;
+            box-sizing: border-box;
         }
 
-        /* Button at the bottom of
+        /* Space above button for mascot and bubble */
+        .lumi-center {
+            position: relative;
+            width: 100%;
+            height: 170px;
+            margin-bottom: 16px;
+        }
+
+        /* Lumi — bottom-left */
+        .lumi-mascot-img {
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 140px; height: 140px;
+            object-fit: contain;
+            animation: lumiFloat 3s ease-in-out infinite, slideUp 0.5s ease 0.1s both;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+        }
+
+        /* Bubble — higher up, right of Lumi */
+        .speech-bubble {
+            position: absolute;
+            bottom: 70px;
+            left: 135px;
+            background-color: #F5F0E8;
+            border-radius: 20px;
+            padding: 16px 22px;
+            font-size: 22px;
+            font-family: 'Times New Roman', serif;
+            color: #3C2A21;
+            font-weight: bold;
+            animation: slideUp 0.5s ease 0.2s both;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+            white-space: nowrap;
+        }
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            left: -13px; bottom: 18px;
+            border: 7px solid transparent;
+            border-right-color: #F5F0E8;
+        }
+
+        /* Button */
+        .lumi-continue-btn {
+            width: 100%;
+            background-color: var(--accent);
+            color: var(--mocha-darker);
+            border: none; border-radius: 16px;
+            padding: 22px 0;
+            font-size: 16px; font-weight: bold;
+            letter-spacing: 3px; text-transform: uppercase;
+            cursor: pointer;
+            font-family: 'Times New Roman', serif;
+            animation: slideUp 0.5s ease 0.35s both;
+            box-shadow: 0 5px 0 #a87a50;
+            transition: transform 0.1s, box-shadow 0.1s;
+            display: block;
+        }
+        .lumi-continue-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #a87a50;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; } to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes lumiFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .reset-btn {
+            position: fixed; bottom: 10px; left: 10px;
+            background: none; border: none; color: gray;
+            font-size: 10px; cursor: pointer; z-index: 100;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="reset-btn" onclick="resetApp()">RESET DATA</button>
+    <div id="app"></div>
+
+    <script>
+        let state = {
+            name:  localStorage.getItem('lumi_name')  || '',
+            dream: localStorage.getItem('lumi_dream') || '',
+            currentView: 'persist'
+        };
+
+        function resetApp() {
+            localStorage.clear();
+            location.reload();
+        }
+
+        function saveName() {
+            const val = document.getElementById('nameInput').value;
+            if (val.trim()) {
+                state.name = val.trim();
+                localStorage.setItem('lumi_name', state.name);
+                state.currentView = 'dream';
+                render();
+            }
+        }
+
+        function saveDream() {
+            const val = document.getElementById('dreamInput').value;
+            if (val.trim()) {
+                state.dream = val.trim();
+                localStorage.setItem('lumi_dream', state.dream);
+                state.currentView = 'sanctuary';
+                render();
+            }
+        }
+
+        function goToName() {
+            state.currentView = 'name';
+            render();
+        }
+
+        function render() {
+            const app = document.getElementById('app');
+
+            if (state.currentView === 'persist') {
+                app.innerHTML = `<div class="persist-screen">PERSIST</div>`;
+                setTimeout(() => {
+                    if (!state.name) state.currentView = 'lumi_intro';
+                    else if (!state.dream) state.currentView = 'dream';
+                    else state.currentView = 'sanctuary';
+                    render();
+                }, 2000);
+            }
+
+            else if (state.currentView === 'lumi_intro') {
+                app.innerHTML = `
+                    <div class="lumi-intro-screen">
+                        <div class="lumi-intro-inner">
+                            <div class="lumi-center">
+                                <img class="lumi-mascot-img"
+                                    src="waving.png"
+                                    onerror="this.src='https://cdn-icons-png.flaticon.com/512/4712/4712109.png'">
+                                <div class="speech-bubble">Hey, I'm Lumi!</div>
+                            </div>
+                            <button class="lumi-continue-btn" onclick="goToName()">Continue</button>
+                        </div>
+                    </div>`;
+            }
+
+            else if (state.currentView === 'name') {
+                app.innerHTML = `
+                    <div class="top-content">
+                        <h1 class="main-greeting">Assalamu Alaikum!</h1>
+                        <p class="sub-greeting">What should I call you?</p>
+                        <div class="input-group">
+                            <input type="text" id="nameInput" placeholder="Name..." autocomplete="off">
+                            <button class="btn-go" onclick="saveName()">→</button>
+                        </div>
+                    </div>
+                    <div class="bottom-area">
+                        <div class="mascot-circle">
+                            <img src="default.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'">
+                        </div>
+                    </div>`;
+                setTimeout(() => {
+                    const input = document.getElementById('nameInput');
+                    if (input) input.addEventListener('keydown', e => { if (e.key === 'Enter') saveName(); });
+                }, 50);
+            }
+
+            else if (state.currentView === 'dream') {
+                app.innerHTML = `
+                    <div class="top-content">
+                        <h1 class="main-greeting">Welcome, ${state.name}.</h1>
+                        <p class="sub-greeting">What is already yours?</p>
+                        <div class="input-group">
+                            <input type="text" id="dreamInput" placeholder="Your dream..." autocomplete="off">
+                            <button class="btn-go" onclick="saveDream()">→</button>
+                        </div>
+                    </div>
+                    <div class="bottom-area">
+                        <div class="mascot-circle">
+                            <img src="typing.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'">
+                        </div>
+                    </div>`;
+                setTimeout(() => {
+                    const input = document.getElementById('dreamInput');
+                    if (input) input.addEventListener('keydown', e => { if (e.key === 'Enter') saveDream(); });
+                }, 50);
+            }
+
+            else {
+                app.innerHTML = `
+                    <div class="top-content">
+                        <h1 class="main-greeting" style="font-style: italic;">It is yours.</h1>
+                        <p class="sub-greeting" style="color: var(--accent); font-weight: bold; font-size: 24px;">"${state.dream}"</p>
+                    </div>
+                    <div class="bottom-area">
+                        <div class="mascot-circle" style="margin-bottom: 20px;">
+                            <img src="success.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'">
+                        </div>
+                        <p style="text-align: center; opacity: 0.8; font-family: sans-serif;">
+                            Focus only on it <b>happening</b>.
+                        </p>
+                    </div>`;
+            }
+        }
+
+        render();
+    </script>
+</body>
+</html>
