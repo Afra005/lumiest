@@ -39,7 +39,6 @@
             margin: 0 0 40px 0; font-family: sans-serif; line-height: 1.4;
         }
 
-        /* Bare input row */
         .name-input-row {
             display: flex; align-items: center; gap: 12px;
             border-bottom: 2px solid rgba(245, 240, 232, 0.25);
@@ -54,7 +53,6 @@
         }
         .name-input-field::placeholder { color: rgba(245, 240, 232, 0.25); }
 
-        /* Age input — numbers only, same style */
         .age-input-field {
             flex: 1; background: none; border: none; outline: none;
             color: var(--text-color);
@@ -75,7 +73,6 @@
         }
         .name-arrow-btn:active { background-color: rgba(245, 240, 232, 0.25); }
 
-        /* Identity options */
         .identity-options {
             display: flex; flex-direction: column; gap: 14px;
             margin-top: 10px;
@@ -102,7 +99,6 @@
             color: var(--accent);
         }
 
-        /* Next button for identity page */
         .q-next-btn {
             width: 70%; margin: 30px auto 0 auto;
             display: block;
@@ -128,7 +124,6 @@
             box-shadow: 0 1px 0 #a87a50;
         }
 
-        /* Mascot bottom */
         .name-bottom {
             width: 100%; display: flex;
             justify-content: center; align-items: flex-end;
@@ -290,6 +285,16 @@
             currentView: 'persist'
         };
 
+        // Checks each onboarding step in order and returns
+        // the first incomplete step
+        function getResumeView() {
+            if (!state.name)     return 'lumi_intro1';
+            if (!state.age)      return 'age';
+            if (!state.identity) return 'identity';
+            if (!state.dream)    return 'dream';
+            return 'sanctuary';
+        }
+
         function resetApp() {
             localStorage.clear();
             location.reload();
@@ -307,7 +312,7 @@
 
         function saveAge() {
             const val = document.getElementById('ageInput').value;
-            if (val.trim() && !isNaN(val.trim())) {
+            if (val.trim() && !isNaN(val.trim()) && parseInt(val) > 0) {
                 state.age = val.trim();
                 localStorage.setItem('lumi_age', state.age);
                 state.currentView = 'identity';
@@ -317,12 +322,10 @@
 
         function selectIdentity(option) {
             state.selectedIdentity = option;
-            // highlight selected
             document.querySelectorAll('.identity-option').forEach(btn => {
                 btn.classList.remove('selected');
             });
             document.getElementById('opt-' + option).classList.add('selected');
-            // enable next button
             document.getElementById('identityNextBtn').classList.add('active');
         }
 
@@ -357,20 +360,11 @@
         function render() {
             const app = document.getElementById('app');
 
+            // PERSIST — always shows, then resumes at correct step
             if (state.currentView === 'persist') {
                 app.innerHTML = `<div class="persist-screen">PERSIST</div>`;
                 setTimeout(() => {
-                    if (!state.name) {
-                        state.currentView = 'lumi_intro1';
-                    } else if (!state.age) {
-                        state.currentView = 'age';
-                    } else if (!state.identity) {
-                        state.currentView = 'identity';
-                    } else if (!state.dream) {
-                        state.currentView = 'dream';
-                    } else {
-                        state.currentView = 'sanctuary';
-                    }
+                    state.currentView = getResumeView();
                     render();
                 }, 2000);
             }
