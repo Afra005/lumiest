@@ -72,51 +72,55 @@
         .lumi-intro-screen {
             position: fixed; inset: 0;
             display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
+            justify-content: flex-end;
+            align-items: center;
             background-color: var(--mocha-bg);
             animation: fadeIn 0.5s ease;
+            padding-bottom: 80px;
+            box-sizing: border-box;
         }
 
+        /* mascot + bubble row */
         .lumi-center {
             display: flex; flex-direction: row;
-            align-items: center;
-            gap: 14px;
-            padding: 0 30px;
+            align-items: flex-end;
+            gap: 10px;
+            margin-bottom: 30px;
+            padding: 0 20px;
         }
 
         .lumi-mascot-img {
-            width: 110px; height: 110px;
+            width: 75px; height: 75px;
             object-fit: contain;
             flex-shrink: 0;
             animation: lumiFloat 3s ease-in-out infinite, slideUp 0.5s ease 0.1s both;
-            filter: drop-shadow(0 6px 18px rgba(212,163,115,0.2));
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
         }
 
         .speech-bubble {
             background-color: #F5F0E8;
-            border-radius: 20px;
-            padding: 16px 22px;
-            font-size: 18px;
+            border-radius: 18px;
+            padding: 14px 20px;
+            font-size: 17px;
             font-family: 'Times New Roman', serif;
             color: #3C2A21;
-            text-align: left;
+            font-weight: bold;
             position: relative;
             animation: slideUp 0.5s ease 0.2s both;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+            white-space: nowrap;
         }
+        /* tail pointing LEFT */
         .speech-bubble::after {
             content: '';
             position: absolute;
-            left: -13px; top: 50%;
-            transform: translateY(-50%);
-            border: 7px solid transparent;
+            left: -11px; bottom: 18px;
+            border: 6px solid transparent;
             border-right-color: #F5F0E8;
         }
 
+        /* Continue button */
         .lumi-continue-btn {
-            position: fixed;
-            bottom: 36px; left: 50%;
-            transform: translateX(-50%);
             width: calc(100% - 50px);
             max-width: 350px;
             background-color: var(--accent);
@@ -127,12 +131,12 @@
             letter-spacing: 3px; text-transform: uppercase;
             cursor: pointer;
             font-family: 'Times New Roman', serif;
-            animation: slideUp 0.5s ease 0.4s both;
+            animation: slideUp 0.5s ease 0.35s both;
             box-shadow: 0 5px 0 #a87a50;
             transition: transform 0.1s, box-shadow 0.1s;
         }
         .lumi-continue-btn:active {
-            transform: translateX(-50%) translateY(4px);
+            transform: translateY(4px);
             box-shadow: 0 1px 0 #a87a50;
         }
 
@@ -145,7 +149,7 @@
         }
         @keyframes lumiFloat {
             0%, 100% { transform: translateY(0px); }
-            50%       { transform: translateY(-10px); }
+            50%       { transform: translateY(-8px); }
         }
 
         .reset-btn {
