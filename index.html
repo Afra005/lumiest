@@ -7,7 +7,68 @@
     <style>
         :root {
             --mocha-bg: #3C2A21;
+            --card-bg: #4F3425;<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lumiest Sanctuary</title>
+    <style>
+        :root {
+            --mocha-bg: #3C2A21;
             --card-bg: #4F3425;
+            --text-color: #F5F5F0;
+            --accent: #D4A373;
+            --bubble-bg: #FFFFFF;
+            --bubble-text: #3C2A21;
+        }
+
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            background-color: var(--mocha-bg);
+            color: var(--text-color);
+            font-family: 'Times New Roman', serif;
+            overflow: hidden;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        #app { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+
+        /* PERSIST ANIMATION */
+        .persist-title {
+            font-size: 50px; text-transform: uppercase; font-weight: 500;
+            text-align: center; width: 100%; letter-spacing: 2px;
+            animation: breathe 3s ease-in-out forwards;
+        }
+        @keyframes breathe { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
+
+        /* INTRO LAYOUT */
+        .duo-intro-container {
+            width: 100%; height: 100%; display: flex; flex-direction: column;
+            justify-content: flex-end; align-items: center;
+            padding-bottom: 140px; box-sizing: border-box;
+        }
+
+        .lumi-chat-wrapper {
+            display: flex; align-items: flex-end; justify-content: center;
+            width: 100%; max-width: 500px;
+        }
+
+        /* LUMI ANIMATION: Slides in first */
+        .lumi-stand { 
+            width: 230px; height: 230px; 
+            flex-shrink: 0; z-index: 2; 
+            margin-right: -55px;
+            opacity: 0;
+            animation: lumiAppear 0.8s ease-out forwards;
+        }
+        .lumi-stand img { width: 100%; height: 100%; object-fit: contain; }
+
+        /* BUBBLE ANIMATION: Pops in second */
+        .lumi-bubble {
+            background-color: var(--bubble-bg); color: var(--bubble-text);
+            padding: 20px; border-radius: 25px; font-size: 1.1rem; font-weight: 500;
+            width: 17
             --text-color: #F5F5F0;
             --accent: #D4A373;
             --bubble-bg: #FFFFFF;
