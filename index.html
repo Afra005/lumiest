@@ -25,16 +25,20 @@
 
         #app { width: 100%; height: 100%; max-width: 400px; position: relative; display: flex; flex-direction: column; }
 
-        /* PERSIST SCREEN */
+        /* PERSIST SCREEN - FIXED FOR DEAD CENTER */
         .persist-screen {
-            height: 100vh; width: 100vw; display: flex; 
-            justify-content: center; align-items: center;
+            height: 100vh; width: 100vw; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; /* Vertical centering */
             background-color: var(--mocha-bg);
             position: fixed; top: 0; left: 0; z-index: 1000;
         }
         .persist-title {
             font-size: 50px; text-transform: uppercase; font-weight: 500;
-            letter-spacing: 2px; animation: breathe 3s ease-in-out forwards;
+            letter-spacing: 2px; 
+            margin-top: -20px; /* Slight nudge up to account for visual center vs mathematical center */
+            animation: breathe 3s ease-in-out forwards;
             font-family: 'Times New Roman', serif;
         }
         @keyframes breathe { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
@@ -45,34 +49,33 @@
             display: flex; flex-direction: column; justify-content: flex-end;
         }
 
-        /* Group for Lumi and Bubble placed above the button */
         .lumi-interaction-group {
             position: relative;
-            padding: 0 25px 20px 25px; /* Spacing above the button */
+            padding: 0 20px 10px 20px; 
             display: flex;
-            align-items: flex-end; /* Lumi sits on the bottom of this group */
+            align-items: flex-end; 
         }
 
         .mascot-img { 
-            width: 120px; /* Made Lumi a bit bigger */
-            height: 120px; 
+            width: 150px; /* Bigger Lumi */
+            height: 150px; 
             object-fit: contain;
             z-index: 2;
+            margin-left: -10px;
         }
 
         .lumi-bubble-right {
             background: var(--bubble-bg); color: var(--bubble-text);
-            padding: 15px 20px; border-radius: 25px;
-            font-weight: bold; font-size: 1.1rem;
+            padding: 15px 22px; border-radius: 25px;
+            font-weight: bold; font-size: 1.15rem;
             position: relative; 
-            margin-left: -10px; /* Slight overlap with Lumi */
-            margin-bottom: 60px; /* Makes text appear "upper" than Lumi */
+            margin-left: -5px; 
+            margin-bottom: 85px; /* Moved text even higher */
             box-shadow: 0 4px 0 rgba(0,0,0,0.1);
-            max-width: 200px;
+            max-width: 220px;
             z-index: 1;
         }
 
-        /* Triangle pointing down-left toward Lumi's head */
         .lumi-bubble-right::after {
             content: ''; position: absolute; 
             left: 10px; bottom: -12px;
@@ -81,11 +84,11 @@
             border-top: 15px solid var(--bubble-bg);
         }
 
-        .bottom-btn-container { width: 100%; padding: 0 25px 40px 25px; box-sizing: border-box; }
+        .bottom-btn-container { width: 100%; padding: 0 25px 50px 25px; box-sizing: border-box; }
 
         .continue-btn-rect {
             background: var(--accent); color: var(--mocha-bg);
-            border: none; padding: 20px; border-radius: 18px;
+            border: none; padding: 22px; border-radius: 18px;
             font-weight: 800; font-size: 1.1rem; width: 100%;
             text-transform: uppercase; cursor: pointer;
             box-shadow: 0 5px 0 #2D1F18;
@@ -157,7 +160,6 @@
                 }, 3000);
             }
 
-            // --- INTRO 1 (Lumi bottom-left of button, text right and upper) ---
             else if (state.view === 'intro1') {
                 html = `
                 <div class="intro-container">
@@ -171,7 +173,6 @@
                 </div>`;
             }
 
-            // --- INTRO 2 ---
             else if (state.view === 'intro2') {
                 html = `
                 <div class="intro-container">
@@ -185,7 +186,6 @@
                 </div>`;
             }
 
-            // --- NAME INPUT ---
             else if (state.view === 'name') {
                 html = `
                 <div class="streak-layout">
@@ -201,7 +201,6 @@
                 </div>`;
             }
 
-            // --- DREAM INPUT ---
             else if (state.view === 'dream') {
                 html = `
                 <div class="streak-layout">
@@ -217,7 +216,6 @@
                 </div>`;
             }
 
-            // --- FINAL SANCTUARY ---
             else {
                 html = `
                 <div class="streak-layout">
