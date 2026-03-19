@@ -88,7 +88,7 @@
         .lumi-center {
             position: relative;
             width: 100%;
-            height: 200px;
+            height: 220px;
             margin-bottom: 20px;
         }
 
@@ -101,7 +101,7 @@
             filter: drop-shadow(0 6px 16px rgba(0,0,0,0.35));
         }
 
-        /* Single line bubble (part 1) */
+        /* Part 1 — single line bubble */
         .speech-bubble {
             position: absolute;
             bottom: 90px;
@@ -125,23 +125,25 @@
             border-right-color: #F5F0E8;
         }
 
-        /* Two line bubble (part 2) */
+        /* Part 2 — two sentence bubble, higher than Lumi */
         .speech-bubble-wide {
             position: absolute;
-            bottom: 80px;
-            left: 150px;
-            right: -10px;
+            top: 0;           /* sits at the top of lumi-center, well above Lumi */
+            left: 140px;
+            right: 0px;
             background-color: #F5F0E8;
             border-radius: 20px;
             padding: 16px 18px;
-            font-size: 17px;
+            font-size: 15px;
             font-family: 'Times New Roman', serif;
             color: #3C2A21;
             font-weight: bold;
             animation: slideUp 0.5s ease 0.2s both;
             box-shadow: 0 4px 16px rgba(0,0,0,0.3);
             white-space: normal;
-            line-height: 1.5;
+            line-height: 1.7;
+            word-break: normal;
+            overflow-wrap: break-word;
         }
         .speech-bubble-wide::after {
             content: '';
@@ -229,6 +231,11 @@
             }
         }
 
+        function goToIntro2() {
+            state.currentView = 'lumi_intro2';
+            render();
+        }
+
         function goToName() {
             state.currentView = 'name';
             render();
@@ -271,8 +278,7 @@
                                     src="default.png"
                                     onerror="this.src='https://cdn-icons-png.flaticon.com/512/4712/4712109.png'">
                                 <div class="speech-bubble-wide">
-                                    I'm here to help you focus.<br>
-                                    Remember — if you think it's yours,<br>then it's yours.
+                                    I'm here to help you focus. Remember — if you think it's yours, then it's yours.
                                 </div>
                             </div>
                             <button class="lumi-continue-btn" onclick="goToName()">Continue</button>
@@ -337,16 +343,6 @@
                         </p>
                     </div>`;
             }
-        }
-
-        function goToIntro2() {
-            state.currentView = 'lumi_intro2';
-            render();
-        }
-
-        function goToName() {
-            state.currentView = 'name';
-            render();
         }
 
         render();
