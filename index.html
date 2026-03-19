@@ -19,25 +19,36 @@
             background-color: var(--mocha-bg);
             color: var(--text-color);
             font-family: 'Times New Roman', serif;
+            display: flex; flex-direction: column; align-items: center;
             overflow: hidden;
-            display: flex; justify-content: center; align-items: center;
         }
 
-        #app { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        #app {
+            display: flex; flex-direction: column;
+            width: 100%; height: 100%; max-width: 400px;
+            padding: 50px 25px; box-sizing: border-box;
+            justify-content: space-between;
+        }
 
-        /* THE PERSIST SCREEN YOU WANTED BACK */
+        /* PERSIST SCREEN ANIMATION */
+        .persist-screen {
+            height: 100vh; width: 100vw; display: flex; 
+            justify-content: center; align-items: center;
+            background-color: var(--mocha-bg);
+            position: fixed; top: 0; left: 0; z-index: 1000;
+        }
         .persist-title {
             font-size: 50px; text-transform: uppercase; font-weight: 500;
-            text-align: center; width: 100%; letter-spacing: 2px;
-            animation: breathe 3s ease-in-out forwards;
+            letter-spacing: 2px; animation: breathe 3s ease-in-out forwards;
         }
         @keyframes breathe { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
 
-        /* INPUT & TOP LAYOUT (Gentler Streak style) */
-        .top-content { width: 100%; text-align: left; padding: 50px 25px; box-sizing: border-box; position: absolute; top: 0; }
+        /* GENTLER STREAK LAYOUT (Top Content) */
+        .top-content { width: 100%; text-align: left; }
         .main-greeting { font-size: 34px; font-weight: bold; margin: 0 0 10px 0; }
         .sub-greeting { font-size: 18px; opacity: 0.8; margin: 0 0 35px 0; font-family: sans-serif; }
 
+        /* INPUT GROUP WITH ARROW */
         .input-group { position: relative; width: 100%; }
         input {
             width: 100%; padding: 18px; padding-right: 60px;
@@ -47,7 +58,6 @@
             font-size: 22px; font-weight: bold;
             box-sizing: border-box; outline: none;
         }
-
         .btn-go {
             position: absolute; right: 8px; top: 50%;
             transform: translateY(-50%);
@@ -57,13 +67,16 @@
             justify-content: center; font-size: 20px; font-weight: bold;
         }
 
-        /* LUMI INTRO STYLING */
-        .lumi-container { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; padding: 25px; box-sizing: border-box; }
+        /* LUMI BUBBLE (For Intro Only) */
+        .lumi-intro-box {
+            display: flex; flex-direction: column; align-items: flex-start;
+            margin-top: 20px;
+        }
         .lumi-bubble {
             background: var(--bubble-bg); color: var(--bubble-text);
             padding: 20px; border-radius: 25px; font-family: sans-serif;
-            text-align: center; margin-bottom: 30px; position: relative; width: 200px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            text-align: left; position: relative; width: 85%;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2); margin-bottom: 30px;
         }
         .lumi-bubble::after {
             content: ''; position: absolute; bottom: -10px; left: 20px;
@@ -71,7 +84,11 @@
             border-top: 10px solid var(--bubble-bg);
         }
 
-        .bottom-area { position: absolute; bottom: 40px; width: 100%; display: flex; flex-direction: column; align-items: center; }
+        /* BOTTOM AREA (Mascot) */
+        .bottom-area {
+            width: 100%; display: flex; flex-direction: column;
+            align-items: center; margin-bottom: 40px;
+        }
         .mascot-circle {
             width: 130px; height: 130px; border-radius: 50%;
             background-color: rgba(255, 255, 255, 0.05);
@@ -80,26 +97,26 @@
         }
         .mascot-circle img { width: 80%; height: 80%; object-fit: contain; }
 
-        .duo-btn {
+        .continue-btn-wide {
             background: var(--accent); color: var(--mocha-bg);
             border: none; padding: 20px; border-radius: 20px;
-            font-weight: bold; width: 85%; max-width: 320px; text-transform: uppercase; cursor: pointer;
-            position: absolute; bottom: 40px;
+            font-weight: 800; width: 100%; text-transform: uppercase;
+            cursor: pointer; margin-top: 20px;
         }
 
-        .reset-btn { position: fixed; top: 10px; right: 10px; background: none; border: none; color: gray; font-size: 10px; cursor: pointer; z-index: 100; }
+        .reset-btn { position: fixed; bottom: 10px; left: 10px; background: none; border: none; color: gray; font-size: 10px; cursor: pointer; z-index: 100; }
     </style>
 </head>
 <body>
 
-    <button class="reset-btn" onclick="resetApp()">RESET</button>
+    <button class="reset-btn" onclick="resetApp()">RESET SYSTEM</button>
     <div id="app"></div>
 
     <script>
         let state = {
             name: localStorage.getItem('lumi_name') || '',
             dream: localStorage.getItem('lumi_dream') || '',
-            step: 'persist'
+            view: 'persist'
         };
 
         function resetApp() {
@@ -112,7 +129,7 @@
             if (val.trim()) {
                 state.name = val.trim();
                 localStorage.setItem('lumi_name', state.name);
-                state.step = 'dream'; 
+                state.view = 'dream'; 
                 render();
             }
         }
@@ -122,7 +139,7 @@
             if (val.trim()) {
                 state.dream = val.trim();
                 localStorage.setItem('lumi_dream', state.dream);
-                state.step = 'sanctuary';
+                state.view = 'sanctuary';
                 render();
             }
         }
@@ -131,44 +148,51 @@
             const app = document.getElementById('app');
             let html = '';
 
-            // 1. PERSIST SCREEN (Always first on refresh)
-            if (state.step === 'persist') {
-                html = `<h1 class="persist-title">PERSIST</h1>`;
+            // 1. PERSIST (Initial breathing screen)
+            if (state.view === 'persist') {
+                html = `<div class="persist-screen"><h1 class="persist-title">PERSIST</h1></div>`;
                 setTimeout(() => {
-                    // AFTER PERSIST: CHECK IF NAME EXISTS
                     if (!state.name) {
-                        state.step = 'intro1'; // Lumi must greet if no name
+                        state.view = 'intro1';
                     } else if (!state.dream) {
-                        state.step = 'dream';  // Name exists, ask for dream
+                        state.view = 'dream';
                     } else {
-                        state.step = 'sanctuary'; // Both exist
+                        state.view = 'sanctuary';
                     }
                     render();
                 }, 3000);
             }
 
             // 2. LUMI INTRO 1
-            else if (state.step === 'intro1') {
+            else if (state.view === 'intro1') {
                 html = `
-                <div class="lumi-container">
-                    <div class="lumi-bubble">Hey, I'm Lumi!</div>
+                <div class="top-content">
+                    <div class="lumi-intro-box">
+                        <div class="lumi-bubble">Hey, I'm Lumi!</div>
+                    </div>
+                    <button class="continue-btn-wide" onclick="state.view='intro2'; render();">Continue</button>
+                </div>
+                <div class="bottom-area">
                     <div class="mascot-circle"><img src="waving.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'"></div>
-                    <button class="duo-btn" onclick="state.step='intro2'; render();">Continue</button>
                 </div>`;
             }
 
             // 3. LUMI INTRO 2
-            else if (state.step === 'intro2') {
+            else if (state.view === 'intro2') {
                 html = `
-                <div class="lumi-container">
-                    <div class="lumi-bubble">I'm here to help you focus. Since you think it's yours, it's yours.</div>
+                <div class="top-content">
+                    <div class="lumi-intro-box">
+                        <div class="lumi-bubble">I'm here to help you focus. Since you think it's yours, it's yours.</div>
+                    </div>
+                    <button class="continue-btn-wide" onclick="state.view='name'; render();">Continue</button>
+                </div>
+                <div class="bottom-area">
                     <div class="mascot-circle"><img src="mascot.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'"></div>
-                    <button class="duo-btn" onclick="state.step='name'; render();">Continue</button>
                 </div>`;
             }
 
             // 4. NAME INPUT (Gentler Streak Layout)
-            else if (state.step === 'name') {
+            else if (state.view === 'name') {
                 html = `
                 <div class="top-content">
                     <h1 class="main-greeting">Assalamu Alaikum!</h1>
@@ -183,8 +207,8 @@
                 </div>`;
             }
 
-            // 5. DREAM INPUT (The next onboarding question)
-            else if (state.step === 'dream') {
+            // 5. DREAM INPUT (The "Next Question")
+            else if (state.view === 'dream') {
                 html = `
                 <div class="top-content">
                     <h1 class="main-greeting">Welcome, ${state.name}.</h1>
