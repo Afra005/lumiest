@@ -147,3 +147,88 @@
                     render(); 
                 }, 3000);
             }
+// This is where your code was cut off at line 149
+        updateStep('dream'); 
+    }
+}
+
+function saveDream() {
+    const v = document.getElementById('dreamIn').value;
+    if (v && v.trim()) { 
+        state.dream = v.trim(); 
+        localStorage.setItem('lumi_dream', state.dream); 
+        updateStep('sanctuary'); 
+    }
+}
+
+function resetJourney() { 
+    localStorage.clear(); 
+    window.location.href = window.location.pathname;
+}
+
+function render() {
+    const app = document.getElementById('app');
+    if (!app) return;
+
+    let html = '';
+
+    if (state.step === 'persist') {
+        html = `<h1 class="persist-title">PERSIST</h1>`;
+        if (window.lumiTimer) clearTimeout(window.lumiTimer);
+        window.lumiTimer = setTimeout(() => { 
+            state.step = state.nextStep; 
+            render(); 
+        }, 3000);
+    } 
+    else if (state.step === 'intro1') {
+        html = `<div class="duo-intro-container">
+                    <div class="lumi-chat-wrapper">
+                        <div class="lumi-stand"><img src="waving.png" onerror="this.src='default.png'"></div>
+                        <div class="lumi-bubble">Hey, I'm Lumi!</div>
+                    </div>
+                    <button class="duo-btn" onclick="updateStep('intro2')">Continue</button>
+                </div>`;
+    } 
+    else if (state.step === 'intro2') {
+        html = `<div class="duo-intro-container">
+                    <div class="lumi-chat-wrapper">
+                        <div class="lumi-stand"><img src="default.png"></div>
+                        <div class="lumi-bubble" style="font-size: 0.95rem;">I'm here to help you focus. Since you think it's yours, it's yours.</div>
+                    </div>
+                    <button class="duo-btn" onclick="updateStep('name')">Continue</button>
+                </div>`;
+    } 
+    else if (state.step === 'name') {
+        html = `<div class="container">
+                    <div class="mascot-circle"><img src="default.png"></div>
+                    <h2 style="font-family:'Times New Roman'">Assalamu Alaikum!</h2>
+                    <p>What should I call you?</p>
+                    <input type="text" id="nameIn" placeholder="Your name..." autocomplete="off">
+                    <button class="duo-btn" style="position:static; width:100%; opacity:1; animation:none;" onclick="saveName()">Continue</button>
+                </div>`;
+    } 
+    else if (state.step === 'dream') {
+        html = `<div class="container">
+                    <div class="mascot-circle"><img src="typing.png"></div>
+                    <h2 style="font-family:'Times New Roman'">Welcome, ${state.name}.</h2>
+                    <p>What is already yours?</p>
+                    <input type="text" id="dreamIn" placeholder="e.g. Marrying Alif" autocomplete="off">
+                    <button class="duo-btn" style="position:static; width:100%; opacity:1; animation:none;" onclick="saveDream()">It's Mine</button>
+                </div>`;
+    } 
+    else {
+        html = `<div class="container">
+                    <div class="mascot-circle"><img src="success.png"></div>
+                    <h2 style="font-family:'Times New Roman'">It is yours.</h2>
+                    <p style="font-size: 1.4rem; color: var(--accent); font-style: italic;">"${state.dream}"</p>
+                    <hr style="opacity: 0.1; margin: 20px 0;">
+                    <p style="font-size: 0.85rem; opacity: 0.8;">Don't focus on it not happening.<br>Focus only on it <b>happening</b>.</p>
+                </div>`;
+    }
+    app.innerHTML = html;
+}
+
+init();
+</script>
+</body>
+</html>
