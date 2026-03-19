@@ -89,29 +89,29 @@
         .lumi-center {
             position: relative;
             width: 100%;
-            height: 170px;
-            margin-bottom: 16px;
+            height: 200px;
+            margin-bottom: 20px;
         }
 
-        /* Lumi — bottom-left */
+        /* Lumi — bigger, bottom-left */
         .lumi-mascot-img {
             position: absolute;
             bottom: 0; left: 0;
-            width: 140px; height: 140px;
+            width: 180px; height: 180px;
             object-fit: contain;
             animation: lumiFloat 3s ease-in-out infinite, slideUp 0.5s ease 0.1s both;
-            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+            filter: drop-shadow(0 6px 16px rgba(0,0,0,0.35));
         }
 
         /* Bubble — higher up, right of Lumi */
         .speech-bubble {
             position: absolute;
-            bottom: 70px;
-            left: 135px;
+            bottom: 90px;
+            left: 160px;
             background-color: #F5F0E8;
             border-radius: 20px;
-            padding: 16px 22px;
-            font-size: 22px;
+            padding: 14px 20px;
+            font-size: 20px;
             font-family: 'Times New Roman', serif;
             color: #3C2A21;
             font-weight: bold;
@@ -122,29 +122,31 @@
         .speech-bubble::after {
             content: '';
             position: absolute;
-            left: -13px; bottom: 18px;
+            left: -13px; bottom: 16px;
             border: 7px solid transparent;
             border-right-color: #F5F0E8;
         }
 
-        /* Button */
+        /* Smaller, subtler button */
         .lumi-continue-btn {
-            width: 100%;
+            width: 70%;
+            margin: 0 auto;
+            display: block;
             background-color: var(--accent);
             color: var(--mocha-darker);
-            border: none; border-radius: 16px;
-            padding: 22px 0;
-            font-size: 16px; font-weight: bold;
+            border: none; border-radius: 14px;
+            padding: 14px 0;
+            font-size: 13px; font-weight: bold;
             letter-spacing: 3px; text-transform: uppercase;
             cursor: pointer;
             font-family: 'Times New Roman', serif;
             animation: slideUp 0.5s ease 0.35s both;
-            box-shadow: 0 5px 0 #a87a50;
+            box-shadow: 0 4px 0 #a87a50;
             transition: transform 0.1s, box-shadow 0.1s;
-            display: block;
+            opacity: 0.9;
         }
         .lumi-continue-btn:active {
-            transform: translateY(4px);
+            transform: translateY(3px);
             box-shadow: 0 1px 0 #a87a50;
         }
 
@@ -157,7 +159,7 @@
         }
         @keyframes lumiFloat {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-12px); }
+            50% { transform: translateY(-14px); }
         }
 
         .reset-btn {
