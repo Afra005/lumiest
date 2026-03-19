@@ -6,93 +6,41 @@
     <title>Lumiest Sanctuary</title>
     <style>
         :root {
-            /* EXACT COLORS FROM YOUR IMAGE 3 DESIGN */
             --mocha-bg: #3C2A21;
             --mocha-darker: #2D1F18;
             --text-color: #F5F5F0;
             --accent: #D4A373;
-            --bubble-bg: #FFFFFF;
-            --bubble-text: #3C2A21;
         }
 
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
             background-color: var(--mocha-bg);
             color: var(--text-color);
-            font-family: 'Segoe UI', Arial, sans-serif; /* Modern font match */
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            overflow: hidden;
-            box-sizing: border-box;
-        }
-
-        #app { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
-
-        /* PERSIST SCREEN ANIMATION */
-        .persist-screen {
-            height: 100vh; width: 100vw; display: flex; 
-            justify-content: center; align-items: center;
-            background-color: var(--mocha-bg);
-            position: fixed; top: 0; left: 0; z-index: 1000;
-        }
-        .persist-title {
-            font-size: 50px; text-transform: uppercase; font-weight: 500;
-            letter-spacing: 2px; animation: breathe 3s ease-in-out forwards;
             font-family: 'Times New Roman', serif;
-        }
-        @keyframes breathe { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
-
-        /* EXACT LUMI INTRO DESIGN (Image 3) */
-        .lumi-container {
             display: flex; flex-direction: column; align-items: center;
-            justify-content: center; width: 100%; height: 100%;
-            position: relative;
+            overflow: hidden;
         }
 
-        .lumi-intro-top {
-            display: flex; flex-direction: column; align-items: center;
-            position: absolute; top: 10%; /* Specific positioning match */
-            width: 100%;
+        #app {
+            display: flex; flex-direction: column;
+            width: 100%; height: 100%; max-width: 400px;
+            padding: 50px 25px; box-sizing: border-box;
+            justify-content: space-between;
         }
 
-        .lumi-bubble {
-            background: var(--bubble-bg); color: var(--bubble-text);
-            padding: 20px 30px; border-radius: 40px;
-            font-weight: bold; font-size: 1.2rem;
-            text-align: center; position: relative; margin-bottom: 30px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-        .lumi-bubble::after {
-            content: ''; position: absolute; bottom: -10px; left: 20px;
-            border-left: 10px solid transparent; border-right: 10px solid transparent;
-            border-top: 10px solid var(--bubble-bg);
-        }
-
-        .duo-btn-image3 {
-            background: var(--accent); color: var(--mocha-bg);
-            border: none; padding: 20px 30px; border-radius: 20px;
-            font-weight: 800; font-size: 1.1rem; width: 80%; text-transform: uppercase;
-            cursor: pointer; position: relative; /* Inside the top flow */
-        }
-
-        .mascot-circle-image3 {
-            width: 130px; height: 130px; border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 2px solid var(--accent);
-            display: flex; justify-content: center; align-items: center;
-            position: absolute; bottom: 10%; /* Specific positioning match */
-        }
-        .mascot-circle-image3 img { width: 80%; height: 80%; object-fit: contain; }
-
-        /* GENTLER STREAK LAYOUT (For Inputs) */
-        .top-content { width: 100%; text-align: left; padding: 50px 25px; box-sizing: border-box; }
+        /* Top Section */
+        .top-content { width: 100%; text-align: left; }
         .main-greeting { font-size: 34px; font-weight: bold; margin: 0 0 10px 0; }
         .sub-greeting { font-size: 18px; opacity: 0.8; margin: 0 0 35px 0; font-family: sans-serif; }
+
+        /* Input Bar */
         .input-group { position: relative; width: 100%; }
         input {
             width: 100%; padding: 18px; padding-right: 60px;
             border-radius: 18px; border: none;
             background-color: var(--mocha-darker);
-            color: var(--text-color); font-size: 22px; font-weight: bold;
+            color: var(--text-color);
+            font-size: 22px; font-weight: bold;
             box-sizing: border-box; outline: none;
         }
         .btn-go {
@@ -103,16 +51,96 @@
             cursor: pointer; display: flex; align-items: center;
             justify-content: center; font-size: 20px; font-weight: bold;
         }
-        .bottom-area { width: 100%; display: flex; justify-content: center; position: absolute; bottom: 10%; }
+
+        /* Bottom / Mascot */
+        .bottom-area {
+            width: 100%; display: flex; flex-direction: column;
+            align-items: center; margin-bottom: 40px;
+        }
+        .mascot-circle {
+            width: 130px; height: 130px; border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--accent);
+            display: flex; justify-content: center; align-items: center;
+        }
+        .mascot-circle img { width: 80%; height: 80%; object-fit: contain; }
+
+        /* PERSIST screen */
+        .persist-screen {
+            height: 100%; width: 100%; display: flex;
+            justify-content: center; align-items: center;
+            font-size: 40px; letter-spacing: 4px;
+        }
+
+        /* LUMI INTRO screen */
+        .lumi-intro-screen {
+            height: 100%; width: 100%;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            gap: 28px;
+            animation: fadeIn 0.6s ease;
+        }
+        .lumi-intro-screen .mascot-circle {
+            width: 150px; height: 150px;
+            border-width: 2px;
+            animation: lumiPulse 2s ease-in-out infinite;
+        }
+        .lumi-intro-screen .mascot-circle img {
+            width: 80%; height: 80%; object-fit: contain;
+        }
+        .lumi-intro-text {
+            text-align: center;
+            animation: slideUp 0.7s ease 0.2s both;
+        }
+        .lumi-intro-text h2 {
+            font-size: 28px; margin: 0 0 10px 0;
+        }
+        .lumi-intro-text p {
+            font-size: 16px; opacity: 0.7;
+            font-family: sans-serif; margin: 0;
+        }
+        .lumi-intro-btn {
+            background-color: var(--accent);
+            color: var(--mocha-darker);
+            border: none; border-radius: 14px;
+            padding: 16px 40px;
+            font-size: 18px; font-weight: bold;
+            cursor: pointer;
+            font-family: 'Times New Roman', serif;
+            animation: slideUp 0.7s ease 0.4s both;
+            letter-spacing: 1px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; } to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes lumiPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(212, 163, 115, 0.3); }
+            50%       { box-shadow: 0 0 0 14px rgba(212, 163, 115, 0); }
+        }
+
+        .reset-btn {
+            position: fixed; bottom: 10px; left: 10px;
+            background: none; border: none; color: gray;
+            font-size: 10px; cursor: pointer; z-index: 100;
+        }
     </style>
 </head>
 <body>
+
+    <button class="reset-btn" onclick="resetApp()">RESET DATA</button>
     <div id="app"></div>
+
     <script>
         let state = {
-            name: localStorage.getItem('lumi_name') || '',
+            name:  localStorage.getItem('lumi_name')  || '',
             dream: localStorage.getItem('lumi_dream') || '',
-            view: 'persist'
+            currentView: 'persist'
         };
 
         function resetApp() {
@@ -125,7 +153,7 @@
             if (val.trim()) {
                 state.name = val.trim();
                 localStorage.setItem('lumi_name', state.name);
-                state.view = 'dream'; 
+                state.currentView = 'dream';
                 render();
             }
         }
@@ -135,106 +163,116 @@
             if (val.trim()) {
                 state.dream = val.trim();
                 localStorage.setItem('lumi_dream', state.dream);
-                state.view = 'sanctuary';
+                state.currentView = 'sanctuary';
                 render();
             }
         }
 
         function render() {
             const app = document.getElementById('app');
-            let html = '';
 
-            // 1. PERSIST SCREEN (Always first on refresh)
-            if (state.view === 'persist') {
-                html = `<div class="persist-screen"><h1 class="persist-title">PERSIST</h1></div>`;
+            // VIEW 1: PERSIST SCREEN
+            if (state.currentView === 'persist') {
+                app.innerHTML = `<div class="persist-screen">PERSIST</div>`;
                 setTimeout(() => {
+                    // After PERSIST, decide where to go
                     if (!state.name) {
-                        state.view = 'intro1';
+                        // New user — show Lumi intro first
+                        state.currentView = 'lumi_intro';
                     } else if (!state.dream) {
-                        state.view = 'dream';
+                        state.currentView = 'dream';
                     } else {
-                        state.view = 'sanctuary';
+                        state.currentView = 'sanctuary';
                     }
                     render();
-                }, 3000);
+                }, 2000);
             }
 
-            // 2. LUMI INTRO 1 (EXACT LAYOUT FROM IMAGE 3)
-            else if (state.view === 'intro1') {
-                html = `
-                <div class="lumi-container">
-                    <div class="lumi-intro-top">
-                        <div class="lumi-bubble">Hey, I'm Lumi!</div>
-                        <button class="duo-btn-image3" onclick="state.view='intro2'; render();">Continue</button>
-                    </div>
-                    <div class="mascot-circle-image3">
-                        <img src="waving.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'">
-                    </div>
-                </div>`;
+            // VIEW 2: LUMI INTRO (only shown when name not set yet)
+            else if (state.currentView === 'lumi_intro') {
+                app.innerHTML = `
+                    <div class="lumi-intro-screen">
+                        <div class="mascot-circle">
+                            <img src="mascot.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'">
+                        </div>
+                        <div class="lumi-intro-text">
+                            <h2>Hi, I'm Lumi ✨</h2>
+                            <p>Your personal sanctuary awaits.<br>Let's build it together.</p>
+                        </div>
+                        <button class="lumi-intro-btn" onclick="goToName()">Begin →</button>
+                    </div>`;
             }
 
-            // 3. LUMI INTRO 2 (EXACT LAYOUT FROM IMAGE 3)
-            else if (state.view === 'intro2') {
-                html = `
-                <div class="lumi-container">
-                    <div class="lumi-intro-top">
-                        <div class="lumi-bubble" style="font-size: 1.1rem; padding: 20px 25px;">I'm here to help you focus. Since you think it's yours, it's yours.</div>
-                        <button class="duo-btn-image3" onclick="state.view='name'; render();">Continue</button>
+            // VIEW 3: NAME ENTRY
+            else if (state.currentView === 'name') {
+                app.innerHTML = `
+                    <div class="top-content">
+                        <h1 class="main-greeting">Assalamu Alaikum!</h1>
+                        <p class="sub-greeting">What should I call you?</p>
+                        <div class="input-group">
+                            <input type="text" id="nameInput" placeholder="Name..." autocomplete="off">
+                            <button class="btn-go" onclick="saveName()">→</button>
+                        </div>
                     </div>
-                    <div class="mascot-circle-image3">
-                        <img src="mascot.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'">
-                    </div>
-                </div>`;
+                    <div class="bottom-area">
+                        <div class="mascot-circle">
+                            <img src="mascot.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'">
+                        </div>
+                    </div>`;
+
+                // Allow Enter key
+                setTimeout(() => {
+                    const input = document.getElementById('nameInput');
+                    if (input) input.addEventListener('keydown', e => { if (e.key === 'Enter') saveName(); });
+                }, 50);
             }
 
-            // 4. NAME INPUT (Gentler Streak Layout, previously edited)
-            else if (state.view === 'name') {
-                html = `
-                <div class="top-content">
-                    <h1 class="main-greeting" style="font-family:'Times New Roman'">Assalamu Alaikum!</h1>
-                    <p class="sub-greeting">What should I call you?</p>
-                    <div class="input-group">
-                        <input type="text" id="nameInput" placeholder="Name..." autocomplete="off">
-                        <button class="btn-go" onclick="saveName()">→</button>
+            // VIEW 4: DREAM ENTRY
+            else if (state.currentView === 'dream') {
+                app.innerHTML = `
+                    <div class="top-content">
+                        <h1 class="main-greeting">Welcome, ${state.name}.</h1>
+                        <p class="sub-greeting">What is already yours?</p>
+                        <div class="input-group">
+                            <input type="text" id="dreamInput" placeholder="Your dream..." autocomplete="off">
+                            <button class="btn-go" onclick="saveDream()">→</button>
+                        </div>
                     </div>
-                </div>
-                <div class="bottom-area">
-                    <div class="mascot-circle-image3"><img src="mascot.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'"></div>
-                </div>`;
+                    <div class="bottom-area">
+                        <div class="mascot-circle">
+                            <img src="typing.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'">
+                        </div>
+                    </div>`;
+
+                setTimeout(() => {
+                    const input = document.getElementById('dreamInput');
+                    if (input) input.addEventListener('keydown', e => { if (e.key === 'Enter') saveDream(); });
+                }, 50);
             }
 
-            // 5. DREAM INPUT (The "Next Question")
-            else if (state.view === 'dream') {
-                html = `
-                <div class="top-content">
-                    <h1 class="main-greeting" style="font-family:'Times New Roman'">Welcome, ${state.name}.</h1>
-                    <p class="sub-greeting">What is already yours?</p>
-                    <div class="input-group">
-                        <input type="text" id="dreamInput" placeholder="e.g. Marrying Alif" autocomplete="off">
-                        <button class="btn-go" onclick="saveDream()">→</button>
-                    </div>
-                </div>
-                <div class="bottom-area">
-                    <div class="mascot-circle-image3"><img src="typing.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'"></div>
-                </div>`;
-            }
-
-            // 6. SANCTUARY
+            // VIEW 5: SANCTUARY
             else {
-                html = `
-                <div class="top-content">
-                    <h1 class="main-greeting" style="font-style: italic; font-family:'Times New Roman'">It is yours.</h1>
-                    <p class="sub-greeting" style="color: var(--accent); font-weight: bold; font-size: 24px;">"${state.dream}"</p>
-                </div>
-                <div class="bottom-area">
-                    <div class="mascot-circle-image3" style="margin-bottom: 20px;">
-                        <img src="success.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'">
+                app.innerHTML = `
+                    <div class="top-content">
+                        <h1 class="main-greeting" style="font-style: italic;">It is yours.</h1>
+                        <p class="sub-greeting" style="color: var(--accent); font-weight: bold; font-size: 24px;">"${state.dream}"</p>
                     </div>
-                    <p style="text-align: center; opacity: 0.8; font-family: sans-serif;">Focus only on it <b>happening</b>.</p>
-                </div>`;
+                    <div class="bottom-area">
+                        <div class="mascot-circle" style="margin-bottom: 20px;">
+                            <img src="success.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'">
+                        </div>
+                        <p style="text-align: center; opacity: 0.8; font-family: sans-serif;">
+                            Focus only on it <b>happening</b>.
+                        </p>
+                    </div>`;
             }
-            app.innerHTML = html;
         }
+
+        function goToName() {
+            state.currentView = 'name';
+            render();
+        }
+
         render();
     </script>
 </body>
