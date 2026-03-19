@@ -58,8 +58,7 @@
             color: var(--text-color);
             font-size: 32px; font-weight: bold;
             font-family: 'Times New Roman', serif;
-            padding: 0; caret-color: var(--accent);
-            width: 100%;
+            padding: 0; caret-color: var(--accent); width: 100%;
         }
         .age-input-field::placeholder { color: rgba(245, 240, 232, 0.25); }
 
@@ -74,60 +73,43 @@
         .name-arrow-btn:active { background-color: rgba(245, 240, 232, 0.25); }
 
         .identity-options {
-            display: flex; flex-direction: column; gap: 14px;
-            margin-top: 10px;
+            display: flex; flex-direction: column; gap: 14px; margin-top: 10px;
         }
         .identity-option {
-            width: 100%; padding: 18px 22px;
-            border-radius: 16px;
+            width: 100%; padding: 18px 22px; border-radius: 16px;
             border: 2px solid rgba(212, 163, 115, 0.3);
             background: rgba(255,255,255,0.04);
             color: var(--text-color);
             font-size: 18px; font-weight: bold;
             font-family: 'Times New Roman', serif;
             cursor: pointer; text-align: left;
-            transition: all 0.2s;
-            box-sizing: border-box;
+            transition: all 0.2s; box-sizing: border-box;
         }
         .identity-option:hover, .identity-option:active {
-            background: rgba(212, 163, 115, 0.15);
-            border-color: var(--accent);
+            background: rgba(212, 163, 115, 0.15); border-color: var(--accent);
         }
         .identity-option.selected {
             background: rgba(212, 163, 115, 0.2);
-            border-color: var(--accent);
-            color: var(--accent);
+            border-color: var(--accent); color: var(--accent);
         }
 
         .q-next-btn {
-            width: 70%; margin: 30px auto 0 auto;
-            display: block;
-            background-color: var(--accent);
-            color: var(--mocha-darker);
-            border: none; border-radius: 14px;
-            padding: 14px 0;
-            font-size: 13px; font-weight: bold;
-            letter-spacing: 3px; text-transform: uppercase;
-            cursor: pointer;
+            width: 70%; margin: 30px auto 0 auto; display: block;
+            background-color: var(--accent); color: var(--mocha-darker);
+            border: none; border-radius: 14px; padding: 14px 0;
+            font-size: 13px; font-weight: bold; letter-spacing: 3px;
+            text-transform: uppercase; cursor: pointer;
             font-family: 'Times New Roman', serif;
             box-shadow: 0 4px 0 #a87a50;
             transition: transform 0.1s, box-shadow 0.1s, opacity 0.2s;
-            opacity: 0.3;
-            pointer-events: none;
+            opacity: 0.3; pointer-events: none;
         }
-        .q-next-btn.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-        .q-next-btn:active {
-            transform: translateY(3px);
-            box-shadow: 0 1px 0 #a87a50;
-        }
+        .q-next-btn.active { opacity: 1; pointer-events: all; }
+        .q-next-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #a87a50; }
 
         .name-bottom {
             width: 100%; display: flex;
-            justify-content: center; align-items: flex-end;
-            margin-bottom: 20px;
+            justify-content: center; align-items: flex-end; margin-bottom: 20px;
         }
         .name-mascot {
             width: 160px; height: 160px; object-fit: contain;
@@ -136,18 +118,93 @@
         }
 
         /* DREAM PAGE */
+        .dream-page {
+            width: 100%; height: 100%;
+            display: flex; flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .dream-top { width: 100%; }
+
+        /* Mascot small at top center */
+        .dream-mascot-top {
+            width: 70px; height: 70px; object-fit: contain;
+            display: block; margin: 0 auto 18px auto;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+            animation: lumiFloat 3s ease-in-out infinite;
+        }
+
+        /* Card style container */
+        .dream-card {
+            background-color: var(--mocha-darker);
+            border-radius: 24px;
+            padding: 28px 24px;
+            width: 100%; box-sizing: border-box;
+        }
+
+        .dream-title {
+            font-size: 22px; font-weight: bold;
+            font-style: italic; line-height: 1.4;
+            text-align: center; margin: 0 0 8px 0;
+        }
+
+        .dream-hint {
+            font-size: 13px; opacity: 0.55;
+            font-family: sans-serif; text-align: center;
+            margin: 0 0 24px 0; line-height: 1.5;
+        }
+
+        /* Dream input — bare, inside card */
+        .dream-input-field {
+            width: 100%; background: none; border: none;
+            border-bottom: 1px solid rgba(245,240,232,0.2);
+            outline: none; color: var(--text-color);
+            font-size: 17px; font-family: 'Times New Roman', serif;
+            font-style: italic; padding: 10px 0;
+            box-sizing: border-box; caret-color: var(--accent);
+            resize: none;
+        }
+        .dream-input-field::placeholder {
+            color: rgba(245,240,232,0.3);
+            font-style: italic;
+        }
+
+        /* Continue + skip row */
+        .dream-btn-row {
+            display: flex; flex-direction: column;
+            align-items: center; gap: 12px; margin-top: 24px;
+        }
+
+        .dream-continue-btn {
+            width: 100%; background-color: var(--accent);
+            color: var(--mocha-darker);
+            border: none; border-radius: 14px; padding: 16px 0;
+            font-size: 15px; font-weight: bold; letter-spacing: 2px;
+            text-transform: uppercase; cursor: pointer;
+            font-family: 'Times New Roman', serif;
+            box-shadow: 0 4px 0 #a87a50;
+            transition: transform 0.1s, box-shadow 0.1s;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .dream-continue-btn:active {
+            transform: translateY(3px); box-shadow: 0 1px 0 #a87a50;
+        }
+
+        .dream-skip-btn {
+            background: none; border: none;
+            color: rgba(245,240,232,0.4);
+            font-size: 13px; font-family: sans-serif;
+            cursor: pointer; padding: 4px 0;
+            text-decoration: underline;
+            transition: opacity 0.2s;
+        }
+        .dream-skip-btn:active { opacity: 0.6; }
+
+        /* OTHER PAGES */
         .top-content { width: 100%; text-align: left; }
         .main-greeting { font-size: 34px; font-weight: bold; margin: 0 0 10px 0; }
         .sub-greeting { font-size: 18px; opacity: 0.8; margin: 0 0 35px 0; font-family: sans-serif; }
         .input-group { position: relative; width: 100%; }
-        input.dream-input {
-            width: 100%; padding: 18px; padding-right: 60px;
-            border-radius: 18px; border: none;
-            background-color: var(--mocha-darker);
-            color: var(--text-color);
-            font-size: 22px; font-weight: bold;
-            box-sizing: border-box; outline: none;
-        }
         .btn-go {
             position: absolute; right: 8px; top: 50%;
             transform: translateY(-50%);
@@ -186,8 +243,7 @@
             padding: 0 10px; box-sizing: border-box;
         }
         .lumi-center {
-            position: relative; width: 100%;
-            height: 220px; margin-bottom: 20px;
+            position: relative; width: 100%; height: 220px; margin-bottom: 20px;
         }
         .lumi-mascot-img {
             position: absolute; bottom: 0; left: 0;
@@ -209,10 +265,8 @@
             animation: bubbleIn 0.4s ease 0.9s forwards;
         }
         .speech-bubble::after {
-            content: ''; position: absolute;
-            left: -13px; bottom: 16px;
-            border: 7px solid transparent;
-            border-right-color: #F5F0E8;
+            content: ''; position: absolute; left: -13px; bottom: 16px;
+            border: 7px solid transparent; border-right-color: #F5F0E8;
         }
         .speech-bubble-wide {
             position: absolute; bottom: 165px; left: 10px; right: 0;
@@ -226,10 +280,8 @@
             opacity: 0; animation: bubbleIn 0.4s ease 0.9s forwards;
         }
         .speech-bubble-wide::after {
-            content: ''; position: absolute;
-            bottom: -13px; left: 60px;
-            border: 7px solid transparent;
-            border-top-color: #F5F0E8;
+            content: ''; position: absolute; bottom: -13px; left: 60px;
+            border: 7px solid transparent; border-top-color: #F5F0E8;
         }
         .lumi-continue-btn {
             width: 70%; margin: 0 auto; display: block;
@@ -242,9 +294,7 @@
             transition: transform 0.1s, box-shadow 0.1s;
             opacity: 0; animation: bubbleIn 0.4s ease 1.4s forwards;
         }
-        .lumi-continue-btn:active {
-            transform: translateY(3px); box-shadow: 0 1px 0 #a87a50;
-        }
+        .lumi-continue-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #a87a50; }
 
         @keyframes mascotPop {
             0%   { opacity: 0; transform: scale(0.5) translateY(30px); }
@@ -255,9 +305,7 @@
             0%   { opacity: 0; transform: translateY(12px); }
             100% { opacity: 1; transform: translateY(0); }
         }
-        @keyframes fadeIn {
-            from { opacity: 0; } to { opacity: 1; }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes lumiFloat {
             0%, 100% { transform: translateY(0px); }
             50%       { transform: translateY(-14px); }
@@ -285,8 +333,6 @@
             currentView: 'persist'
         };
 
-        // Checks each onboarding step in order and returns
-        // the first incomplete step
         function getResumeView() {
             if (!state.name)     return 'lumi_intro1';
             if (!state.age)      return 'age';
@@ -322,9 +368,7 @@
 
         function selectIdentity(option) {
             state.selectedIdentity = option;
-            document.querySelectorAll('.identity-option').forEach(btn => {
-                btn.classList.remove('selected');
-            });
+            document.querySelectorAll('.identity-option').forEach(btn => btn.classList.remove('selected'));
             document.getElementById('opt-' + option).classList.add('selected');
             document.getElementById('identityNextBtn').classList.add('active');
         }
@@ -337,30 +381,27 @@
             render();
         }
 
-        function saveDream() {
-            const val = document.getElementById('dreamInput').value;
-            if (val.trim()) {
-                state.dream = val.trim();
+        function saveDream(skip) {
+            if (skip) {
+                // optional — save empty string as placeholder so we don't loop back
+                state.dream = 'skipped';
                 localStorage.setItem('lumi_dream', state.dream);
-                state.currentView = 'sanctuary';
-                render();
+            } else {
+                const val = document.getElementById('dreamInput').value;
+                const saved = val.trim() || 'skipped';
+                state.dream = saved;
+                localStorage.setItem('lumi_dream', state.dream);
             }
-        }
-
-        function goToIntro2() {
-            state.currentView = 'lumi_intro2';
+            state.currentView = 'sanctuary';
             render();
         }
 
-        function goToName() {
-            state.currentView = 'name';
-            render();
-        }
+        function goToIntro2() { state.currentView = 'lumi_intro2'; render(); }
+        function goToName()   { state.currentView = 'name';        render(); }
 
         function render() {
             const app = document.getElementById('app');
 
-            // PERSIST — always shows, then resumes at correct step
             if (state.currentView === 'persist') {
                 app.innerHTML = `<div class="persist-screen">PERSIST</div>`;
                 setTimeout(() => {
@@ -399,7 +440,6 @@
                     </div>`;
             }
 
-            // NAME
             else if (state.currentView === 'name') {
                 app.innerHTML = `
                     <div class="q-top">
@@ -407,8 +447,7 @@
                         <p class="q-sub">Enter the name you would like to go by.</p>
                         <div class="name-input-row">
                             <input type="text" id="nameInput" class="name-input-field"
-                                placeholder="Your name..." autocomplete="off"
-                                autocapitalize="words">
+                                placeholder="Your name..." autocomplete="off" autocapitalize="words">
                             <button class="name-arrow-btn" onclick="saveName()">→</button>
                         </div>
                     </div>
@@ -421,17 +460,13 @@
                     if (input) {
                         input.addEventListener('input', () => {
                             const val = input.value;
-                            if (val.length > 0)
-                                input.value = val.charAt(0).toUpperCase() + val.slice(1);
+                            if (val.length > 0) input.value = val.charAt(0).toUpperCase() + val.slice(1);
                         });
-                        input.addEventListener('keydown', e => {
-                            if (e.key === 'Enter') saveName();
-                        });
+                        input.addEventListener('keydown', e => { if (e.key === 'Enter') saveName(); });
                     }
                 }, 50);
             }
 
-            // AGE
             else if (state.currentView === 'age') {
                 app.innerHTML = `
                     <div class="q-top">
@@ -439,8 +474,7 @@
                         <p class="q-sub">Just your age — nothing else.</p>
                         <div class="name-input-row">
                             <input type="number" id="ageInput" class="age-input-field"
-                                placeholder="Age..." autocomplete="off"
-                                min="1" max="120">
+                                placeholder="Age..." autocomplete="off" min="1" max="120">
                             <button class="name-arrow-btn" onclick="saveAge()">→</button>
                         </div>
                     </div>
@@ -450,30 +484,19 @@
                     </div>`;
                 setTimeout(() => {
                     const input = document.getElementById('ageInput');
-                    if (input) {
-                        input.addEventListener('keydown', e => {
-                            if (e.key === 'Enter') saveAge();
-                        });
-                    }
+                    if (input) input.addEventListener('keydown', e => { if (e.key === 'Enter') saveAge(); });
                 }, 50);
             }
 
-            // IDENTITY
             else if (state.currentView === 'identity') {
                 app.innerHTML = `
                     <div class="q-top">
                         <h1 class="q-question">... and what's your identity?</h1>
                         <p class="q-sub">Choose what feels right to you.</p>
                         <div class="identity-options">
-                            <button class="identity-option" id="opt-Male" onclick="selectIdentity('Male')">
-                                👦 Male
-                            </button>
-                            <button class="identity-option" id="opt-Female" onclick="selectIdentity('Female')">
-                                👧 Female
-                            </button>
-                            <button class="identity-option" id="opt-Prefer not to say" onclick="selectIdentity('Prefer not to say')">
-                                🤍 Prefer not to say
-                            </button>
+                            <button class="identity-option" id="opt-Male" onclick="selectIdentity('Male')">👦 Male</button>
+                            <button class="identity-option" id="opt-Female" onclick="selectIdentity('Female')">👧 Female</button>
+                            <button class="identity-option" id="opt-Prefer not to say" onclick="selectIdentity('Prefer not to say')">🤍 Prefer not to say</button>
                         </div>
                         <button class="q-next-btn" id="identityNextBtn" onclick="saveIdentity()">Continue</button>
                     </div>
@@ -483,38 +506,39 @@
                     </div>`;
             }
 
-            // DREAM
+            // DREAM — redesigned
             else if (state.currentView === 'dream') {
                 app.innerHTML = `
-                    <div class="top-content">
-                        <h1 class="main-greeting">Welcome, ${state.name}.</h1>
-                        <p class="sub-greeting">What is already yours?</p>
-                        <div class="input-group">
-                            <input type="text" id="dreamInput" class="dream-input"
-                                placeholder="Your dream..." autocomplete="off">
-                            <button class="btn-go" onclick="saveDream()">→</button>
-                        </div>
-                    </div>
-                    <div class="bottom-area">
-                        <div class="mascot-circle">
-                            <img src="typing.png"
+                    <div class="dream-page">
+                        <div class="dream-top">
+                            <img class="dream-mascot-top" src="typing.png"
                                 onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'">
+                            <div class="dream-card">
+                                <p class="dream-title">Nice to meet you, ${state.name}.<br>What is one dream you'd like to focus on first?</p>
+                                <p class="dream-hint">Tell me as if it is already yours.</p>
+                                <input type="text" id="dreamInput" class="dream-input-field"
+                                    placeholder="I am living in my dream home, surrounded by peace..."
+                                    autocomplete="off">
+                                <div class="dream-btn-row">
+                                    <button class="dream-continue-btn" onclick="saveDream(false)">Continue →</button>
+                                    <button class="dream-skip-btn" onclick="saveDream(true)">skip for now</button>
+                                </div>
+                            </div>
                         </div>
                     </div>`;
                 setTimeout(() => {
                     const input = document.getElementById('dreamInput');
-                    if (input) input.addEventListener('keydown', e => {
-                        if (e.key === 'Enter') saveDream();
-                    });
+                    if (input) input.addEventListener('keydown', e => { if (e.key === 'Enter') saveDream(false); });
                 }, 50);
             }
 
             // SANCTUARY
             else {
+                const dreamText = state.dream === 'skipped' ? '' : `"${state.dream}"`;
                 app.innerHTML = `
                     <div class="top-content">
                         <h1 class="main-greeting" style="font-style: italic;">It is yours.</h1>
-                        <p class="sub-greeting" style="color: var(--accent); font-weight: bold; font-size: 24px;">"${state.dream}"</p>
+                        ${dreamText ? `<p class="sub-greeting" style="color: var(--accent); font-weight: bold; font-size: 24px;">${dreamText}</p>` : `<p class="sub-greeting">Your sanctuary is ready.</p>`}
                     </div>
                     <div class="bottom-area">
                         <div class="mascot-circle" style="margin-bottom: 20px;">
