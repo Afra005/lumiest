@@ -28,15 +28,11 @@
             justify-content: space-between;
         }
 
-        /* Top Section: Text and Input */
         .top-content { width: 100%; text-align: left; }
-
         .main-greeting { font-size: 34px; font-weight: bold; margin: 0 0 10px 0; }
         .sub-greeting { font-size: 18px; opacity: 0.8; margin: 0 0 35px 0; font-family: sans-serif; }
 
-        /* Modern Input Bar */
         .input-group { position: relative; width: 100%; }
-        
         input {
             width: 100%; padding: 18px; padding-right: 60px;
             border-radius: 18px; border: none;
@@ -46,7 +42,6 @@
             box-sizing: border-box; outline: none;
         }
 
-        /* The Arrow Button inside the input */
         .btn-go {
             position: absolute; right: 8px; top: 50%;
             transform: translateY(-50%);
@@ -56,7 +51,6 @@
             justify-content: center; font-size: 20px; font-weight: bold;
         }
 
-        /* Bottom Section: Mascot */
         .bottom-area {
             width: 100%; display: flex; flex-direction: column;
             align-items: center; margin-bottom: 40px;
@@ -90,12 +84,26 @@
     <div id="app"></div>
 
     <script>
-        // Use a simple state manager
+        // 1. GLOBAL STATE
         let state = {
             name: localStorage.getItem('lumi_name') || '',
             dream: localStorage.getItem('lumi_dream') || '',
             currentView: 'persist'
         };
+
+        // 2. CHECK STATUS ON LOAD
+        function checkStatus() {
+            if (!state.name) {
+                // User hasn't entered name? Lumi MUST appear.
+                state.currentView = 'name';
+            } else if (!state.dream) {
+                // Name exists but no dream? Go to dream screen.
+                state.currentView = 'dream';
+            } else {
+                // Everything is ready.
+                state.currentView = 'sanctuary';
+            }
+        }
 
         function resetApp() {
             localStorage.clear();
@@ -125,18 +133,16 @@
         function render() {
             const app = document.getElementById('app');
             
-            // VIEW 1: PERSIST SCREEN (Timer)
+            // SCREEN: PERSIST (Briefly show on refresh/start)
             if (state.currentView === 'persist') {
                 app.innerHTML = `<div class="persist-screen">PERSIST</div>`;
                 setTimeout(() => {
-                    if (!state.name) state.currentView = 'name';
-                    else if (!state.dream) state.currentView = 'dream';
-                    else state.currentView = 'sanctuary';
+                    checkStatus(); // Decide where to go after "PERSIST"
                     render();
-                }, 2000);
+                }, 1500);
             }
 
-            // VIEW 2: NAME ENTRY
+            // SCREEN: NAME ENTRY (Lumi appears here)
             else if (state.currentView === 'name') {
                 app.innerHTML = `
                     <div class="top-content">
@@ -154,7 +160,7 @@
                     </div>`;
             }
 
-            // VIEW 3: DREAM ENTRY
+            // SCREEN: DREAM ENTRY
             else if (state.currentView === 'dream') {
                 app.innerHTML = `
                     <div class="top-content">
@@ -172,7 +178,7 @@
                     </div>`;
             }
 
-            // VIEW 4: SANCTUARY
+            // SCREEN: SANCTUARY
             else {
                 app.innerHTML = `
                     <div class="top-content">
@@ -190,7 +196,7 @@
             }
         }
 
-        // Run the app immediately
+        // Start the application
         render();
     </script>
 </body>
