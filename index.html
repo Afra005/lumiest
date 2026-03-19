@@ -46,7 +46,6 @@
             line-height: 1.4;
         }
 
-        /* Big bare input like Gentler Streak */
         .name-input-row {
             display: flex;
             align-items: center;
@@ -88,7 +87,6 @@
             background-color: rgba(245, 240, 232, 0.25);
         }
 
-        /* Mascot at the bottom, no circle */
         .name-bottom {
             width: 100%;
             display: flex;
@@ -383,7 +381,8 @@
                         <p class="name-sub">Enter the name you would like to go by.</p>
                         <div class="name-input-row">
                             <input type="text" id="nameInput" class="name-input-field"
-                                placeholder="Your name..." autocomplete="off">
+                                placeholder="Your name..." autocomplete="off"
+                                autocapitalize="words">
                             <button class="name-arrow-btn" onclick="saveName()">→</button>
                         </div>
                     </div>
@@ -393,7 +392,18 @@
                     </div>`;
                 setTimeout(() => {
                     const input = document.getElementById('nameInput');
-                    if (input) input.addEventListener('keydown', e => { if (e.key === 'Enter') saveName(); });
+                    if (input) {
+                        // Auto-capitalize first letter as user types
+                        input.addEventListener('input', () => {
+                            const val = input.value;
+                            if (val.length > 0) {
+                                input.value = val.charAt(0).toUpperCase() + val.slice(1);
+                            }
+                        });
+                        input.addEventListener('keydown', e => {
+                            if (e.key === 'Enter') saveName();
+                        });
+                    }
                 }, 50);
             }
 
