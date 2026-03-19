@@ -92,7 +92,6 @@
             margin-bottom: 20px;
         }
 
-        /* Lumi appears first — short delay */
         .lumi-mascot-img {
             position: absolute;
             bottom: 0; left: 0;
@@ -105,7 +104,6 @@
                 lumiFloat 3s ease-in-out 0.7s infinite;
         }
 
-        /* Part 1 bubble — appears after Lumi */
         .speech-bubble {
             position: absolute;
             bottom: 90px;
@@ -130,7 +128,6 @@
             border-right-color: #F5F0E8;
         }
 
-        /* Part 2 bubble — appears after Lumi */
         .speech-bubble-wide {
             position: absolute;
             bottom: 165px;
@@ -159,7 +156,6 @@
             border-top-color: #F5F0E8;
         }
 
-        /* Continue button — appears last */
         .lumi-continue-btn {
             width: 70%;
             margin: 0 auto;
@@ -182,23 +178,18 @@
             box-shadow: 0 1px 0 #a87a50;
         }
 
-        /* Mascot pops in with a bounce */
         @keyframes mascotPop {
             0%   { opacity: 0; transform: scale(0.5) translateY(30px); }
             70%  { opacity: 1; transform: scale(1.08) translateY(-5px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
-
-        /* Bubble slides up and fades in */
         @keyframes bubbleIn {
             0%   { opacity: 0; transform: translateY(12px); }
             100% { opacity: 1; transform: translateY(0); }
         }
-
         @keyframes fadeIn {
             from { opacity: 0; } to { opacity: 1; }
         }
-
         @keyframes lumiFloat {
             0%, 100% { transform: translateY(0px); }
             50%       { transform: translateY(-14px); }
@@ -261,16 +252,23 @@
         function render() {
             const app = document.getElementById('app');
 
+            // PERSIST — always shows every time app opens
             if (state.currentView === 'persist') {
                 app.innerHTML = `<div class="persist-screen">PERSIST</div>`;
                 setTimeout(() => {
-                    if (!state.name) state.currentView = 'lumi_intro1';
-                    else if (!state.dream) state.currentView = 'dream';
-                    else state.currentView = 'sanctuary';
+                    // After PERSIST: show intro only if name not saved, else go straight to sanctuary
+                    if (!state.name) {
+                        state.currentView = 'lumi_intro1';
+                    } else if (!state.dream) {
+                        state.currentView = 'dream';
+                    } else {
+                        state.currentView = 'sanctuary';
+                    }
                     render();
                 }, 2000);
             }
 
+            // INTRO 1 — only for new users
             else if (state.currentView === 'lumi_intro1') {
                 app.innerHTML = `
                     <div class="lumi-intro-screen">
@@ -286,6 +284,7 @@
                     </div>`;
             }
 
+            // INTRO 2 — only for new users
             else if (state.currentView === 'lumi_intro2') {
                 app.innerHTML = `
                     <div class="lumi-intro-screen">
@@ -303,6 +302,7 @@
                     </div>`;
             }
 
+            // NAME ENTRY
             else if (state.currentView === 'name') {
                 app.innerHTML = `
                     <div class="top-content">
@@ -324,6 +324,7 @@
                 }, 50);
             }
 
+            // DREAM ENTRY
             else if (state.currentView === 'dream') {
                 app.innerHTML = `
                     <div class="top-content">
@@ -345,6 +346,7 @@
                 }, 50);
             }
 
+            // SANCTUARY
             else {
                 app.innerHTML = `
                     <div class="top-content">
