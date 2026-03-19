@@ -28,76 +28,114 @@
             justify-content: space-between;
         }
 
-        /* NAME PAGE */
-        .name-top { width: 100%; text-align: left; }
-
-        .name-question {
-            font-size: 32px;
-            font-weight: bold;
-            margin: 0 0 10px 0;
-            line-height: 1.2;
+        /* SHARED QUESTION PAGE STYLES */
+        .q-top { width: 100%; text-align: left; }
+        .q-question {
+            font-size: 32px; font-weight: bold;
+            margin: 0 0 10px 0; line-height: 1.2;
+        }
+        .q-sub {
+            font-size: 16px; opacity: 0.65;
+            margin: 0 0 40px 0; font-family: sans-serif; line-height: 1.4;
         }
 
-        .name-sub {
-            font-size: 16px;
-            opacity: 0.65;
-            margin: 0 0 40px 0;
-            font-family: sans-serif;
-            line-height: 1.4;
-        }
-
+        /* Bare input row */
         .name-input-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            display: flex; align-items: center; gap: 12px;
             border-bottom: 2px solid rgba(245, 240, 232, 0.25);
             padding-bottom: 10px;
         }
-
         .name-input-field {
-            flex: 1;
-            background: none;
-            border: none;
-            outline: none;
+            flex: 1; background: none; border: none; outline: none;
             color: var(--text-color);
-            font-size: 32px;
-            font-weight: bold;
+            font-size: 32px; font-weight: bold;
             font-family: 'Times New Roman', serif;
-            padding: 0;
-            caret-color: var(--accent);
+            padding: 0; caret-color: var(--accent);
         }
+        .name-input-field::placeholder { color: rgba(245, 240, 232, 0.25); }
 
-        .name-input-field::placeholder {
-            color: rgba(245, 240, 232, 0.25);
+        /* Age input — numbers only, same style */
+        .age-input-field {
+            flex: 1; background: none; border: none; outline: none;
+            color: var(--text-color);
+            font-size: 32px; font-weight: bold;
+            font-family: 'Times New Roman', serif;
+            padding: 0; caret-color: var(--accent);
+            width: 100%;
         }
+        .age-input-field::placeholder { color: rgba(245, 240, 232, 0.25); }
 
         .name-arrow-btn {
-            width: 52px; height: 52px;
-            border-radius: 50%;
+            width: 52px; height: 52px; border-radius: 50%;
             background-color: rgba(245, 240, 232, 0.12);
-            border: none;
-            color: var(--text-color);
-            font-size: 22px;
-            cursor: pointer;
+            border: none; color: var(--text-color);
+            font-size: 22px; cursor: pointer;
             display: flex; align-items: center; justify-content: center;
-            transition: background 0.2s;
-            flex-shrink: 0;
+            transition: background 0.2s; flex-shrink: 0;
         }
-        .name-arrow-btn:active {
-            background-color: rgba(245, 240, 232, 0.25);
+        .name-arrow-btn:active { background-color: rgba(245, 240, 232, 0.25); }
+
+        /* Identity options */
+        .identity-options {
+            display: flex; flex-direction: column; gap: 14px;
+            margin-top: 10px;
+        }
+        .identity-option {
+            width: 100%; padding: 18px 22px;
+            border-radius: 16px;
+            border: 2px solid rgba(212, 163, 115, 0.3);
+            background: rgba(255,255,255,0.04);
+            color: var(--text-color);
+            font-size: 18px; font-weight: bold;
+            font-family: 'Times New Roman', serif;
+            cursor: pointer; text-align: left;
+            transition: all 0.2s;
+            box-sizing: border-box;
+        }
+        .identity-option:hover, .identity-option:active {
+            background: rgba(212, 163, 115, 0.15);
+            border-color: var(--accent);
+        }
+        .identity-option.selected {
+            background: rgba(212, 163, 115, 0.2);
+            border-color: var(--accent);
+            color: var(--accent);
         }
 
+        /* Next button for identity page */
+        .q-next-btn {
+            width: 70%; margin: 30px auto 0 auto;
+            display: block;
+            background-color: var(--accent);
+            color: var(--mocha-darker);
+            border: none; border-radius: 14px;
+            padding: 14px 0;
+            font-size: 13px; font-weight: bold;
+            letter-spacing: 3px; text-transform: uppercase;
+            cursor: pointer;
+            font-family: 'Times New Roman', serif;
+            box-shadow: 0 4px 0 #a87a50;
+            transition: transform 0.1s, box-shadow 0.1s, opacity 0.2s;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        .q-next-btn.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .q-next-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 #a87a50;
+        }
+
+        /* Mascot bottom */
         .name-bottom {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
+            width: 100%; display: flex;
+            justify-content: center; align-items: flex-end;
             margin-bottom: 20px;
         }
-
         .name-mascot {
-            width: 160px; height: 160px;
-            object-fit: contain;
+            width: 160px; height: 160px; object-fit: contain;
             filter: drop-shadow(0 6px 16px rgba(0,0,0,0.3));
             animation: lumiFloat 3s ease-in-out infinite;
         }
@@ -106,7 +144,6 @@
         .top-content { width: 100%; text-align: left; }
         .main-greeting { font-size: 34px; font-weight: bold; margin: 0 0 10px 0; }
         .sub-greeting { font-size: 18px; opacity: 0.8; margin: 0 0 35px 0; font-family: sans-serif; }
-
         .input-group { position: relative; width: 100%; }
         input.dream-input {
             width: 100%; padding: 18px; padding-right: 60px;
@@ -125,7 +162,6 @@
             justify-content: center; font-size: 20px; font-weight: bold;
             color: var(--mocha-darker);
         }
-
         .bottom-area {
             width: 100%; display: flex; flex-direction: column;
             align-items: center; margin-bottom: 40px;
@@ -144,114 +180,75 @@
             font-size: 40px; letter-spacing: 4px;
         }
 
-        /* LUMI INTRO SHARED */
+        /* LUMI INTRO */
         .lumi-intro-screen {
             width: 100%; height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: flex; justify-content: center; align-items: center;
             animation: fadeIn 0.4s ease;
         }
-
         .lumi-intro-inner {
-            position: relative;
-            width: 100%;
-            max-width: 350px;
-            padding: 0 10px;
-            box-sizing: border-box;
+            position: relative; width: 100%; max-width: 350px;
+            padding: 0 10px; box-sizing: border-box;
         }
-
         .lumi-center {
-            position: relative;
-            width: 100%;
-            height: 220px;
-            margin-bottom: 20px;
+            position: relative; width: 100%;
+            height: 220px; margin-bottom: 20px;
         }
-
         .lumi-mascot-img {
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 180px; height: 180px;
-            object-fit: contain;
+            position: absolute; bottom: 0; left: 0;
+            width: 180px; height: 180px; object-fit: contain;
             filter: drop-shadow(0 6px 16px rgba(0,0,0,0.35));
             opacity: 0;
             animation:
                 mascotPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards,
                 lumiFloat 3s ease-in-out 0.7s infinite;
         }
-
         .speech-bubble {
-            position: absolute;
-            bottom: 90px;
-            left: 160px;
-            background-color: #F5F0E8;
-            border-radius: 20px;
-            padding: 14px 20px;
-            font-size: 20px;
+            position: absolute; bottom: 90px; left: 160px;
+            background-color: #F5F0E8; border-radius: 20px;
+            padding: 14px 20px; font-size: 20px;
             font-family: 'Times New Roman', serif;
-            color: #3C2A21;
-            font-weight: bold;
+            color: #3C2A21; font-weight: bold;
             box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-            white-space: nowrap;
-            opacity: 0;
+            white-space: nowrap; opacity: 0;
             animation: bubbleIn 0.4s ease 0.9s forwards;
         }
         .speech-bubble::after {
-            content: '';
-            position: absolute;
+            content: ''; position: absolute;
             left: -13px; bottom: 16px;
             border: 7px solid transparent;
             border-right-color: #F5F0E8;
         }
-
         .speech-bubble-wide {
-            position: absolute;
-            bottom: 165px;
-            left: 10px;
-            right: 0;
-            background-color: #F5F0E8;
-            border-radius: 20px;
-            padding: 16px 18px;
-            font-size: 15px;
+            position: absolute; bottom: 165px; left: 10px; right: 0;
+            background-color: #F5F0E8; border-radius: 20px;
+            padding: 16px 18px; font-size: 15px;
             font-family: 'Times New Roman', serif;
-            color: #3C2A21;
-            font-weight: bold;
+            color: #3C2A21; font-weight: bold;
             box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-            white-space: normal;
-            line-height: 1.7;
-            word-break: normal;
-            overflow-wrap: break-word;
-            opacity: 0;
-            animation: bubbleIn 0.4s ease 0.9s forwards;
+            white-space: normal; line-height: 1.7;
+            word-break: normal; overflow-wrap: break-word;
+            opacity: 0; animation: bubbleIn 0.4s ease 0.9s forwards;
         }
         .speech-bubble-wide::after {
-            content: '';
-            position: absolute;
+            content: ''; position: absolute;
             bottom: -13px; left: 60px;
             border: 7px solid transparent;
             border-top-color: #F5F0E8;
         }
-
         .lumi-continue-btn {
-            width: 70%;
-            margin: 0 auto;
-            display: block;
-            background-color: var(--accent);
-            color: var(--mocha-darker);
-            border: none; border-radius: 14px;
-            padding: 14px 0;
-            font-size: 13px; font-weight: bold;
-            letter-spacing: 3px; text-transform: uppercase;
-            cursor: pointer;
+            width: 70%; margin: 0 auto; display: block;
+            background-color: var(--accent); color: var(--mocha-darker);
+            border: none; border-radius: 14px; padding: 14px 0;
+            font-size: 13px; font-weight: bold; letter-spacing: 3px;
+            text-transform: uppercase; cursor: pointer;
             font-family: 'Times New Roman', serif;
             box-shadow: 0 4px 0 #a87a50;
             transition: transform 0.1s, box-shadow 0.1s;
-            opacity: 0;
-            animation: bubbleIn 0.4s ease 1.4s forwards;
+            opacity: 0; animation: bubbleIn 0.4s ease 1.4s forwards;
         }
         .lumi-continue-btn:active {
-            transform: translateY(3px);
-            box-shadow: 0 1px 0 #a87a50;
+            transform: translateY(3px); box-shadow: 0 1px 0 #a87a50;
         }
 
         @keyframes mascotPop {
@@ -285,8 +282,11 @@
 
     <script>
         let state = {
-            name:  localStorage.getItem('lumi_name')  || '',
-            dream: localStorage.getItem('lumi_dream') || '',
+            name:     localStorage.getItem('lumi_name')     || '',
+            age:      localStorage.getItem('lumi_age')      || '',
+            identity: localStorage.getItem('lumi_identity') || '',
+            dream:    localStorage.getItem('lumi_dream')    || '',
+            selectedIdentity: '',
             currentView: 'persist'
         };
 
@@ -300,9 +300,38 @@
             if (val.trim()) {
                 state.name = val.trim();
                 localStorage.setItem('lumi_name', state.name);
-                state.currentView = 'dream';
+                state.currentView = 'age';
                 render();
             }
+        }
+
+        function saveAge() {
+            const val = document.getElementById('ageInput').value;
+            if (val.trim() && !isNaN(val.trim())) {
+                state.age = val.trim();
+                localStorage.setItem('lumi_age', state.age);
+                state.currentView = 'identity';
+                render();
+            }
+        }
+
+        function selectIdentity(option) {
+            state.selectedIdentity = option;
+            // highlight selected
+            document.querySelectorAll('.identity-option').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            document.getElementById('opt-' + option).classList.add('selected');
+            // enable next button
+            document.getElementById('identityNextBtn').classList.add('active');
+        }
+
+        function saveIdentity() {
+            if (!state.selectedIdentity) return;
+            state.identity = state.selectedIdentity;
+            localStorage.setItem('lumi_identity', state.identity);
+            state.currentView = 'dream';
+            render();
         }
 
         function saveDream() {
@@ -333,6 +362,10 @@
                 setTimeout(() => {
                     if (!state.name) {
                         state.currentView = 'lumi_intro1';
+                    } else if (!state.age) {
+                        state.currentView = 'age';
+                    } else if (!state.identity) {
+                        state.currentView = 'identity';
                     } else if (!state.dream) {
                         state.currentView = 'dream';
                     } else {
@@ -347,8 +380,7 @@
                     <div class="lumi-intro-screen">
                         <div class="lumi-intro-inner">
                             <div class="lumi-center">
-                                <img class="lumi-mascot-img"
-                                    src="waving.png"
+                                <img class="lumi-mascot-img" src="waving.png"
                                     onerror="this.src='https://cdn-icons-png.flaticon.com/512/4712/4712109.png'">
                                 <div class="speech-bubble">Hey, I'm Lumi!</div>
                             </div>
@@ -362,8 +394,7 @@
                     <div class="lumi-intro-screen">
                         <div class="lumi-intro-inner">
                             <div class="lumi-center">
-                                <img class="lumi-mascot-img"
-                                    src="default.png"
+                                <img class="lumi-mascot-img" src="default.png"
                                     onerror="this.src='https://cdn-icons-png.flaticon.com/512/4712/4712109.png'">
                                 <div class="speech-bubble-wide">
                                     I'm here to help you focus. Remember — if you think it's yours, then it's yours.
@@ -374,11 +405,12 @@
                     </div>`;
             }
 
+            // NAME
             else if (state.currentView === 'name') {
                 app.innerHTML = `
-                    <div class="name-top">
-                        <h1 class="name-question">... and who are you?</h1>
-                        <p class="name-sub">Enter the name you would like to go by.</p>
+                    <div class="q-top">
+                        <h1 class="q-question">... and who are you?</h1>
+                        <p class="q-sub">Enter the name you would like to go by.</p>
                         <div class="name-input-row">
                             <input type="text" id="nameInput" class="name-input-field"
                                 placeholder="Your name..." autocomplete="off"
@@ -393,12 +425,10 @@
                 setTimeout(() => {
                     const input = document.getElementById('nameInput');
                     if (input) {
-                        // Auto-capitalize first letter as user types
                         input.addEventListener('input', () => {
                             const val = input.value;
-                            if (val.length > 0) {
+                            if (val.length > 0)
                                 input.value = val.charAt(0).toUpperCase() + val.slice(1);
-                            }
                         });
                         input.addEventListener('keydown', e => {
                             if (e.key === 'Enter') saveName();
@@ -407,6 +437,59 @@
                 }, 50);
             }
 
+            // AGE
+            else if (state.currentView === 'age') {
+                app.innerHTML = `
+                    <div class="q-top">
+                        <h1 class="q-question">... and how old are you?</h1>
+                        <p class="q-sub">Just your age — nothing else.</p>
+                        <div class="name-input-row">
+                            <input type="number" id="ageInput" class="age-input-field"
+                                placeholder="Age..." autocomplete="off"
+                                min="1" max="120">
+                            <button class="name-arrow-btn" onclick="saveAge()">→</button>
+                        </div>
+                    </div>
+                    <div class="name-bottom">
+                        <img class="name-mascot" src="default.png"
+                            onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'">
+                    </div>`;
+                setTimeout(() => {
+                    const input = document.getElementById('ageInput');
+                    if (input) {
+                        input.addEventListener('keydown', e => {
+                            if (e.key === 'Enter') saveAge();
+                        });
+                    }
+                }, 50);
+            }
+
+            // IDENTITY
+            else if (state.currentView === 'identity') {
+                app.innerHTML = `
+                    <div class="q-top">
+                        <h1 class="q-question">... and what's your identity?</h1>
+                        <p class="q-sub">Choose what feels right to you.</p>
+                        <div class="identity-options">
+                            <button class="identity-option" id="opt-Male" onclick="selectIdentity('Male')">
+                                👦 Male
+                            </button>
+                            <button class="identity-option" id="opt-Female" onclick="selectIdentity('Female')">
+                                👧 Female
+                            </button>
+                            <button class="identity-option" id="opt-Prefer not to say" onclick="selectIdentity('Prefer not to say')">
+                                🤍 Prefer not to say
+                            </button>
+                        </div>
+                        <button class="q-next-btn" id="identityNextBtn" onclick="saveIdentity()">Continue</button>
+                    </div>
+                    <div class="name-bottom">
+                        <img class="name-mascot" src="default.png"
+                            onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'">
+                    </div>`;
+            }
+
+            // DREAM
             else if (state.currentView === 'dream') {
                 app.innerHTML = `
                     <div class="top-content">
@@ -420,15 +503,19 @@
                     </div>
                     <div class="bottom-area">
                         <div class="mascot-circle">
-                            <img src="typing.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'">
+                            <img src="typing.png"
+                                onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'">
                         </div>
                     </div>`;
                 setTimeout(() => {
                     const input = document.getElementById('dreamInput');
-                    if (input) input.addEventListener('keydown', e => { if (e.key === 'Enter') saveDream(); });
+                    if (input) input.addEventListener('keydown', e => {
+                        if (e.key === 'Enter') saveDream();
+                    });
                 }, 50);
             }
 
+            // SANCTUARY
             else {
                 app.innerHTML = `
                     <div class="top-content">
@@ -437,7 +524,8 @@
                     </div>
                     <div class="bottom-area">
                         <div class="mascot-circle" style="margin-bottom: 20px;">
-                            <img src="success.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'">
+                            <img src="success.png"
+                                onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'">
                         </div>
                         <p style="text-align: center; opacity: 0.8; font-family: sans-serif;">
                             Focus only on it <b>happening</b>.
