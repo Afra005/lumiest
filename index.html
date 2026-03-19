@@ -125,12 +125,12 @@
             border-right-color: #F5F0E8;
         }
 
-        /* Part 2 — two sentence bubble, higher than Lumi */
+        /* Part 2 — bubble floats above Lumi, clearly separate */
         .speech-bubble-wide {
             position: absolute;
-            top: 0;           /* sits at the top of lumi-center, well above Lumi */
-            left: 140px;
-            right: 0px;
+            bottom: 195px; /* well above Lumi's head */
+            left: 10px;
+            right: 0;
             background-color: #F5F0E8;
             border-radius: 20px;
             padding: 16px 18px;
@@ -145,12 +145,13 @@
             word-break: normal;
             overflow-wrap: break-word;
         }
+        /* tail pointing down toward Lumi */
         .speech-bubble-wide::after {
             content: '';
             position: absolute;
-            left: -13px; bottom: 20px;
+            bottom: -13px; left: 60px;
             border: 7px solid transparent;
-            border-right-color: #F5F0E8;
+            border-top-color: #F5F0E8;
         }
 
         .lumi-continue-btn {
