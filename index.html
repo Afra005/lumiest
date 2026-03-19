@@ -39,37 +39,49 @@
         }
         @keyframes breathe { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
 
-        /* HORIZONTAL LUMI LAYOUT (Matching Screenshot) */
-        .intro-layout {
-            flex: 1; display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            padding: 20px;
+        /* INTRO LAYOUT - ANCHORED TO BOTTOM */
+        .intro-container {
+            flex: 1; position: relative; width: 100%;
+            display: flex; flex-direction: column; justify-content: flex-end;
         }
 
-        .lumi-horizontal-group {
-            display: flex; align-items: center; justify-content: center;
-            gap: 15px; margin-bottom: 20px;
+        /* Group for Lumi and Bubble placed above the button */
+        .lumi-interaction-group {
+            position: relative;
+            padding: 0 25px 20px 25px; /* Spacing above the button */
+            display: flex;
+            align-items: flex-end; /* Lumi sits on the bottom of this group */
         }
 
-        .mascot-img { width: 100px; height: 100px; object-fit: contain; }
+        .mascot-img { 
+            width: 120px; /* Made Lumi a bit bigger */
+            height: 120px; 
+            object-fit: contain;
+            z-index: 2;
+        }
 
-        .lumi-bubble-side {
+        .lumi-bubble-right {
             background: var(--bubble-bg); color: var(--bubble-text);
-            padding: 15px 25px; border-radius: 25px;
+            padding: 15px 20px; border-radius: 25px;
             font-weight: bold; font-size: 1.1rem;
-            position: relative; box-shadow: 0 4px 0 rgba(0,0,0,0.1);
-            max-width: 180px;
+            position: relative; 
+            margin-left: -10px; /* Slight overlap with Lumi */
+            margin-bottom: 60px; /* Makes text appear "upper" than Lumi */
+            box-shadow: 0 4px 0 rgba(0,0,0,0.1);
+            max-width: 200px;
+            z-index: 1;
         }
 
-        /* Triangle pointing left toward Lumi */
-        .lumi-bubble-side::after {
-            content: ''; position: absolute; left: -10px; top: 50%;
-            transform: translateY(-50%);
-            border-top: 10px solid transparent; border-bottom: 10px solid transparent;
-            border-right: 12px solid var(--bubble-bg);
+        /* Triangle pointing down-left toward Lumi's head */
+        .lumi-bubble-right::after {
+            content: ''; position: absolute; 
+            left: 10px; bottom: -12px;
+            border-left: 15px solid transparent; 
+            border-right: 5px solid transparent;
+            border-top: 15px solid var(--bubble-bg);
         }
 
-        .bottom-btn-container { width: 100%; padding: 40px 25px; box-sizing: border-box; }
+        .bottom-btn-container { width: 100%; padding: 0 25px 40px 25px; box-sizing: border-box; }
 
         .continue-btn-rect {
             background: var(--accent); color: var(--mocha-bg);
@@ -145,13 +157,13 @@
                 }, 3000);
             }
 
-            // --- INTRO 1 (Matching Side-by-Side Screenshot) ---
+            // --- INTRO 1 (Lumi bottom-left of button, text right and upper) ---
             else if (state.view === 'intro1') {
                 html = `
-                <div class="intro-layout">
-                    <div class="lumi-horizontal-group">
+                <div class="intro-container">
+                    <div class="lumi-interaction-group">
                         <img src="waving.png" class="mascot-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'">
-                        <div class="lumi-bubble-side">Hey, I'm Lumi!</div>
+                        <div class="lumi-bubble-right">Hey, I'm Lumi!</div>
                     </div>
                 </div>
                 <div class="bottom-btn-container">
@@ -159,13 +171,13 @@
                 </div>`;
             }
 
-            // --- INTRO 2 (Horizontal Layout) ---
+            // --- INTRO 2 ---
             else if (state.view === 'intro2') {
                 html = `
-                <div class="intro-layout">
-                    <div class="lumi-horizontal-group">
+                <div class="intro-container">
+                    <div class="lumi-interaction-group">
                         <img src="mascot.png" class="mascot-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'">
-                        <div class="lumi-bubble-side">Since you think it's yours, it's yours.</div>
+                        <div class="lumi-bubble-right">Since you think it's yours, it's yours.</div>
                     </div>
                 </div>
                 <div class="bottom-btn-container">
@@ -212,9 +224,9 @@
                     <h1 class="main-greeting" style="font-style:italic">It is yours.</h1>
                     <p class="sub-greeting" style="color:var(--accent); font-weight:bold; font-size:1.5rem">"${state.dream}"</p>
                 </div>
-                <div class="mascot-footer">
-                    <div class="circle-base" style="margin-bottom:20px"><img src="success.png" style="width:70%" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'"></div>
-                    <p style="text-align:center; opacity:0.8">Focus only on it <b>happening</b>.</p>
+                <div class="bottom-mascot-footer" style="position:absolute; bottom:60px; width:100%; text-align:center;">
+                    <div class="circle-base" style="margin: 0 auto 20px auto;"><img src="success.png" style="width:70%" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'"></div>
+                    <p style="opacity:0.8">Focus only on it <b>happening</b>.</p>
                 </div>`;
             }
             app.innerHTML = html;
