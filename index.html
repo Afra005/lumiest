@@ -68,7 +68,7 @@
             font-size: 40px; letter-spacing: 4px;
         }
 
-        /* LUMI INTRO */
+        /* LUMI INTRO SHARED */
         .lumi-intro-screen {
             width: 100%; height: 100%;
             display: flex;
@@ -85,7 +85,6 @@
             box-sizing: border-box;
         }
 
-        /* Space above button for mascot and bubble */
         .lumi-center {
             position: relative;
             width: 100%;
@@ -93,7 +92,6 @@
             margin-bottom: 20px;
         }
 
-        /* Lumi — bigger, bottom-left */
         .lumi-mascot-img {
             position: absolute;
             bottom: 0; left: 0;
@@ -103,7 +101,7 @@
             filter: drop-shadow(0 6px 16px rgba(0,0,0,0.35));
         }
 
-        /* Bubble — higher up, right of Lumi */
+        /* Single line bubble (part 1) */
         .speech-bubble {
             position: absolute;
             bottom: 90px;
@@ -127,7 +125,32 @@
             border-right-color: #F5F0E8;
         }
 
-        /* Smaller, subtler button */
+        /* Two line bubble (part 2) */
+        .speech-bubble-wide {
+            position: absolute;
+            bottom: 80px;
+            left: 150px;
+            right: -10px;
+            background-color: #F5F0E8;
+            border-radius: 20px;
+            padding: 16px 18px;
+            font-size: 17px;
+            font-family: 'Times New Roman', serif;
+            color: #3C2A21;
+            font-weight: bold;
+            animation: slideUp 0.5s ease 0.2s both;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+            white-space: normal;
+            line-height: 1.5;
+        }
+        .speech-bubble-wide::after {
+            content: '';
+            position: absolute;
+            left: -13px; bottom: 20px;
+            border: 7px solid transparent;
+            border-right-color: #F5F0E8;
+        }
+
         .lumi-continue-btn {
             width: 70%;
             margin: 0 auto;
@@ -217,14 +240,14 @@
             if (state.currentView === 'persist') {
                 app.innerHTML = `<div class="persist-screen">PERSIST</div>`;
                 setTimeout(() => {
-                    if (!state.name) state.currentView = 'lumi_intro';
+                    if (!state.name) state.currentView = 'lumi_intro1';
                     else if (!state.dream) state.currentView = 'dream';
                     else state.currentView = 'sanctuary';
                     render();
                 }, 2000);
             }
 
-            else if (state.currentView === 'lumi_intro') {
+            else if (state.currentView === 'lumi_intro1') {
                 app.innerHTML = `
                     <div class="lumi-intro-screen">
                         <div class="lumi-intro-inner">
@@ -233,6 +256,24 @@
                                     src="waving.png"
                                     onerror="this.src='https://cdn-icons-png.flaticon.com/512/4712/4712109.png'">
                                 <div class="speech-bubble">Hey, I'm Lumi!</div>
+                            </div>
+                            <button class="lumi-continue-btn" onclick="goToIntro2()">Continue</button>
+                        </div>
+                    </div>`;
+            }
+
+            else if (state.currentView === 'lumi_intro2') {
+                app.innerHTML = `
+                    <div class="lumi-intro-screen">
+                        <div class="lumi-intro-inner">
+                            <div class="lumi-center">
+                                <img class="lumi-mascot-img"
+                                    src="default.png"
+                                    onerror="this.src='https://cdn-icons-png.flaticon.com/512/4712/4712109.png'">
+                                <div class="speech-bubble-wide">
+                                    I'm here to help you focus.<br>
+                                    Remember — if you think it's yours,<br>then it's yours.
+                                </div>
                             </div>
                             <button class="lumi-continue-btn" onclick="goToName()">Continue</button>
                         </div>
@@ -296,6 +337,16 @@
                         </p>
                     </div>`;
             }
+        }
+
+        function goToIntro2() {
+            state.currentView = 'lumi_intro2';
+            render();
+        }
+
+        function goToName() {
+            state.currentView = 'name';
+            render();
         }
 
         render();
