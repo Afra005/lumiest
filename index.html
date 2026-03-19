@@ -80,7 +80,6 @@
             box-sizing: border-box;
         }
 
-        /* mascot + bubble row */
         .lumi-center {
             display: flex; flex-direction: row;
             align-items: flex-end;
@@ -110,7 +109,6 @@
             box-shadow: 0 4px 16px rgba(0,0,0,0.3);
             white-space: nowrap;
         }
-        /* tail pointing LEFT */
         .speech-bubble::after {
             content: '';
             position: absolute;
@@ -119,7 +117,6 @@
             border-right-color: #F5F0E8;
         }
 
-        /* Continue button */
         .lumi-continue-btn {
             width: calc(100% - 50px);
             max-width: 350px;
@@ -219,7 +216,7 @@
                     <div class="lumi-intro-screen">
                         <div class="lumi-center">
                             <img class="lumi-mascot-img"
-                                src="mascot.png"
+                                src="default.png"
                                 onerror="this.src='https://cdn-icons-png.flaticon.com/512/4712/4712109.png'">
                             <div class="speech-bubble">Hey, I'm Lumi!</div>
                         </div>
@@ -239,7 +236,7 @@
                     </div>
                     <div class="bottom-area">
                         <div class="mascot-circle">
-                            <img src="mascot.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'">
+                            <img src="default.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'">
                         </div>
                     </div>`;
                 setTimeout(() => {
