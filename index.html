@@ -40,14 +40,18 @@
             flex: 1; background: none; border: none; outline: none;
             color: var(--text-color); font-size: 32px; font-weight: bold;
             font-family: 'Times New Roman', serif; padding: 0; caret-color: var(--accent);
+            min-width: 0;
         }
         .name-input-field::placeholder { color: rgba(245, 240, 232, 0.25); }
         .age-input-field {
             flex: 1; background: none; border: none; outline: none;
             color: var(--text-color); font-size: 32px; font-weight: bold;
-            font-family: 'Times New Roman', serif; padding: 0; caret-color: var(--accent); width: 100%;
+            font-family: 'Times New Roman', serif; padding: 0; caret-color: var(--accent);
+            width: 100%; min-width: 0;
         }
         .age-input-field::placeholder { color: rgba(245, 240, 232, 0.25); }
+
+        /* Identical arrow button for both name and age */
         .name-arrow-btn {
             width: 52px; height: 52px; border-radius: 50%;
             background-color: rgba(245, 240, 232, 0.12); border: none;
@@ -81,7 +85,6 @@
         .q-next-btn.active { opacity: 1; pointer-events: all; }
         .q-next-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #a87a50; }
 
-        /* Lumi centered vertically in the lower half */
         .name-bottom {
             width: 100%; display: flex;
             justify-content: center; align-items: center;
@@ -219,7 +222,6 @@
             0%   { opacity: 0; transform: translateY(14px); }
             100% { opacity: 1; transform: translateY(0); }
         }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .reset-btn {
             position: fixed; bottom: 10px; left: 10px;
@@ -355,7 +357,8 @@
                         <p class="q-sub">Enter the name you would like to go by.</p>
                         <div class="name-input-row">
                             <input type="text" id="nameInput" class="name-input-field"
-                                placeholder="Your name..." autocomplete="off" autocapitalize="words">
+                                placeholder="Your name..." autocomplete="off"
+                                autocapitalize="words" autocorrect="off">
                             <button class="name-arrow-btn" onclick="saveName()">→</button>
                         </div>
                     </div>
@@ -366,6 +369,7 @@
                 setTimeout(() => {
                     const input = document.getElementById('nameInput');
                     if (input) {
+                        input.focus();
                         input.addEventListener('input', () => {
                             const val = input.value;
                             if (val.length > 0) input.value = val.charAt(0).toUpperCase() + val.slice(1);
@@ -392,7 +396,10 @@
                     </div>`;
                 setTimeout(() => {
                     const input = document.getElementById('ageInput');
-                    if (input) input.addEventListener('keydown', e => { if (e.key === 'Enter') saveAge(); });
+                    if (input) {
+                        input.focus();
+                        input.addEventListener('keydown', e => { if (e.key === 'Enter') saveAge(); });
+                    }
                 }, 50);
             }
 
