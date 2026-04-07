@@ -143,17 +143,21 @@
 
         /* SUPPORT PAGE */
         .support-page { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between; align-items: center; }
-        .support-mascot-circle {
-            width: 75px; height: 75px; border-radius: 50%;
-            background-color: rgba(255,255,255,0.05); border: 2px solid var(--accent);
-            display: flex; justify-content: center; align-items: center;
-            flex-shrink: 0; margin-bottom: 10px;
+        .support-mascot-overlap {
+            width: 155px; height: 155px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            margin-bottom: -78px;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
         }
-        .support-mascot-circle img { width: 80%; height: 80%; object-fit: contain; }
         .support-card {
             background-color: var(--mocha-darker); border-radius: 20px;
-            padding: 18px 16px; width: 100%; box-sizing: border-box;
+            padding: 90px 16px 18px 16px; width: 100%; box-sizing: border-box;
             flex: 1; display: flex; flex-direction: column; justify-content: space-between;
+            position: relative; z-index: 1;
         }
         .support-title { font-size: 16px; font-weight: bold; font-style: italic; line-height: 1.5; text-align: center; margin: 0 0 14px 0; }
         .support-options { display: flex; flex-direction: column; gap: 8px; }
@@ -474,10 +478,8 @@
             else if (state.currentView === 'support') {
                 app.innerHTML = `
                     <div class="support-page">
-                        <div class="support-mascot-circle">
-                            <img src="default.png"
-                                onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'">
-                        </div>
+                        <img class="support-mascot-overlap" src="default.png"
+                            onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'">
                         <div class="support-card">
                             <p class="support-title">Manifesting is a journey of the heart.<br>How can I best support you today?</p>
                             <div class="support-options">
