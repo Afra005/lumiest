@@ -28,251 +28,101 @@
             justify-content: center;
         }
 
-        /* COMMON UTILS */
+        /* INPUT SCREENS (Name/Age) */
         .q-top { width: 100%; text-align: left; }
         .q-question { font-size: 32px; font-weight: bold; margin: 0 0 10px 0; line-height: 1.2; }
         .q-sub { font-size: 16px; opacity: 0.65; margin: 0 0 40px 0; font-family: sans-serif; line-height: 1.4; }
-
-        .name-input-row {
-            display: flex; align-items: center; gap: 12px;
-            border-bottom: 2px solid rgba(245, 240, 232, 0.25); padding-bottom: 10px;
-        }
-        .name-input-field, .age-input-field {
-            flex: 1; background: none; border: none; outline: none;
-            color: var(--text-color); font-size: 32px; font-weight: bold;
-            font-family: 'Times New Roman', serif; padding: 0; caret-color: var(--accent); min-width: 0;
-        }
-        .name-input-field::placeholder, .age-input-field::placeholder { color: rgba(245, 240, 232, 0.25); }
-
-        .name-arrow-btn {
-            width: 52px; height: 52px; border-radius: 50%;
-            background-color: rgba(245, 240, 232, 0.12); border: none;
-            color: var(--text-color); font-size: 22px; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            transition: background 0.2s; flex-shrink: 0;
-        }
+        .name-input-row { display: flex; align-items: center; gap: 12px; border-bottom: 2px solid rgba(245, 240, 232, 0.25); padding-bottom: 10px; }
+        .name-input-field, .age-input-field { flex: 1; background: none; border: none; outline: none; color: var(--text-color); font-size: 32px; font-weight: bold; font-family: 'Times New Roman', serif; padding: 0; caret-color: var(--accent); min-width: 0; }
+        .name-arrow-btn { width: 52px; height: 52px; border-radius: 50%; background-color: rgba(245, 240, 232, 0.12); border: none; color: var(--text-color); font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
         /* IDENTITY OPTIONS */
         .identity-options { display: flex; flex-direction: column; gap: 14px; margin-top: 10px; }
-        .identity-option {
-            width: 100%; padding: 18px 22px; border-radius: 16px;
-            border: 2px solid rgba(212, 163, 115, 0.3);
-            background: rgba(255,255,255,0.04); color: var(--text-color);
-            font-size: 18px; font-weight: bold; font-family: 'Times New Roman', serif;
-            cursor: pointer; text-align: left; transition: all 0.2s; box-sizing: border-box;
-        }
+        .identity-option { width: 100%; padding: 18px 22px; border-radius: 16px; border: 2px solid rgba(212, 163, 115, 0.3); background: rgba(255,255,255,0.04); color: var(--text-color); font-size: 18px; font-weight: bold; font-family: 'Times New Roman', serif; cursor: pointer; text-align: left; box-sizing: border-box; }
         .identity-option.selected { background: rgba(212, 163, 115, 0.2); border-color: var(--accent); color: var(--accent); }
 
-        .q-next-btn {
-            width: 70%; margin: 30px auto 0 auto; display: block;
-            background-color: var(--accent); color: var(--mocha-darker);
-            border: none; border-radius: 14px; padding: 14px 0;
-            font-size: 13px; font-weight: bold; letter-spacing: 3px;
-            text-transform: uppercase; cursor: pointer;
-            font-family: 'Times New Roman', serif; box-shadow: 0 4px 0 #a87a50;
-            transition: transform 0.1s, box-shadow 0.1s, opacity 0.2s;
-            opacity: 0.3; pointer-events: none;
-        }
+        /* BUTTONS */
+        .q-next-btn { width: 70%; margin: 30px auto 0 auto; display: block; background-color: var(--accent); color: var(--mocha-darker); border: none; border-radius: 14px; padding: 14px 0; font-size: 13px; font-weight: bold; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; font-family: 'Times New Roman', serif; box-shadow: 0 4px 0 #a87a50; opacity: 0.3; pointer-events: none; }
         .q-next-btn.active { opacity: 1; pointer-events: all; }
 
-        .name-bottom { width: 100%; display: flex; justify-content: center; align-items: center; margin-top: 40px; }
-        .name-mascot { width: 180px; height: 180px; object-fit: contain; filter: drop-shadow(0 6px 16px rgba(0,0,0,0.3)); }
-
-        /* COMPACT CARD STYLING (DREAM & SUPPORT) */
+        /* COMPACT CARD & LUMI PLACEMENT */
         .card-wrapper { position: relative; width: 100%; margin: 0 auto; }
-        
         .mascot-overlap {
-            width: 130px; height: 130px; /* Shrunk from 155px */
+            width: 130px; height: 130px; 
             object-fit: contain; display: block; margin: 0 auto;
-            position: relative; z-index: 2; margin-bottom: -65px;
+            position: relative; z-index: 2; margin-bottom: -65px; /* Lumi sits on the edge */
             filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
         }
-
         .compact-card {
             background-color: var(--mocha-darker); border-radius: 24px;
-            padding: 75px 22px 22px 22px; /* Reduced padding */
-            width: 100%; box-sizing: border-box;
-            position: relative; z-index: 1;
+            padding: 75px 22px 22px 22px; /* Tightened internal space */
+            width: 100%; box-sizing: border-box; position: relative; z-index: 1;
         }
 
-        /* DREAM PAGE */
-        .dream-title { font-size: 19px; font-weight: bold; font-style: italic; line-height: 1.4; text-align: center; margin: 0 0 6px 0; }
-        .dream-hint { font-size: 13px; opacity: 0.55; font-family: sans-serif; text-align: center; margin: 0 0 18px 0; line-height: 1.4; }
-        .dream-input-field {
-            width: 100%; background: none; border: none;
-            border-bottom: 1px solid rgba(245,240,232,0.2); outline: none;
-            color: var(--text-color); font-size: 16px; font-family: 'Times New Roman', serif;
-            font-style: italic; padding: 8px 0; box-sizing: border-box; caret-color: var(--accent);
-        }
-        .dream-btn-row { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 20px; }
-        
-        .dream-continue-btn {
-            width: 100%; background-color: var(--accent); color: var(--mocha-darker);
-            border: none; border-radius: 14px; padding: 15px 0;
-            font-size: 14px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase;
-            cursor: pointer; font-family: 'Times New Roman', serif; box-shadow: 0 4px 0 #a87a50;
-            transition: all 0.2s; opacity: 0.3; pointer-events: none;
-        }
-        .dream-continue-btn.active { opacity: 1; pointer-events: all; }
-        .dream-skip-btn { background: none; border: none; color: rgba(245,240,232,0.4); font-size: 12px; font-family: sans-serif; cursor: pointer; text-decoration: underline; }
-
-        /* SUPPORT PAGE */
-        .support-title { font-size: 16px; font-weight: bold; font-style: italic; line-height: 1.4; text-align: center; margin: 0 0 16px 0; }
-        .support-options { display: flex; flex-direction: column; gap: 8px; }
-        .support-option {
-            width: 100%; padding: 10px 14px; border-radius: 12px;
-            border: 1.5px solid rgba(212, 163, 115, 0.2);
-            background: rgba(255,255,255,0.03); color: var(--text-color);
-            font-family: 'Times New Roman', serif; cursor: pointer; text-align: left;
-            transition: all 0.2s; box-sizing: border-box; display: flex; align-items: center; gap: 10px;
-        }
+        /* DREAM & SUPPORT SPECIFICS */
+        .dream-title, .support-title { font-size: 18px; font-weight: bold; font-style: italic; line-height: 1.4; text-align: center; margin: 0 0 10px 0; }
+        .dream-input-field { width: 100%; background: none; border: none; border-bottom: 1px solid rgba(245,240,232,0.2); outline: none; color: var(--text-color); font-size: 16px; font-family: 'Times New Roman', serif; font-style: italic; padding: 8px 0; box-sizing: border-box; }
+        .support-option { width: 100%; padding: 10px 14px; border-radius: 12px; border: 1.5px solid rgba(212, 163, 115, 0.2); background: rgba(255,255,255,0.03); color: var(--text-color); margin-bottom: 8px; cursor: pointer; display: flex; align-items: center; gap: 10px; }
         .support-option.selected { background: rgba(212, 163, 115, 0.18); border-color: var(--accent); }
-        .support-option-title { font-size: 14px; font-weight: bold; margin: 0; }
-        .support-option-sub { font-size: 11px; opacity: 0.5; font-family: sans-serif; margin: 0; }
-        
-        .support-next-btn {
-            width: 100%; margin-top: 15px; background-color: var(--accent); color: var(--mocha-darker);
-            border: none; border-radius: 13px; padding: 13px 0;
-            font-size: 12px; font-weight: bold; letter-spacing: 3px; text-transform: uppercase;
-            cursor: pointer; font-family: 'Times New Roman', serif; box-shadow: 0 4px 0 #a87a50;
-            transition: all 0.2s; opacity: 0.3; pointer-events: none;
-        }
-        .support-next-btn.active { opacity: 1; pointer-events: all; }
 
-        /* SANCTUARY & INTRO STYLES REMAIN SAME */
+        /* SANCTUARY FINAL VIEW */
         .sanctuary-page { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center; }
-        .sanctuary-mascot { width: 100px; height: 100px; object-fit: contain; }
-        .sanctuary-card { background-color: var(--mocha-darker); border-radius: 24px; padding: 30px; width: 100%; box-sizing: border-box; }
+        .sanctuary-card { background-color: var(--mocha-darker); border-radius: 24px; padding: 35px 25px; width: 100%; box-sizing: border-box; }
         .sanctuary-main { font-size: 20px; font-weight: bold; font-style: italic; margin-bottom: 15px; }
-        .sanctuary-dream { font-size: 17px; color: var(--accent); font-style: italic; }
+        .sanctuary-dream { font-size: 17px; color: var(--accent); font-style: italic; margin: 10px 0; }
         .sanctuary-sub { font-size: 13px; opacity: 0.5; margin-top: 15px; }
 
+        /* INTRO SCREENS */
         .lumi-intro-screen { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
-        .lumi-center { position: relative; width: 100%; height: 220px; margin-bottom: 20px; }
-        .lumi-mascot-img { position: absolute; bottom: 0; left: 0; width: 180px; height: 180px; object-fit: contain; }
-        .speech-bubble, .speech-bubble-wide {
-            position: absolute; background-color: #F5F0E8; border-radius: 20px;
-            padding: 14px 20px; font-size: 18px; color: #3C2A21; font-weight: bold;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.3); opacity: 0; animation: bubbleIn 0.5s ease 0.3s forwards;
-        }
-        .speech-bubble { bottom: 90px; left: 160px; white-space: nowrap; }
-        .speech-bubble-wide { bottom: 165px; left: 10px; right: 0; font-size: 15px; }
-        .lumi-continue-btn {
-            width: 70%; margin: 0 auto; display: block; background-color: var(--accent); color: var(--mocha-darker);
-            border: none; border-radius: 14px; padding: 14px 0; font-size: 13px; font-weight: bold;
-            letter-spacing: 3px; text-transform: uppercase; cursor: pointer; opacity: 0; animation: bubbleIn 0.5s ease 0.9s forwards;
-        }
+        .speech-bubble-wide { position: absolute; bottom: 165px; left: 10px; right: 0; background-color: #F5F0E8; border-radius: 20px; padding: 16px; font-size: 15px; color: #3C2A21; font-weight: bold; box-shadow: 0 4px 16px rgba(0,0,0,0.3); opacity: 0; animation: bubbleIn 0.5s ease 0.3s forwards; }
         @keyframes bubbleIn { 0% { opacity: 0; transform: translateY(14px); } 100% { opacity: 1; transform: translateY(0); } }
-        .reset-btn { position: fixed; bottom: 10px; left: 10px; background: none; border: none; color: gray; font-size: 10px; z-index: 100; }
     </style>
 </head>
 <body>
-    <button class="reset-btn" onclick="resetApp()">RESET DATA</button>
     <div id="app"></div>
 
     <script>
         let state = {
-            name:     localStorage.getItem('lumi_name')     || '',
-            age:      localStorage.getItem('lumi_age')      || '',
+            name: localStorage.getItem('lumi_name') || '',
+            age: localStorage.getItem('lumi_age') || '',
             identity: localStorage.getItem('lumi_identity') || '',
-            dream:    localStorage.getItem('lumi_dream')    || '',
-            support:  localStorage.getItem('lumi_support')  || '',
-            selectedIdentity: '',
-            selectedSupport: '',
+            dream: localStorage.getItem('lumi_dream') || '',
+            support: localStorage.getItem('lumi_support') || '',
             currentView: 'persist'
         };
 
-        function getResumeView() {
-            if (!state.name)     return 'lumi_intro1';
-            if (!state.age)      return 'age';
-            if (!state.identity) return 'identity';
-            if (!state.dream)    return 'dream';
-            if (!state.support)  return 'support';
-            return 'sanctuary';
-        }
-
         function resetApp() { localStorage.clear(); location.reload(); }
-
-        function saveName() {
-            const val = document.getElementById('nameInput').value;
-            if (val.trim()) {
-                state.name = val.trim();
-                localStorage.setItem('lumi_name', state.name);
-                state.currentView = 'age'; render();
-            }
-        }
-
-        function saveAge() {
-            const val = document.getElementById('ageInput').value;
-            if (val.trim() && !isNaN(val.trim())) {
-                state.age = val.trim();
-                localStorage.setItem('lumi_age', state.age);
-                state.currentView = 'identity'; render();
-            }
-        }
-
-        function selectIdentity(option) {
-            state.selectedIdentity = option;
-            document.querySelectorAll('.identity-option').forEach(btn => btn.classList.remove('selected'));
-            document.getElementById('opt-' + option).classList.add('selected');
-            document.getElementById('identityNextBtn').classList.add('active');
-        }
-
-        function saveIdentity() {
-            if (!state.selectedIdentity) return;
-            state.identity = state.selectedIdentity;
-            localStorage.setItem('lumi_identity', state.identity);
-            state.currentView = 'dream'; render();
-        }
-
-        function saveDream(skip) {
-            state.dream = skip ? 'skipped' : (document.getElementById('dreamInput').value.trim() || 'skipped');
-            localStorage.setItem('lumi_dream', state.dream);
-            state.currentView = 'support'; render();
-        }
-
-        function selectSupport(option) {
-            state.selectedSupport = option;
-            document.querySelectorAll('.support-option').forEach(btn => btn.classList.remove('selected'));
-            document.getElementById('supp-' + option).classList.add('selected');
-            document.getElementById('supportNextBtn').classList.add('active');
-        }
-
-        function saveSupport() {
-            if (!state.selectedSupport) return;
-            state.support = state.selectedSupport;
-            localStorage.setItem('lumi_support', state.support);
-            state.currentView = 'sanctuary'; render();
-        }
 
         function render() {
             const app = document.getElementById('app');
 
             if (state.currentView === 'persist') {
-                app.innerHTML = `<div style="font-size:40px; text-align:center; letter-spacing:4px;">PERSIST</div>`;
-                setTimeout(() => { state.currentView = getResumeView(); render(); }, 1500);
+                app.innerHTML = `<div style="font-size:40px; text-align:center;">PERSIST</div>`;
+                setTimeout(() => { 
+                    if (!state.name) state.currentView = 'lumi_intro1';
+                    else if (!state.age) state.currentView = 'age';
+                    else if (!state.identity) state.currentView = 'identity';
+                    else if (!state.dream) state.currentView = 'dream';
+                    else if (!state.support) state.currentView = 'support';
+                    else state.currentView = 'sanctuary';
+                    render(); 
+                }, 1000);
             }
 
             else if (state.currentView === 'lumi_intro1') {
-                app.innerHTML = `<div class="lumi-intro-screen"><div style="width:100%;max-width:350px;"><div class="lumi-center"><img class="lumi-mascot-img" src="waving.png"><div class="speech-bubble">Hey, I'm Lumi!</div></div><button class="lumi-continue-btn" onclick="state.currentView='lumi_intro2';render()">Continue</button></div></div>`;
-            }
-
-            else if (state.currentView === 'lumi_intro2') {
-                app.innerHTML = `<div class="lumi-intro-screen"><div style="width:100%;max-width:350px;"><div class="lumi-center"><img class="lumi-mascot-img" src="default.png"><div class="speech-bubble-wide">I'm here to help you focus. Remember — if you think it's yours, then it's yours.</div></div><button class="lumi-continue-btn" onclick="state.currentView='name';render()">Continue</button></div></div>`;
+                app.innerHTML = `<div class="lumi-intro-screen"><div><button class="q-next-btn active" onclick="state.currentView='name';render()">Continue</button></div></div>`;
             }
 
             else if (state.currentView === 'name') {
-                app.innerHTML = `<div class="q-top"><h1 class="q-question">... and who are you?</h1><p class="q-sub">Enter the name you would like to go by.</p><div class="name-input-row"><input type="text" id="nameInput" class="name-input-field" placeholder="Your name..."><button class="name-arrow-btn" onclick="saveName()">→</button></div></div><div class="name-bottom"><img class="name-mascot" src="default.png"></div>`;
-                setTimeout(() => document.getElementById('nameInput').focus(), 50);
+                app.innerHTML = `<div class="q-top"><h1 class="q-question">Who are you?</h1><div class="name-input-row"><input type="text" id="nameInput" class="name-input-field" placeholder="Name..."><button class="name-arrow-btn" onclick="state.name=document.getElementById('nameInput').value;localStorage.setItem('lumi_name',state.name);state.currentView='age';render()">→</button></div></div>`;
             }
 
             else if (state.currentView === 'age') {
-                app.innerHTML = `<div class="q-top"><h1 class="q-question">... and how old are you?</h1><p class="q-sub">Just your age — nothing else.</p><div class="name-input-row"><input type="number" id="ageInput" class="age-input-field" placeholder="Age..."><button class="name-arrow-btn" onclick="saveAge()">→</button></div></div><div class="name-bottom"><img class="name-mascot" src="default.png"></div>`;
-                setTimeout(() => document.getElementById('ageInput').focus(), 50);
+                app.innerHTML = `<div class="q-top"><h1 class="q-question">Age?</h1><div class="name-input-row"><input type="number" id="ageInput" class="age-input-field" placeholder="Age..."><button class="name-arrow-btn" onclick="state.age=document.getElementById('ageInput').value;localStorage.setItem('lumi_age',state.age);state.currentView='identity';render()">→</button></div></div>`;
             }
 
             else if (state.currentView === 'identity') {
-                app.innerHTML = `<div class="q-top"><h1 class="q-question">... and what's your identity?</h1><p class="q-sub">Choose what feels right to you.</p><div class="identity-options"><button class="identity-option" id="opt-Male" onclick="selectIdentity('Male')">👦 Male</button><button class="identity-option" id="opt-Female" onclick="selectIdentity('Female')">👧 Female</button><button class="identity-option" id="opt-Other" onclick="selectIdentity('Prefer not to say')">🤍 Prefer not to say</button></div><button class="q-next-btn" id="identityNextBtn" onclick="saveIdentity()">Continue</button></div>`;
+                app.innerHTML = `<div class="q-top"><h1 class="q-question">Identity?</h1><div class="identity-options"><button class="identity-option" onclick="state.identity='Male';localStorage.setItem('lumi_identity','Male');state.currentView='dream';render()">👦 Male</button><button class="identity-option" onclick="state.identity='Female';localStorage.setItem('lumi_identity','Female');state.currentView='dream';render()">👧 Female</button></div></div>`;
             }
 
             else if (state.currentView === 'dream') {
@@ -281,22 +131,13 @@
                         <img class="mascot-overlap" src="typing.png">
                         <div class="compact-card">
                             <p class="dream-title">Nice to meet you, ${state.name}.<br>What is one dream you'd like to focus on first?</p>
-                            <p class="dream-hint">Tell me as if it is already yours.</p>
-                            <input type="text" id="dreamInput" class="dream-input-field" placeholder="I am living in my dream home...">
-                            <div class="dream-btn-row">
-                                <button class="dream-continue-btn" onclick="saveDream(false)">Continue →</button>
-                                <button class="dream-skip-btn" onclick="saveDream(true)">skip for now</button>
+                            <input type="text" id="dreamInput" class="dream-input-field" placeholder="I am...">
+                            <div style="margin-top:20px; text-align:center;">
+                                <button class="q-next-btn active" onclick="state.dream=document.getElementById('dreamInput').value;localStorage.setItem('lumi_dream',state.dream);state.currentView='support';render()">Continue →</button>
+                                <p onclick="state.dream='';localStorage.setItem('lumi_dream','');state.currentView='support';render()" style="cursor:pointer; opacity:0.5; font-size:12px;">skip for now</p>
                             </div>
                         </div>
                     </div>`;
-                setTimeout(() => {
-                    const input = document.getElementById('dreamInput');
-                    const btn = document.querySelector('.dream-continue-btn');
-                    input.focus();
-                    input.addEventListener('input', () => {
-                        input.value.trim() ? btn.classList.add('active') : btn.classList.remove('active');
-                    });
-                }, 50);
             }
 
             else if (state.currentView === 'support') {
@@ -304,33 +145,25 @@
                     <div class="card-wrapper">
                         <img class="mascot-overlap" src="default.png">
                         <div class="compact-card">
-                            <p class="support-title">Manifesting is a journey of the heart.<br>How can I best support you today?</p>
-                            <div class="support-options">
-                                <button class="support-option" id="supp-consistent" onclick="selectSupport('consistent')">
-                                    <span style="font-size:18px;">🌿</span>
-                                    <div><p class="support-option-title">Keep me consistent</p><p class="support-option-sub">Remind me to stay focused daily.</p></div>
-                                </button>
-                                <button class="support-option" id="supp-clearly" onclick="selectSupport('clearly')">
-                                    <span style="font-size:18px;">✨</span>
-                                    <div><p class="support-option-title">Help me see it clearly</p><p class="support-option-sub">Ask me questions to make my vision vivid.</p></div>
-                                </button>
-                                <button class="support-option" id="supp-companion" onclick="selectSupport('companion')">
-                                    <span style="font-size:18px;">🤍</span>
-                                    <div><p class="support-option-title">Just be my companion</p><p class="support-option-sub">Be a safe, non-judgmental space for me.</p></div>
-                                </button>
-                            </div>
-                            <button class="support-next-btn" id="supportNextBtn" onclick="saveSupport()">Continue</button>
+                            <p class="support-title">How can I best support you today?</p>
+                            <button class="support-option" onclick="state.support='1';localStorage.setItem('lumi_support','1');state.currentView='sanctuary';render()">🌿 Keep me consistent</button>
+                            <button class="support-option" onclick="state.support='2';localStorage.setItem('lumi_support','2');state.currentView='sanctuary';render()">✨ Help me see it clearly</button>
                         </div>
                     </div>`;
             }
 
-            else {
-                const hasDream = state.dream && state.dream !== 'skipped';
+            // FINAL PAGE LOGIC
+            else if (state.currentView === 'sanctuary') {
+                const hasDream = state.dream && state.dream.trim() !== "";
                 app.innerHTML = `
                     <div class="sanctuary-page">
-                        <img class="sanctuary-mascot" src="success.png">
+                        <img class="mascot-overlap" src="success.png" style="margin-bottom:-40px;">
                         <div class="sanctuary-card">
-                            <p class="sanctuary-main">Remember, ${state.name}:<br>if you think it's yours, it's yours.</p>
+                            <p class="sanctuary-main">
+                                ${hasDream 
+                                    ? `Remember, ${state.name}:<br>if you think it's yours, it's yours.` 
+                                    : `Remember, ${state.name}:<br>clarity is on its way.`}
+                            </p>
                             ${hasDream ? `<p class="sanctuary-dream">"${state.dream}"</p>` : ''}
                             <p class="sanctuary-sub">Allah has already written it for you.</p>
                         </div>
