@@ -137,7 +137,7 @@
             padding: 4px 0; text-decoration: underline;
         }
 
-        /* SUPPORT PAGE - UPDATED */
+        /* SUPPORT PAGE - REDUCED GAPPING */
         .support-page { 
             width: 100%; 
             height: 100%; 
@@ -148,16 +148,9 @@
             gap: 0;
         }
         .support-mascot-circle {
-            width: 120px;
-            height: 120px;
-            border-radius: 0;
-            background-color: transparent;
-            border: none;
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
-            flex-shrink: 0; 
-            margin-bottom: -40px;
+            width: 110px;
+            height: 110px;
+            margin-bottom: -35px;
             position: relative;
             z-index: 2;
         }
@@ -170,13 +163,11 @@
         .support-card {
             background-color: var(--mocha-darker); 
             border-radius: 20px;
-            padding: 50px 16px 18px 16px;
+            padding: 45px 16px 16px 16px;
             width: 100%; 
             box-sizing: border-box;
-            flex: 1; 
             display: flex; 
             flex-direction: column; 
-            justify-content: space-between;
             position: relative;
             z-index: 1;
         }
@@ -184,13 +175,13 @@
             font-size: 16px; 
             font-weight: bold; 
             font-style: italic; 
-            line-height: 1.5; 
+            line-height: 1.4; 
             text-align: center; 
-            margin: 0 0 18px 0;
+            margin: 0 0 14px 0;
         }
-        .support-options { display: flex; flex-direction: column; gap: 8px; }
+        .support-options { display: flex; flex-direction: column; gap: 6px; }
         .support-option {
-            width: 100%; padding: 12px 14px; border-radius: 14px;
+            width: 100%; padding: 10px 14px; border-radius: 14px;
             border: 1.5px solid rgba(212, 163, 115, 0.25);
             background: rgba(255,255,255,0.04); color: var(--text-color);
             font-family: 'Times New Roman', serif; cursor: pointer; text-align: left;
@@ -198,13 +189,13 @@
         }
         .support-option:hover, .support-option:active { background: rgba(212, 163, 115, 0.12); border-color: var(--accent); }
         .support-option.selected { background: rgba(212, 163, 115, 0.18); border-color: var(--accent); }
-        .support-option-icon { font-size: 20px; flex-shrink: 0; }
-        .support-option-title { font-size: 14px; font-weight: bold; margin: 0 0 2px 0; }
-        .support-option-sub { font-size: 11px; opacity: 0.5; font-family: sans-serif; line-height: 1.3; margin: 0; }
+        .support-option-icon { font-size: 18px; flex-shrink: 0; }
+        .support-option-title { font-size: 14px; font-weight: bold; margin: 0; }
+        .support-option-sub { font-size: 11px; opacity: 0.5; font-family: sans-serif; line-height: 1.2; margin: 0; }
         .support-next-btn {
-            width: 100%; margin-top: 12px; display: block;
+            width: 100%; margin-top: 10px; display: block;
             background-color: var(--accent); color: var(--mocha-darker);
-            border: none; border-radius: 13px; padding: 13px 0;
+            border: none; border-radius: 13px; padding: 12px 0;
             font-size: 12px; font-weight: bold; letter-spacing: 3px; text-transform: uppercase;
             cursor: pointer; font-family: 'Times New Roman', serif; box-shadow: 0 4px 0 #a87a50;
             transition: transform 0.1s, box-shadow 0.1s, opacity 0.2s;
@@ -283,8 +274,8 @@
             name:     localStorage.getItem('lumi_name')     || '',
             age:      localStorage.getItem('lumi_age')      || '',
             identity: localStorage.getItem('lumi_identity') || '',
-            dream:    localStorage.getItem('lumi_dream')    || '',
-            support:  localStorage.getItem('lumi_support')  || '',
+            dream:    localStorage.getItem('lumi_dream')     || '',
+            support:  localStorage.getItem('lumi_support')   || '',
             selectedIdentity: '',
             selectedSupport: '',
             currentView: 'persist'
