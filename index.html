@@ -29,31 +29,27 @@
             position: relative;
         }
 
-        /* BACK BUTTON */
+        /* UPDATED BACK BUTTON */
         .back-btn {
             position: absolute;
             top: 20px;
             left: 25px;
-            background: rgba(245, 240, 232, 0.1);
-            border: 1px solid rgba(245, 240, 232, 0.2);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            background: none;
+            border: none;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             cursor: pointer;
             color: var(--text-color);
-            font-size: 20px;
+            font-size: 16px;
+            font-family: 'Times New Roman', serif;
             transition: all 0.2s;
             z-index: 10;
+            padding: 0;
         }
         .back-btn:hover {
-            background: rgba(245, 240, 232, 0.15);
-            border-color: var(--accent);
-        }
-        .back-btn:active {
-            background: rgba(245, 240, 232, 0.25);
+            color: var(--accent);
+            opacity: 0.8;
         }
 
         .q-top { width: 100%; text-align: left; margin-top: 40px; }
@@ -337,42 +333,30 @@
             font-size: 10px; cursor: pointer; z-index: 100;
         }
 
-        /* Responsive adjustments for larger screens */
         @media (min-width: 768px) {
-            #app {
-                padding: 30px 25px 60px 25px;
-            }
+            #app { padding: 30px 25px 60px 25px; }
             .q-question { font-size: 32px; }
             .q-sub { font-size: 16px; margin-bottom: 40px; }
             .name-input-field, .age-input-field { font-size: 32px; }
             .name-arrow-btn { width: 52px; height: 52px; font-size: 22px; }
-            .identity-option { padding: 18px 22px; font-size: 18px; gap: 14px; }
+            .identity-option { padding: 18px 22px; font-size: 18px; }
             .name-mascot { width: 180px; height: 180px; }
             .dream-mascot-overlap { width: 155px; height: 155px; margin-bottom: -78px; }
             .dream-card { padding: 90px 24px 28px 24px; }
             .dream-title { font-size: 20px; }
             .dream-hint { font-size: 13px; margin-bottom: 24px; }
             .dream-input-field { font-size: 16px; }
-            .dream-btn-row { margin-top: 24px; }
             .dream-continue-btn { padding: 16px 0; font-size: 15px; }
-            .dream-skip-btn { font-size: 13px; }
             .support-mascot-circle { width: 120px; height: 120px; margin-bottom: -40px; }
             .support-card { padding: 50px 16px 18px 16px; }
-            .support-title { font-size: 16px; margin-bottom: 18px; }
-            .support-option { padding: 12px 14px; }
-            .support-option-icon { font-size: 20px; }
-            .support-option-title { font-size: 14px; }
-            .support-option-sub { font-size: 11px; }
+            .support-title { font-size: 16px; }
             .sanctuary-mascot { width: 120px; height: 120px; margin-bottom: -40px; }
             .sanctuary-card { padding: 52px 28px 32px 28px; }
             .sanctuary-main { font-size: 22px; }
-            .sanctuary-dream { font-size: 17px; }
-            .sanctuary-sub { font-size: 14px; }
             .lumi-mascot-img { width: 180px; height: 180px; }
             .lumi-center { height: 220px; }
-            .speech-bubble { bottom: 90px; left: 160px; padding: 14px 20px; font-size: 20px; }
-            .speech-bubble-wide { bottom: 165px; padding: 16px 18px; font-size: 15px; left: 10px; }
-            .speech-bubble-wide::after { left: 60px; }
+            .speech-bubble { bottom: 90px; left: 160px; font-size: 20px; }
+            .speech-bubble-wide { bottom: 165px; font-size: 15px; }
         }
     </style>
 </head>
@@ -514,7 +498,7 @@
 
             else if (state.currentView === 'name') {
                 app.innerHTML = `
-                    <button class="back-btn" onclick="goBack()">←</button>
+                    <button class="back-btn" onclick="goBack()">&gt; Back</button>
                     <div class="q-top">
                         <h1 class="q-question">... and who are you?</h1>
                         <p class="q-sub">Enter the name you would like to go by.</p>
@@ -544,7 +528,7 @@
 
             else if (state.currentView === 'age') {
                 app.innerHTML = `
-                    <button class="back-btn" onclick="goBack()">←</button>
+                    <button class="back-btn" onclick="goBack()">&gt; Back</button>
                     <div class="q-top">
                         <h1 class="q-question">... and how old are you?</h1>
                         <p class="q-sub">Just your age — nothing else.</p>
@@ -569,7 +553,7 @@
 
             else if (state.currentView === 'identity') {
                 app.innerHTML = `
-                    <button class="back-btn" onclick="goBack()">←</button>
+                    <button class="back-btn" onclick="goBack()">&gt; Back</button>
                     <div class="q-top">
                         <h1 class="q-question">... and what's your identity?</h1>
                         <p class="q-sub">Choose what feels right to you.</p>
@@ -588,7 +572,7 @@
 
             else if (state.currentView === 'dream') {
                 app.innerHTML = `
-                    <button class="back-btn" onclick="goBack()">←</button>
+                    <button class="back-btn" onclick="goBack()">&gt; Back</button>
                     <div class="dream-page">
                         <div class="dream-wrapper">
                             <img class="dream-mascot-overlap" src="typing.png"
@@ -614,7 +598,7 @@
 
             else if (state.currentView === 'support') {
                 app.innerHTML = `
-                    <button class="back-btn" onclick="goBack()">←</button>
+                    <button class="back-btn" onclick="goBack()">&gt; Back</button>
                     <div class="support-page">
                         <div class="support-mascot-circle">
                             <img src="default.png"
