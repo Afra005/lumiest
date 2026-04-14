@@ -137,7 +137,7 @@
             padding: 4px 0; text-decoration: underline;
         }
 
-        /* SUPPORT PAGE - UPDATED */
+        /* SUPPORT PAGE - UPDATED GAPS */
         .support-page { 
             width: 100%; 
             height: 100%; 
@@ -148,16 +148,13 @@
             gap: 0;
         }
         .support-mascot-circle {
-            width: 120px;
-            height: 120px;
-            border-radius: 0;
-            background-color: transparent;
-            border: none;
+            width: 110px;
+            height: 110px;
             display: flex; 
             justify-content: center; 
             align-items: center;
             flex-shrink: 0; 
-            margin-bottom: -40px;
+            margin-bottom: -35px; /* Reduced overlap gap */
             position: relative;
             z-index: 2;
         }
@@ -170,13 +167,11 @@
         .support-card {
             background-color: var(--mocha-darker); 
             border-radius: 20px;
-            padding: 50px 16px 18px 16px;
+            padding: 45px 16px 18px 16px; /* Slightly reduced top padding */
             width: 100%; 
             box-sizing: border-box;
-            flex: 1; 
             display: flex; 
             flex-direction: column; 
-            justify-content: space-between;
             position: relative;
             z-index: 1;
         }
@@ -184,9 +179,9 @@
             font-size: 16px; 
             font-weight: bold; 
             font-style: italic; 
-            line-height: 1.5; 
+            line-height: 1.4; 
             text-align: center; 
-            margin: 0 0 18px 0;
+            margin: 0 0 15px 0; /* Reduced margin */
         }
         .support-options { display: flex; flex-direction: column; gap: 8px; }
         .support-option {
@@ -213,7 +208,7 @@
         .support-next-btn.active { opacity: 1; pointer-events: all; }
         .support-next-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #a87a50; }
 
-        /* SANCTUARY - UPDATED */
+        /* SANCTUARY */
         .sanctuary-page { 
             width: 100%; 
             height: 100%; 
