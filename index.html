@@ -137,7 +137,7 @@
             padding: 4px 0; text-decoration: underline;
         }
 
-        /* SUPPORT PAGE - BIGGER MASCOT */
+        /* SUPPORT PAGE - UPDATED */
         .support-page { 
             width: 100%; 
             height: 100%; 
@@ -148,9 +148,16 @@
             gap: 0;
         }
         .support-mascot-circle {
-            width: 140px; /* Increased size */
-            height: 140px; /* Increased size */
-            margin-bottom: -55px; /* Adjusted overlap for bigger mascot */
+            width: 120px;
+            height: 120px;
+            border-radius: 0;
+            background-color: transparent;
+            border: none;
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            flex-shrink: 0; 
+            margin-bottom: -40px;
             position: relative;
             z-index: 2;
         }
@@ -163,11 +170,13 @@
         .support-card {
             background-color: var(--mocha-darker); 
             border-radius: 20px;
-            padding: 60px 16px 16px 16px; /* Increased top padding to clear bigger mascot */
+            padding: 50px 16px 18px 16px;
             width: 100%; 
             box-sizing: border-box;
+            flex: 1; 
             display: flex; 
             flex-direction: column; 
+            justify-content: space-between;
             position: relative;
             z-index: 1;
         }
@@ -175,13 +184,13 @@
             font-size: 16px; 
             font-weight: bold; 
             font-style: italic; 
-            line-height: 1.4; 
+            line-height: 1.5; 
             text-align: center; 
-            margin: 0 0 14px 0;
+            margin: 0 0 18px 0;
         }
-        .support-options { display: flex; flex-direction: column; gap: 6px; }
+        .support-options { display: flex; flex-direction: column; gap: 8px; }
         .support-option {
-            width: 100%; padding: 10px 14px; border-radius: 14px;
+            width: 100%; padding: 12px 14px; border-radius: 14px;
             border: 1.5px solid rgba(212, 163, 115, 0.25);
             background: rgba(255,255,255,0.04); color: var(--text-color);
             font-family: 'Times New Roman', serif; cursor: pointer; text-align: left;
@@ -189,13 +198,13 @@
         }
         .support-option:hover, .support-option:active { background: rgba(212, 163, 115, 0.12); border-color: var(--accent); }
         .support-option.selected { background: rgba(212, 163, 115, 0.18); border-color: var(--accent); }
-        .support-option-icon { font-size: 18px; flex-shrink: 0; }
-        .support-option-title { font-size: 14px; font-weight: bold; margin: 0; }
-        .support-option-sub { font-size: 11px; opacity: 0.5; font-family: sans-serif; line-height: 1.2; margin: 0; }
+        .support-option-icon { font-size: 20px; flex-shrink: 0; }
+        .support-option-title { font-size: 14px; font-weight: bold; margin: 0 0 2px 0; }
+        .support-option-sub { font-size: 11px; opacity: 0.5; font-family: sans-serif; line-height: 1.3; margin: 0; }
         .support-next-btn {
-            width: 100%; margin-top: 10px; display: block;
+            width: 100%; margin-top: 12px; display: block;
             background-color: var(--accent); color: var(--mocha-darker);
-            border: none; border-radius: 13px; padding: 12px 0;
+            border: none; border-radius: 13px; padding: 13px 0;
             font-size: 12px; font-weight: bold; letter-spacing: 3px; text-transform: uppercase;
             cursor: pointer; font-family: 'Times New Roman', serif; box-shadow: 0 4px 0 #a87a50;
             transition: transform 0.1s, box-shadow 0.1s, opacity 0.2s;
@@ -204,10 +213,36 @@
         .support-next-btn.active { opacity: 1; pointer-events: all; }
         .support-next-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #a87a50; }
 
-        /* SANCTUARY */
-        .sanctuary-page { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px; }
-        .sanctuary-mascot { width: 100px; height: 100px; object-fit: contain; filter: drop-shadow(0 6px 16px rgba(0,0,0,0.3)); }
-        .sanctuary-card { background-color: var(--mocha-darker); border-radius: 24px; padding: 32px 28px; width: 100%; box-sizing: border-box; text-align: center; }
+        /* SANCTUARY - UPDATED */
+        .sanctuary-page { 
+            width: 100%; 
+            height: 100%; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            gap: 0;
+            padding-top: 30px;
+        }
+        .sanctuary-mascot { 
+            width: 120px; 
+            height: 120px; 
+            object-fit: contain; 
+            filter: drop-shadow(0 6px 16px rgba(0,0,0,0.3));
+            margin-bottom: -40px;
+            position: relative;
+            z-index: 2;
+        }
+        .sanctuary-card { 
+            background-color: var(--mocha-darker); 
+            border-radius: 24px; 
+            padding: 52px 28px 32px 28px; 
+            width: 100%; 
+            box-sizing: border-box; 
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
         .sanctuary-main { font-size: 22px; font-weight: bold; font-style: italic; line-height: 1.6; margin: 0 0 16px 0; }
         .sanctuary-dream { font-size: 17px; font-style: italic; color: var(--accent); line-height: 1.6; margin: 0; opacity: 0.9; }
         .sanctuary-sub { font-size: 14px; font-style: italic; color: rgba(245,240,232,0.5); font-family: sans-serif; margin: 14px 0 0 0; line-height: 1.6; }
@@ -274,8 +309,8 @@
             name:     localStorage.getItem('lumi_name')     || '',
             age:      localStorage.getItem('lumi_age')      || '',
             identity: localStorage.getItem('lumi_identity') || '',
-            dream:    localStorage.getItem('lumi_dream')     || '',
-            support:  localStorage.getItem('lumi_support')   || '',
+            dream:    localStorage.getItem('lumi_dream')    || '',
+            support:  localStorage.getItem('lumi_support')  || '',
             selectedIdentity: '',
             selectedSupport: '',
             currentView: 'persist'
@@ -325,7 +360,8 @@
         }
 
         function saveDream(skip) {
-            state.dream = skip ? 'skipped' : (document.getElementById('dreamInput').value.trim() || 'skipped');
+            const dreamValue = skip ? '' : document.getElementById('dreamInput').value.trim();
+            state.dream = dreamValue;
             localStorage.setItem('lumi_dream', state.dream);
             state.currentView = 'support'; render();
         }
@@ -519,13 +555,13 @@
             }
 
             else {
-                const hasDream = state.dream && state.dream !== 'skipped';
+                const hasDream = state.dream && state.dream.trim() !== '';
                 app.innerHTML = `
                     <div class="sanctuary-page">
                         <img class="sanctuary-mascot" src="success.png"
                             onerror="this.src='https://cdn-icons-png.flaticon.com/512/2675/2675962.png'">
                         <div class="sanctuary-card">
-                            <p class="sanctuary-main">Remember, ${state.name}:<br>if you think it's yours, it's yours.</p>
+                            <p class="sanctuary-main">Remember, ${state.name}:<br>${hasDream ? "if you think it's yours, it's yours." : "Clarity is on its way."}</p>
                             ${hasDream ? `<p class="sanctuary-dream">"${state.dream}"</p>` : ''}
                             <p class="sanctuary-sub">Allah has already written it for you.</p>
                         </div>
