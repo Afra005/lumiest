@@ -203,14 +203,14 @@
         .support-card {
             background-color: var(--mocha-darker); 
             border-radius: 20px;
-            padding: 45px 16px 18px 16px;
+            padding: 45px 16px 25px 16px; /* Adjusted padding */
             width: 100%; 
             box-sizing: border-box;
-            flex: 1; 
-            max-height: calc(100vh - 200px);
+            /* Removed flex: 1 to prevent full screen stretch */
+            max-height: 85vh;
             display: flex; 
             flex-direction: column; 
-            justify-content: flex-start; /* Changed to flex-start to move content up */
+            justify-content: flex-start;
             position: relative;
             z-index: 1;
         }
@@ -220,12 +220,13 @@
             font-style: italic; 
             line-height: 1.5; 
             text-align: center; 
-            margin: 0 0 20px 0; /* Reduced margin */
+            margin: 0 0 20px 0; 
         }
         .support-options { 
             display: flex; 
             flex-direction: column; 
-            gap: 12px; /* Set specific gap between options */
+            gap: 12px; 
+            margin-bottom: 25px; /* Added spacing between options and button */
         }
         .support-option {
             width: 100%; padding: 11px 13px; border-radius: 14px;
@@ -240,7 +241,7 @@
         .support-option-title { font-size: 13px; font-weight: bold; margin: 0 0 2px 0; }
         .support-option-sub { font-size: 10px; opacity: 0.5; font-family: sans-serif; line-height: 1.3; margin: 0; }
         .support-next-btn {
-            width: 100%; margin-top: auto; /* Push button to bottom */
+            width: 100%; 
             display: block;
             background-color: var(--accent); color: var(--mocha-darker);
             border: none; border-radius: 13px; padding: 13px 0;
@@ -353,7 +354,7 @@
             .dream-input-field { font-size: 16px; }
             .dream-continue-btn { padding: 16px 0; font-size: 15px; }
             .support-mascot-circle { width: 120px; height: 120px; margin-bottom: -40px; }
-            .support-card { padding: 50px 16px 18px 16px; }
+            .support-card { padding: 50px 16px 25px 16px; }
             .support-title { font-size: 16px; }
             .sanctuary-mascot { width: 120px; height: 120px; margin-bottom: -40px; }
             .sanctuary-card { padding: 52px 28px 32px 28px; }
