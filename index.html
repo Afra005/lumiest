@@ -29,27 +29,10 @@
             position: relative;
         }
 
-        /* UPDATED BACK BUTTON */
         .back-btn {
-            position: absolute;
-            top: 20px;
-            left: 25px;
-            background: none;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            cursor: pointer;
-            color: var(--text-color);
-            font-size: 16px;
-            font-family: 'Times New Roman', serif;
-            transition: all 0.2s;
-            z-index: 10;
-            padding: 0;
-        }
-        .back-btn:hover {
-            color: var(--accent);
-            opacity: 0.8;
+            background: none; border: none; color: var(--text-color);
+            font-size: 24px; cursor: pointer; align-self: flex-start;
+            margin-bottom: 10px; padding: 0;
         }
 
         .q-top { width: 100%; text-align: left; margin-top: 40px; }
@@ -203,10 +186,9 @@
         .support-card {
             background-color: var(--mocha-darker); 
             border-radius: 20px;
-            padding: 45px 16px 25px 16px; /* Adjusted padding */
+            padding: 45px 16px 25px 16px; 
             width: 100%; 
             box-sizing: border-box;
-            /* Removed flex: 1 to prevent full screen stretch */
             max-height: 85vh;
             display: flex; 
             flex-direction: column; 
@@ -226,7 +208,7 @@
             display: flex; 
             flex-direction: column; 
             gap: 12px; 
-            margin-bottom: 25px; /* Added spacing between options and button */
+            margin-bottom: 25px;
         }
         .support-option {
             width: 100%; padding: 11px 13px; border-radius: 14px;
@@ -504,7 +486,7 @@
 
             else if (state.currentView === 'name') {
                 app.innerHTML = `
-                    <button class="back-btn" onclick="goBack()">&gt; Back</button>
+                    <button class="back-btn" onclick="goBack()">←</button>
                     <div class="q-top">
                         <h1 class="q-question">... and who are you?</h1>
                         <p class="q-sub">Enter the name you would like to go by.</p>
@@ -534,7 +516,7 @@
 
             else if (state.currentView === 'age') {
                 app.innerHTML = `
-                    <button class="back-btn" onclick="goBack()">&gt; Back</button>
+                    <button class="back-btn" onclick="goBack()">←</button>
                     <div class="q-top">
                         <h1 class="q-question">... and how old are you?</h1>
                         <p class="q-sub">Just your age — nothing else.</p>
@@ -559,7 +541,7 @@
 
             else if (state.currentView === 'identity') {
                 app.innerHTML = `
-                    <button class="back-btn" onclick="goBack()">&gt; Back</button>
+                    <button class="back-btn" onclick="goBack()">←</button>
                     <div class="q-top">
                         <h1 class="q-question">... and what's your identity?</h1>
                         <p class="q-sub">Choose what feels right to you.</p>
@@ -578,7 +560,7 @@
 
             else if (state.currentView === 'dream') {
                 app.innerHTML = `
-                    <button class="back-btn" onclick="goBack()">&gt; Back</button>
+                    <button class="back-btn" onclick="goBack()">←</button>
                     <div class="dream-page">
                         <div class="dream-wrapper">
                             <img class="dream-mascot-overlap" src="typing.png"
@@ -604,7 +586,7 @@
 
             else if (state.currentView === 'support') {
                 app.innerHTML = `
-                    <button class="back-btn" onclick="goBack()">&gt; Back</button>
+                    <button class="back-btn" onclick="goBack()">←</button>
                     <div class="support-page">
                         <div class="support-mascot-circle">
                             <img src="default.png"
