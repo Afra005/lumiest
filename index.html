@@ -10,7 +10,7 @@
             --mocha-darker: #2D1F18;
             --text-color: #F5F5F0;
             --accent: #D4A373;
-            --off-white: #F5F0E8;
+            --off-white: #F5F0E8; /* Off-white for the button */
         }
 
         body, html {
@@ -30,25 +30,25 @@
             position: relative;
         }
 
-        /* REDUCED SIZE BACK BUTTON */
+        /* STYLED BACK BUTTON - RECTANGLE WITH CURVED EDGES */
         .back-btn {
             position: absolute;
             top: 20px;
             left: 25px;
             background-color: var(--off-white);
             border: none;
-            border-radius: 6px;
+            border-radius: 8px; /* Curved edges */
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            color: var(--mocha-bg);
-            font-size: 11px; /* Smaller font size */
+            color: var(--mocha-bg); /* Dark text for contrast against off-white */
+            font-size: 14px;
             font-weight: bold;
             font-family: 'Times New Roman', serif;
             transition: all 0.2s;
             z-index: 10;
-            padding: 4px 10px; /* Reduced padding for smaller board size */
+            padding: 6px 14px;
             line-height: 1;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
@@ -56,8 +56,8 @@
             transform: scale(0.95);
         }
 
-        /* REDUCED TOP MARGIN MORE */
-        .q-top { width: 100%; text-align: left; margin-top: 30px; }
+        /* RESTORED ORIGINAL SPACING */
+        .q-top { width: 100%; text-align: left; margin-top: 40px; }
         .q-question { font-size: 28px; font-weight: bold; margin: 0 0 10px 0; line-height: 1.2; }
         .q-sub { font-size: 15px; opacity: 0.65; margin: 0 0 30px 0; font-family: sans-serif; line-height: 1.4; }
 
