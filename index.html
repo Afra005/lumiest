@@ -387,10 +387,7 @@
             if (!window.state.identity) return 'identity';
             if (!window.state.dream)    return 'dream';
             if (!window.state.support)  return 'support';
-            
-            // Checks if user has already made a reminder choice
             if (!localStorage.getItem('lumi_reminders')) return 'reminder_choice'; 
-            
             return 'sanctuary';
         };
 
