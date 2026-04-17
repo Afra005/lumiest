@@ -388,7 +388,7 @@
             if (!window.state.dream)    return 'dream';
             if (!window.state.support)  return 'support';
             
-            // ADD THIS NEW LINE HERE:
+            // Checks if user has already made a reminder choice
             if (!localStorage.getItem('lumi_reminders')) return 'reminder_choice'; 
             
             return 'sanctuary';
@@ -407,16 +407,14 @@
                 window.state.currentView = 'identity';
             } else if (window.state.currentView === 'support') {
                 window.state.currentView = 'dream';
-            } 
-            // ADDED THESE TWO LINES:
-            else if (window.state.currentView === 'reminder_choice') {
+            } else if (window.state.currentView === 'reminder_choice') {
                 window.state.currentView = 'support';
             } else if (window.state.currentView === 'sanctuary') {
                 window.state.currentView = 'reminder_choice';
             }
-            
             window.render();
         };
+
         window.saveName = function() {
             const val = document.getElementById('nameInput').value;
             if (val.trim()) {
@@ -467,7 +465,16 @@
             if (!window.state.selectedSupport) return;
             window.state.support = window.state.selectedSupport;
             localStorage.setItem('lumi_support', window.state.support);
-            window.state.currentView = 'sanctuary'; window.render();
+            window.state.currentView = 'reminder_choice'; window.render();
+        };
+
+        window.handleReminderChoice = function(choice) {
+            localStorage.setItem('lumi_reminders', choice ? 'yes' : 'no');
+            if (choice) {
+                window.enableNotifications(); 
+            }
+            window.state.currentView = 'sanctuary';
+            window.render();
         };
 
         window.goToIntro2 = function() { window.state.currentView = 'lumi_intro2'; window.render(); };
@@ -646,6 +653,34 @@
                                 </button>
                             </div>
                             <button class="support-next-btn" id="supportNextBtn" onclick="saveSupport()">Continue</button>
+                        </div>
+                    </div>`;
+            }
+
+            else if (state.currentView === 'reminder_choice') {
+                app.innerHTML = `
+                    <div class="support-page">
+                        <div class="support-mascot-circle">
+                            <img src="waving.png" onerror="this.src='default.png'">
+                        </div>
+                        <div class="support-card">
+                            <p class="support-title">Would you like me to send you reminders?<br>I can remind you that your dream is already yours.</p>
+                            <div class="support-options">
+                                <button class="support-option" onclick="handleReminderChoice(true)">
+                                    <span class="support-option-icon">✨</span>
+                                    <div>
+                                        <p class="support-option-title">Yes, remind me</p>
+                                        <p class="support-option-sub">Enable daily notifications.</p>
+                                    </div>
+                                </button>
+                                <button class="support-option" onclick="handleReminderChoice(false)">
+                                    <span class="support-option-icon">🌙</span>
+                                    <div>
+                                        <p class="support-option-title">No, thank you</p>
+                                        <p class="support-option-sub">I'll visit the sanctuary on my own.</p>
+                                    </div>
+                                </button>
+                            </div>
                         </div>
                     </div>`;
             }
