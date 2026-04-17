@@ -340,7 +340,35 @@
     <button class="reset-btn" onclick="resetApp()">RESET DATA</button>
     <div id="app"></div>
 
-    <script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-messaging.js";
+
+const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+};
+
+const firebaseApp = initializeApp(firebaseConfig);
+const messaging = getMessaging(firebaseApp);
+
+// This function requests permission and gets the token
+window.enableNotifications = async () => {
+    try {
+        const permission = await Notification.requestPermission();
+        if (permission === 'granted') {
+            const token = await getToken(messaging, { vapidKey: 'YOUR_PUBLIC_VAPID_KEY' });
+            console.log("Device Token:", token);
+            alert("Reminders activated! If you think it's yours, it's yours.");
+        }
+    } catch (error) {
+        console.error("Notification error:", error);
+    }
+};
         let state = {
             name:     localStorage.getItem('lumi_name')     || '',
             age:      localStorage.getItem('lumi_age')      || '',
