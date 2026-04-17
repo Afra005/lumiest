@@ -387,6 +387,10 @@
             if (!window.state.identity) return 'identity';
             if (!window.state.dream)    return 'dream';
             if (!window.state.support)  return 'support';
+            
+            // ADD THIS NEW LINE HERE:
+            if (!localStorage.getItem('lumi_reminders')) return 'reminder_choice'; 
+            
             return 'sanctuary';
         };
 
@@ -403,10 +407,16 @@
                 window.state.currentView = 'identity';
             } else if (window.state.currentView === 'support') {
                 window.state.currentView = 'dream';
+            } 
+            // ADDED THESE TWO LINES:
+            else if (window.state.currentView === 'reminder_choice') {
+                window.state.currentView = 'support';
+            } else if (window.state.currentView === 'sanctuary') {
+                window.state.currentView = 'reminder_choice';
             }
+            
             window.render();
         };
-
         window.saveName = function() {
             const val = document.getElementById('nameInput').value;
             if (val.trim()) {
