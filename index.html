@@ -358,18 +358,19 @@
         const messaging = getMessaging(firebaseApp);
 
         // This function requests permission and gets the token
-        window.enableNotifications = async () => {
-            try {
-                const permission = await Notification.requestPermission();
-                if (permission === 'granted') {
-                    const token = await getToken(messaging, { vapidKey: 'BOv6Flm_aPr4hB2BzLkVV4rt2n8Ozlh5OULDMZGqEYhe2gzvoomwksWcnHAnHvvXeYOxfYafAf5QKq2nNsMCyLw' });
-                    console.log("Device Token:", token);
-                    alert("Reminders activated! If you think it's yours, it's yours.");
-                }
-            } catch (error) {
-                console.error("Notification error:", error);
-            }
-        };
+        // This function requests permission and gets the token
+window.enableNotifications = async () => {
+    try {
+        const permission = await Notification.requestPermission();
+        if (permission === 'granted') {
+            const token = await getToken(messaging, { vapidKey: 'BOv6Flm_aPr4hB2BzLkVV4rt2n8Ozlh5OULDMZGqEYhe2gzvoomwksWcnHAnHvvXeYOxfYafAf5QKq2nNsMCyLw' });
+            console.log("Device Token:", token);
+            alert("Reminders activated! If you think it's yours, it's yours.");
+        }
+    } catch (error) {
+        console.error("Notification error:", error);
+    }
+};
 
         window.state = {
             name:     localStorage.getItem('lumi_name')     || '',
