@@ -361,7 +361,7 @@
             try {
                 const permission = await Notification.requestPermission();
                 if (permission === 'granted') {
-                    const token = await getToken(messaging, { vapidKey: 'YOUR_PUBLIC_VAPID_KEY' });
+                    const token = await getToken(messaging, { vapidKey: 'BOv6Flm_aPr4hB2BzLkVV4rt2n8Ozlh5OULDMZGqEYhe2gzvoomwksWcnHAnHvvXeYOxfYafAf5QKq2nNsMCyLw' });
                     console.log("Device Token:", token);
                     alert("Reminders activated! If you think it's yours, it's yours.");
                 }
